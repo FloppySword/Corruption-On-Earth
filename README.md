@@ -17,11 +17,13 @@ the IRGC's response has been brutal, heartless, and unmerciful. Hundreds of Iran
 lives in their fight for freedom, and thousands hae been arrested, many of whom are at risk for execution, including the 
 protagonist of this game, Toomaj Salehi.
 
-<p align = "center">
-<img src = "https://github.com/FloppySword/Corruption-On-Earth/assets/35880982/c8b10e93-6de9-42df-a1bf-ee39d9e985a7" width = 100 height = 100>
-</p>
 
-Photo by [ZREMPN](https://en.wikipedia.org/wiki/File:Toomaj-salehi.jpg) [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+<p align = "left">
+<img src = "https://github.com/FloppySword/Corruption-On-Earth/assets/35880982/c8b10e93-6de9-42df-a1bf-ee39d9e985a7" width = 150 height = 150>
+</p>
+<p align = "left" style="font-size:30%;">
+Toomaj Salehi
+</p>
 
 
 
@@ -64,6 +66,9 @@ https://cazwolf.itch.io/caz-social-media
 gdb-gamepad2
 
 https://opengameart.org/content/desert-tileset-0
+
+### Images on this page
+Photo by [ZREMPN](https://en.wikipedia.org/wiki/File:Toomaj-salehi.jpg) [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 
 This game was made with [Godot Game Engine](https://godotengine.org/) (Version 3).
 
