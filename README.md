@@ -11,11 +11,20 @@ PLAY NOW
 
 This game was made with the purpose of raising awareness about the current situation in Iran. 
 In September 2022, 22-year-old Mahsa Amini was killed while in police custody after being 
-arrested for improperly wearing her hijab. Outraged at this gross injustice, the Iranian people 
+arrested for an improperly worn hijab. Outraged at this gross injustice, the Iranian people 
 took to the streets demanding increased rights for women and regime change. To the shock of few, 
-the IRGC's response has been heartless and unmerciful. Hundreds of Iranians have lost their 
-lives in their fight for freedom, and many remain at risk for execution, including the 
+the IRGC's response has been brutal, heartless, and unmerciful. Hundreds of Iranians have lost their 
+lives in their fight for freedom, and thousands hae been arrested, many of whom are at risk for execution, including the 
 protagonist of this game, Toomaj Salehi.
+
+<p align = "center">
+<img src = "https://github.com/FloppySword/Corruption-On-Earth/assets/35880982/c8b10e93-6de9-42df-a1bf-ee39d9e985a7" width = 100 height = 100>
+</p>
+
+Photo by [ZREMPN](https://en.wikipedia.org/wiki/File:Toomaj-salehi.jpg) [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+
+
+
 
 The 32-year-old rapper has been a voice for his people's struggle since 2017. His lyrics, which decry
 the repressive practices of the IRGC, led to his first arrest in 2021. After he was released on 
@@ -32,8 +41,10 @@ spreading the word on social media with the #freetoomaj hashtag, and listening t
 
 ### Open-Source
 
-In addition, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
+In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
 will be brought to the case of Toomaj Salehi, and the more likely he will keep his life.
+
+
 
 ## Sources
 
