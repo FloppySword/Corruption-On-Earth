@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/horse_gallop_slow.wav-478937112c8ca4f407f4cf2a6b1af32e.sample"
+
+[deps]
+
+source_file="res://data/sound/effects/horse/horse_gallop_slow.wav"
+dest_files=[ "res://.import/horse_gallop_slow.wav-478937112c8ca4f407f4cf2a6b1af32e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

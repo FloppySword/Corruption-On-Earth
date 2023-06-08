@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Kirk-Osamayo-Survival-Of-The-Fittest.ogg-98d755b9761810c9b10c6558aa96939e.oggstr"
+
+[deps]
+
+source_file="res://data/sound/music/Kirk-Osamayo-Survival-Of-The-Fittest.ogg"
+dest_files=[ "res://.import/Kirk-Osamayo-Survival-Of-The-Fittest.ogg-98d755b9761810c9b10c6558aa96939e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

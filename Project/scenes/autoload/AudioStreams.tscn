@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://data/sound/music/JOEY-HENDRIXX-MURDA-_HIP-HOP-BASS-ATL_.mp3.ogg" type="AudioStream" id=1]
+[ext_resource path="res://data/sound/music/Kirk-Osamayo-Survival-Of-The-Fittest.ogg" type="AudioStream" id=2]
+[ext_resource path="res://data/sound/music/JOEY-HENDRIXX-TIMBO-VIBES-_TIMBALAND-NELLY-FURTADO-2000s_.mp3.ogg" type="AudioStream" id=3]
+[ext_resource path="res://data/sound/music/HoliznaCC0-Crime.ogg" type="AudioStream" id=4]
+[ext_resource path="res://data/sound/music/Lawrence-Grey-Laundromatted.ogg" type="AudioStream" id=5]
+[ext_resource path="res://data/sound/music/JOEY-HENDRIXX-OATH-_HIP-HOP-ATL-BASS_.mp3.ogg" type="AudioStream" id=6]
+[ext_resource path="res://scenes/autoload/AudioStreams.gd" type="Script" id=7]
+
+[node name="AudioStreams" type="Node"]
+script = ExtResource( 7 )
+
+[node name="Music" type="Node" parent="."]
+
+[node name="Track1" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 4 )
+
+[node name="Track2" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 1 )
+
+[node name="Track3" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 6 )
+
+[node name="Track4" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 3 )
+
+[node name="Track5" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 2 )
+
+[node name="Track6" type="AudioStreamPlayer" parent="Music"]
+stream = ExtResource( 5 )

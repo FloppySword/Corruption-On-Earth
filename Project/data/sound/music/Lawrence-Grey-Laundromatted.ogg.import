@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Lawrence-Grey-Laundromatted.ogg-c70be185548f746eaaae4cf60c1da04a.oggstr"
+
+[deps]
+
+source_file="res://data/sound/music/Lawrence-Grey-Laundromatted.ogg"
+dest_files=[ "res://.import/Lawrence-Grey-Laundromatted.ogg-c70be185548f746eaaae4cf60c1da04a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

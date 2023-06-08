@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/menu/MenuButton.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+
+[node name="MenuButton" type="TextureButton"]
+margin_top = 130.0
+margin_right = 1024.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 0, 40 )
+focus_mode = 1
+script = ExtResource( 2 )
+text = "Start"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center] Start [/center]"
+text = " Start "
+scroll_active = false
+
+[node name="LeftArrow" type="Sprite" parent="."]
+position = Vector2( 412, 13.3333 )
+rotation = -1.5708
+
+[node name="RightArrow" type="Sprite" parent="."]
+position = Vector2( 612, 13.3333 )
+rotation = 1.5708
+
+[connection signal="focus_entered" from="." to="." method="_on_MenuButton_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_MenuButton_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_MenuButton_mouse_entered"]

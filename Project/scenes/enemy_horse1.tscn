@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/enemy_horse1.gd" type="Script" id=1]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse1.png" type="Texture" id=2]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse2.png" type="Texture" id=3]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse3.png" type="Texture" id=4]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse4.png" type="Texture" id=5]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse5.png" type="Texture" id=6]
+[ext_resource path="res://data/images/horses/mobhorse/ehorse6.png" type="Texture" id=7]
+[ext_resource path="res://scenes/enemy1.tscn" type="PackedScene" id=8]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 17.9856
+height = 98.0728
+
+[node name="enemy_horse1" type="KinematicBody2D" groups=["horses"]]
+pause_mode = 1
+position = Vector2( 589.042, 395.869 )
+collision_mask = 0
+input_pickable = true
+script = ExtResource( 1 )
+
+[node name="animation" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5.89676 )
+scale = Vector2( 1, 1.0533 )
+shape = SubResource( 1 )
+
+[node name="enemy1" parent="." instance=ExtResource( 8 )]
+position = Vector2( 0.495605, 11.3341 )
+
+[node name="collision" type="Area2D" parent="."]
+position = Vector2( -0.570565, 4.51962 )
+scale = Vector2( 0.883911, 2.52219 )
+
+[node name="collide_rect" type="CollisionShape2D" parent="collision"]
+position = Vector2( 0.645447, 0.546005 )
+scale = Vector2( 1.13134, 0.417613 )
+shape = SubResource( 1 )
+
+[node name="gallop" type="Node" parent="."]
+
+[node name="sample_timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[node name="gallop_spread" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="collision" to="." method="_on_collision_body_enter"]
+[connection signal="body_exited" from="collision" to="." method="_on_collision_body_exit"]

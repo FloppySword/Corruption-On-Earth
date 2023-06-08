@@ -1,0 +1,125 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://data/images/screens/background1.png" type="Texture" id=1]
+[ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
+[ext_resource path="res://data/images/effects/bge1.png" type="Texture" id=3]
+[ext_resource path="res://scenes/level/Level1.gd" type="Script" id=4]
+[ext_resource path="res://scenes/level/character/player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://data/images/gui/health_green.png" type="Texture" id=6]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="background" type="Sprite" parent="."]
+position = Vector2( 599.827, 350.264 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="bge1" type="Sprite" parent="."]
+position = Vector2( 599.173, 1052.88 )
+texture = ExtResource( 3 )
+
+[node name="bge2" type="Sprite" parent="."]
+position = Vector2( 599.173, -1050 )
+texture = ExtResource( 3 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 534.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="player_health" type="TextureProgress" parent="HUD/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -147.0
+margin_top = -12.5
+margin_right = 147.0
+margin_bottom = 12.5
+size_flags_horizontal = 2
+size_flags_vertical = 2
+value = 100.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 6 )
+
+[node name="e1_spawns" type="Node" parent="."]
+
+[node name="pos1" type="Position2D" parent="e1_spawns"]
+position = Vector2( -70.4341, 429.421 )
+
+[node name="pos2" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1049.8, 787.878 )
+
+[node name="pos3" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1282.64, 741.249 )
+
+[node name="pos4" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1254.18, 518.033 )
+
+[node name="pos5" type="Position2D" parent="e1_spawns"]
+position = Vector2( 731.71, 787.878 )
+
+[node name="pos6" type="Position2D" parent="e1_spawns"]
+position = Vector2( 127.339, 781.062 )
+
+[node name="pos7" type="Position2D" parent="e1_spawns"]
+position = Vector2( 406.05, 788.506 )
+
+[node name="pos8" type="Position2D" parent="e1_spawns"]
+position = Vector2( -70.4909, 528.682 )
+
+[node name="pos9" type="Position2D" parent="e1_spawns"]
+position = Vector2( 132.461, -85.4066 )
+
+[node name="pos10" type="Position2D" parent="e1_spawns"]
+position = Vector2( 500.986, -87.6277 )
+
+[node name="pos11" type="Position2D" parent="e1_spawns"]
+position = Vector2( 808.3, -87.6277 )
+
+[node name="pos12" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1057.16, -84.2874 )
+
+[node name="pos13" type="Position2D" parent="e1_spawns"]
+position = Vector2( -71.2989, 190.384 )
+
+[node name="pos14" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1283.94, 206.034 )
+
+[node name="pos15" type="Position2D" parent="e1_spawns"]
+position = Vector2( 1272.25, 77.4303 )
+
+[node name="pos16" type="Position2D" parent="e1_spawns"]
+position = Vector2( -68.9288, 69.0096 )
+
+[node name="effects_container" type="Node2D" parent="."]
+
+[node name="bullet_container" type="Node2D" parent="."]
+
+[node name="enemy_container" type="Node2D" parent="."]
+
+[node name="PlayerHorse" parent="." instance=ExtResource( 5 )]
+position = Vector2( 520, 283 )
+scale = Vector2( 1.5, 1.5 )
+
+[node name="spawn_timer" type="Timer" parent="."]
+
+[node name="whinny_sounds" type="Node" parent="."]
+
+[node name="LowerBounds" type="Position2D" parent="."]
+position = Vector2( -146, -145 )
+
+[node name="PlayerLowerBounds" type="Position2D" parent="LowerBounds"]
+position = Vector2( 153, 157 )
+
+[node name="UpperBounds" type="Position2D" parent="."]
+position = Vector2( 1412, 706 )
+
+[node name="PlayerUpperBounds" type="Position2D" parent="UpperBounds"]
+position = Vector2( -228, -181 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/HoliznaCC0-Crime.ogg-57b89ce053227b5fc355b22cb8bcc00d.oggstr"
+
+[deps]
+
+source_file="res://data/sound/music/HoliznaCC0-Crime.ogg"
+dest_files=[ "res://.import/HoliznaCC0-Crime.ogg-57b89ce053227b5fc355b22cb8bcc00d.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/JOEY-HENDRIXX-MURDA-_HIP-HOP-BASS-ATL_.mp3.ogg-5235c2a3fee25fa0815283f2d9a4d553.oggstr"
+
+[deps]
+
+source_file="res://data/sound/music/JOEY-HENDRIXX-MURDA-_HIP-HOP-BASS-ATL_.mp3.ogg"
+dest_files=[ "res://.import/JOEY-HENDRIXX-MURDA-_HIP-HOP-BASS-ATL_.mp3.ogg-5235c2a3fee25fa0815283f2d9a4d553.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

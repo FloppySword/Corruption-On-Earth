@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/JOEY-HENDRIXX-OATH-_HIP-HOP-ATL-BASS_.mp3.ogg-3edc7d318de3440755add50eaadd03af.oggstr"
+
+[deps]
+
+source_file="res://data/sound/music/JOEY-HENDRIXX-OATH-_HIP-HOP-ATL-BASS_.mp3.ogg"
+dest_files=[ "res://.import/JOEY-HENDRIXX-OATH-_HIP-HOP-ATL-BASS_.mp3.ogg-3edc7d318de3440755add50eaadd03af.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

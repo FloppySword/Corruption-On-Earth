@@ -1,0 +1,200 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://scripts/boss.gd" type="Script" id=1]
+[ext_resource path="res://scenes/blood_effect.tscn" type="PackedScene" id=2]
+[ext_resource path="res://data/images/boss/boss_charge2.png" type="Texture" id=3]
+[ext_resource path="res://data/images/boss/boss_charge3.png" type="Texture" id=4]
+[ext_resource path="res://data/images/boss/boss_charge4.png" type="Texture" id=5]
+[ext_resource path="res://data/images/boss/boss_arch1.png" type="Texture" id=6]
+[ext_resource path="res://data/images/boss/boss_arch2.png" type="Texture" id=7]
+[ext_resource path="res://data/images/boss/boss_arch3.png" type="Texture" id=8]
+[ext_resource path="res://data/images/boss/boss_arch4.png" type="Texture" id=9]
+[ext_resource path="res://data/images/boss/boss_pound.png" type="Texture" id=10]
+[ext_resource path="res://data/images/boss/boss_death1.png" type="Texture" id=11]
+[ext_resource path="res://data/images/boss/boss_death3.png" type="Texture" id=12]
+[ext_resource path="res://data/images/boss/boss_death2.png" type="Texture" id=13]
+[ext_resource path="res://data/images/boss/boss_death4.png" type="Texture" id=14]
+[ext_resource path="res://data/images/boss/boss_death5.png" type="Texture" id=15]
+[ext_resource path="res://data/images/boss/boss_death6.png" type="Texture" id=16]
+[ext_resource path="res://data/images/boss/boss_death7.png" type="Texture" id=17]
+[ext_resource path="res://data/images/boss/boss_death8.png" type="Texture" id=18]
+[ext_resource path="res://data/images/boss/boss_death9.png" type="Texture" id=19]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 100.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 18.1715
+height = 15.0519
+
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 30, -50, -700, -100, -700, 80, 30, 30 )
+
+[sub_resource type="CapsuleShape2D" id=7]
+radius = 9.23572
+height = 13.3131
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 6.33868
+height = 16.7479
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 12.13
+height = 16.4019
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 14.6206, 10.2313 )
+
+[node name="boss" type="KinematicBody2D" groups=["bosses"]]
+position = Vector2( 692.165, 415.56 )
+collision_layer = 4
+collision_mask = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+blood_effects = ExtResource( 2 )
+
+[node name="move_timer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="bleed_timer" type="Timer" parent="."]
+
+[node name="charging" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 1 )
+frame = 2
+
+[node name="arching" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 2 )
+frame = 1
+
+[node name="pounding" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 3 )
+frame = 1
+
+[node name="dying" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+frame = 1
+
+[node name="hit_rect" type="Area2D" parent="."]
+position = Vector2( 52.3379, -29.9442 )
+scale = Vector2( 1.06586, 1.07007 )
+collision_layer = 4
+collision_mask = 4
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hit_rect"]
+position = Vector2( 1.09052, -5.61185 )
+shape = SubResource( 5 )
+
+[node name="arrow_range" type="Area2D" parent="."]
+position = Vector2( -19.507, -25.8468 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="arrow_range"]
+shape = SubResource( 6 )
+
+[node name="lance_hit1" type="Area2D" parent="."]
+position = Vector2( 43.3618, 63.9895 )
+scale = Vector2( 0.502388, 0.530324 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lance_hit1"]
+position = Vector2( 5.65955, 4.59351 )
+shape = SubResource( 7 )
+
+[node name="lance_hit2" type="Area2D" parent="."]
+position = Vector2( -70.3546, 0.575063 )
+scale = Vector2( 0.584544, 0.584544 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lance_hit2"]
+position = Vector2( -1.18805, -1.06934 )
+shape = SubResource( 8 )
+
+[node name="lance_hit3" type="Area2D" parent="."]
+position = Vector2( -71.0707, -25.6517 )
+scale = Vector2( 0.398204, 0.314563 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lance_hit3"]
+position = Vector2( -9.27502, 1.46777 )
+shape = SubResource( 9 )
+
+[node name="pound" type="Area2D" parent="."]
+position = Vector2( 86.8839, -27.1658 )
+scale = Vector2( 0.74011, 0.620807 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pound"]
+position = Vector2( -5.7439, -0.760864 )
+shape = SubResource( 10 )
+
+[node name="bow_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="arrow_container" type="Node" parent="."]
+
+[node name="blood_container" type="Node" parent="."]
+
+[node name="ricochet_sounds" type="Node" parent="."]
+
+[connection signal="timeout" from="move_timer" to="." method="_on_move_timer_timeout"]
+[connection signal="timeout" from="bleed_timer" to="." method="_on_bleed_timer_timeout"]
+[connection signal="body_entered" from="hit_rect" to="." method="_on_hit_rect_body_enter"]
+[connection signal="body_entered" from="arrow_range" to="." method="_on_arrow_range_body_enter"]
+[connection signal="body_exited" from="arrow_range" to="." method="_on_arrow_range_body_exit"]
+[connection signal="body_entered" from="lance_hit1" to="." method="_on_lance_hit1_body_enter"]
+[connection signal="body_exited" from="lance_hit1" to="." method="_on_lance_hit1_body_exit"]
+[connection signal="body_entered" from="lance_hit2" to="." method="_on_lance_hit2_body_enter"]
+[connection signal="body_exited" from="lance_hit2" to="." method="_on_lance_hit2_body_exit"]
+[connection signal="body_entered" from="lance_hit3" to="." method="_on_lance_hit3_body_enter"]
+[connection signal="body_exited" from="lance_hit3" to="." method="_on_lance_hit3_body_exit"]
+[connection signal="body_entered" from="pound" to="." method="_on_pound_body_enter"]
+[connection signal="body_exited" from="pound" to="." method="_on_pound_body_exit"]

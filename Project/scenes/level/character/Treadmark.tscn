@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://data/images/NEW/character/Treadmark.png" type="Texture" id=1]
+[ext_resource path="res://scenes/level/character/Treadmark.gd" type="Script" id=2]
+
+[node name="Treadmark" type="Sprite"]
+modulate = Color( 0.592157, 0.592157, 0.592157, 0.313726 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )

@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scripts/player_horse.gd" type="Script" id=1]
+[ext_resource path="res://data/images/horses/playerhorse/horse1.png" type="Texture" id=2]
+[ext_resource path="res://data/images/horses/playerhorse/horse2.png" type="Texture" id=3]
+[ext_resource path="res://data/images/horses/playerhorse/horse3.png" type="Texture" id=4]
+[ext_resource path="res://data/images/horses/playerhorse/horse4.png" type="Texture" id=5]
+[ext_resource path="res://data/images/horses/playerhorse/horse5.png" type="Texture" id=6]
+[ext_resource path="res://data/images/horses/playerhorse/horse6.png" type="Texture" id=7]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=8]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 18.3026
+height = 107.376
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 13.0713, 18.9091 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10.6393, 18.1205 )
+
+[node name="player_horse" type="KinematicBody2D" groups=["player_horses"]]
+position = Vector2( 508.311, 282.153 )
+input_pickable = true
+script = ExtResource( 1 )
+
+[node name="animation" type="AnimatedSprite" parent="."]
+frames = SubResource( 2 )
+frame = 4
+playing = true
+
+[node name="CollisionShape2D 2" type="CollisionShape2D" parent="."]
+position = Vector2( 0.401215, 18.5609 )
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D1" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.401245, 18.5609 )
+shape = SubResource( 1 )
+
+[node name="player" parent="." instance=ExtResource( 8 )]
+position = Vector2( -6.67032, 30.532 )
+
+[node name="left_flank" type="Area2D" parent="."]
+position = Vector2( -38.3766, 19.1102 )
+scale = Vector2( 1.53309, 2.0215 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="left_flank"]
+shape = SubResource( 3 )
+
+[node name="right_flank" type="Area2D" parent="."]
+position = Vector2( 47.2381, 16.905 )
+scale = Vector2( 1.46544, 1.90664 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="right_flank"]
+position = Vector2( -6.62961, 0 )
+scale = Vector2( 1.17915, 1 )
+shape = SubResource( 4 )
+
+[node name="gallop" type="Node" parent="."]
+
+[node name="sample_timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_enter"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exit"]
+[connection signal="body_entered" from="left_flank" to="." method="_on_left_flank_body_enter"]
+[connection signal="body_exited" from="left_flank" to="." method="_on_left_flank_body_exit"]
+[connection signal="body_entered" from="right_flank" to="." method="_on_right_flank_body_enter"]
+[connection signal="body_exited" from="right_flank" to="." method="_on_right_flank_body_exit"]
