@@ -39,15 +39,17 @@ will be brought to the case of Toomaj Salehi.
 
 Players: If you have suggestions for improvement or encounter bugs during gameplay, please open up an issue and label it accordingly. 
 
-Developers: We will be putting together a workflow for addressing bugs and suggestions. In the meantime, please feel free to contact us if you would like to contribute your code directly to the project before submitting a pull request.
+Developers: We will be putting together a workflow for addressing bugs and suggestions. In the meantime, please contact us if you would like to contribute your code directly to the project before submitting a pull request.
 
 Music: We are looking for more tracks that fit the theme of the game. Must be creative-commons licensed. We will appropriately credit all tracks that are selected.
 
 Art: Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
 
-Social: 
+Social: Have a lot of followers? Please share this page on your platform. 
 
-You can reach us directly by email as well. 
+### Contact Us
+
+[Email](mailto:benjaminfazio@protonmail.com)
 
 
 ## Sources
