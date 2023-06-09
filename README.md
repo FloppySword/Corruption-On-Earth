@@ -10,7 +10,7 @@ PLAY NOW
 ## A Solemn Plea
 
 This game was made with the purpose of raising awareness about the current situation in Iran. 
-In September 2022, 22-year-old Mahsa Amini was killed while in police custody after being 
+In September 2022, 22-year-old [Mahsa Amini](https://en.wikipedia.org/wiki/Mahsa_Amini_protests) was killed while in police custody after being 
 arrested for an improperly worn hijab. Outraged at this gross injustice, the Iranian people 
 took to the streets demanding increased rights for women and regime change. To the shock of few, 
 the IRGC's response has been brutal, heartless, and unmerciful. Hundreds of Iranians have lost their 
