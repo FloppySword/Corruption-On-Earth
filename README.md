@@ -35,17 +35,25 @@ spreading the word on social media with the [#freetoomaj](https://www.tiktok.com
 In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
 will be brought to the case of Toomaj Salehi.
 
+
 ### Contribute
 
-Players: If you have suggestions for improvement or encounter bugs during gameplay, please open up an issue and label it accordingly. 
+#### Players
+If you have suggestions for improvement or encounter bugs during gameplay, please open up an issue and label it accordingly. 
 
-Developers: We will be putting together a workflow for addressing bugs and suggestions. In the meantime, please contact us if you would like to contribute your code directly to the project before submitting a pull request.
+#### Developers
+We will be putting together a workflow for addressing bugs and suggestions. In the meantime, please contact us if you would like to contribute your code directly to the project before submitting a pull request.
 
-Music: We are looking for more tracks that fit the theme of the game. Must be creative-commons licensed. We will appropriately credit all tracks that are selected.
+#### Music
+We are looking for more tracks that fit the theme of the game. Must be creative-commons licensed. We will appropriately credit all tracks that are selected.
 
-Art: Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
+#### Art
+Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
 
-Social: Have a lot of followers? Please share this page on your platform. 
+#### Social
+
+Have a lot of followers? Please share this page on your platform. 
+
 
 ### Contact Us
 
