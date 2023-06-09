@@ -15,40 +15,44 @@ arrested for an improperly worn hijab. Outraged at this gross injustice, the Ira
 took to the streets demanding increased rights for women and regime change. To the shock of few, 
 the IRGC's response has been brutal, heartless, and unmerciful. Hundreds of Iranians have lost their 
 lives in their fight for freedom, and thousands hae been arrested, many of whom are at risk for execution, including the 
-protagonist of this game, Toomaj Salehi.
-
-
-<p align = "left">
-<img src = "https://github.com/FloppySword/Corruption-On-Earth/assets/35880982/c8b10e93-6de9-42df-a1bf-ee39d9e985a7" width = 150 height = 150>
-</p>
-<p align = "left" style="font-size:30%;">
-Toomaj Salehi
-</p>
-
-
-
+protagonist of this game, [Toomaj Salehi](https://en.wikipedia.org/wiki/Toomaj_Salehi).
 
 The 32-year-old rapper has been a voice for his people's struggle since 2017. His lyrics, which decry
 the repressive practices of the IRGC, led to his first arrest in 2021. After he was released on 
 bail in 2022, he became even more outspoken, participating in the Mahsa Amini demonstrations in his home 
-city of Shahin Shahr and releasing two new songs in protest of the IRGC. He has since been arrested, 
+city of Shahin Shahr and releasing two new songs, ["Fortune"](https://youtu.be/Jpi7d_uQ5Ec) and ["Battlefield"](https://youtu.be/lWAGZ2EqNLM), in protest of the IRGC. He has since been arrested, 
 subject to torture, denied medical treatment, and held in solitary confinement for over six months 
 as his trial takes place behind closed doors for the charge of "corruption on earth," a crime 
 which is punishable by death.
 
 ## Help Save a Life
 
-If the story of Toomaj speaks to you, please consider signing this petition calling for his release, 
-spreading the word on social media with the #freetoomaj hashtag, and listening to his music on Spotify.
+If the story of Toomaj speaks to you, please consider [signing this petition](https://www.change.org/p/free-iranian-protest-rapper-toomaj-salehi-freetoomajsalehi-freetoomaj) calling for his release, 
+spreading the word on social media with the [#freetoomaj](https://www.tiktok.com/tag/freetoomaj) hashtag, and [listening to his music](https://open.spotify.com/artist/5mBmrpiMC2lzIWCG0MDOYx?si=qhlg-JTtQiWppEqQuH_1kg&utm_source=whatsapp&dl_branch=1&nd=1) on Spotify.
 
-### Open-Source
+## Open-Source
 
 In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
-will be brought to the case of Toomaj Salehi, and the more likely he will keep his life.
+will be brought to the case of Toomaj Salehi.
 
+### Contribute
+
+Players: If you have suggestions for improvement or encounter bugs during gameplay, please open up an issue and label it accordingly. 
+
+Developers: We will be putting together a workflow for addressing bugs and suggestions. In the meantime, please feel free to contact us if you would like to contribute your code directly to the project before submitting a pull request.
+
+Music: We are looking for more tracks that fit the theme of the game. Must be creative-commons licensed. We will appropriately credit all tracks that are selected.
+
+Art: Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
+
+Social: 
+
+You can reach us directly by email as well. 
 
 
 ## Sources
+
+[Free Toomaj Salehi](https://freetoomajsalehi.com/)
 
 [New York Times Article](https://web.archive.org/web/20230604084603/https://www.nytimes.com/2023/05/31/opinion/toomaj-salehi-iran.html)
 
