@@ -1,8 +1,12 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/images/NEW/character/player/PlayerFrames.png" type="Texture" id=2]
 [ext_resource path="res://data/images/NEW/character/player/HorseFrames.png" type="Texture" id=3]
+
+[sub_resource type="SegmentShape2D" id=52]
+a = Vector2( -15, 15 )
+b = Vector2( 15, 15 )
 
 [sub_resource type="CapsuleShape2D" id=49]
 radius = 11.0
@@ -257,11 +261,16 @@ tracks/2/keys = {
 [node name="Horse" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
+[node name="PaddingCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 52 )
+disabled = true
+
 [node name="HorseCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -2, 14 )
+position = Vector2( 0, 14 )
 shape = SubResource( 49 )
 
 [node name="HorseArea2D" type="Area2D" parent="."]
+position = Vector2( 2, 0 )
 collision_layer = 2
 collision_mask = 0
 
@@ -278,6 +287,7 @@ position = Vector2( -1, 36 )
 shape = SubResource( 51 )
 
 [node name="HorseSprite" type="Sprite" parent="."]
+position = Vector2( 2, 0 )
 texture = ExtResource( 3 )
 hframes = 6
 
@@ -288,6 +298,7 @@ region_enabled = true
 region_rect = Rect2( 19, 603, 25, 12 )
 
 [node name="PlayerArea2D" type="Area2D" parent="." groups=["Character", "Player"]]
+position = Vector2( 2, 0 )
 collision_layer = 2
 collision_mask = 0
 
@@ -428,10 +439,10 @@ position = Vector2( -1.15143, 41.1369 )
 [node name="ChasePositions" type="Node2D" parent="."]
 
 [node name="Left" type="Position2D" parent="ChasePositions"]
-position = Vector2( -30, 14 )
+position = Vector2( -24, 14 )
 
 [node name="Right" type="Position2D" parent="ChasePositions"]
-position = Vector2( 30, 14 )
+position = Vector2( 24, 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/HorseGallop = SubResource( 48 )

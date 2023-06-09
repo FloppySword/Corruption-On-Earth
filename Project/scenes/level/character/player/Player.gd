@@ -117,10 +117,10 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		#print("Mouse Motion at: ",ev.pos)
 		#print(ev.pos - pos)
-		var target_dist = event.global_position - pos
+		mouse_pos = get_global_mouse_position()#event.global_position
+		var target_dist = mouse_pos - global_position#event.global_position - global_position
 		rot = -target_dist.angle_to(Vector2(0, 1))
 		
-		mouse_pos = event.global_position
 	if event is InputEventKey:
 		if event.is_action_released("ui_down"):
 			pass

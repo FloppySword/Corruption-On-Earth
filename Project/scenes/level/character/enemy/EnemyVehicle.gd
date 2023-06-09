@@ -66,8 +66,8 @@ func _physics_process(delta):
 		target = global.player.chase_pos_right.global_position
 	else:
 		target = global.player.chase_pos_left.global_position
-	#if global_position.distance_to(target) < 50:
-	#	target = global_position
+#	if global_position.distance_to(target) < 5:
+#		target = global_position
 	$Icon.global_position = target
 	#target = global.player.global_position
 	#target_dist = target - pos
@@ -96,6 +96,9 @@ func _physics_process(delta):
 	#driver.set_anim($AnimationPlayer.current_animation)
 	#if passenger:
 	#	passenger.set_anim("MotorcyclePassenger")
+#	if vel.length() < 5:
+#	if global_position.distance_to(target) < 5:
+#		vel = Vector2.ZERO
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
@@ -133,10 +136,10 @@ func get_flock_status():
 
 
 func _on_BoidArea2D_body_entered(body):
-	if self != body:
+	if self != body:# && body.is_in_group("enemy"):
 		_flock.append(body)
 
 
 func _on_BoidArea2D_body_exited(body):
-	if self != body:
+	if self != body && _flock.has(body):
 		_flock.remove(_flock.find(body))
