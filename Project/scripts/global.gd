@@ -1,5 +1,7 @@
 extends Node
 
+var device = "PC"
+
 var booster_present = false
 
 # game settings

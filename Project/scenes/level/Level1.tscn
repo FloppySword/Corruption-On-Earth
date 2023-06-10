@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://data/images/screens/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -6,120 +6,404 @@
 [ext_resource path="res://scenes/level/Level1.gd" type="Script" id=4]
 [ext_resource path="res://scenes/level/character/player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/images/gui/health_green.png" type="Texture" id=6]
+[ext_resource path="res://data/images/NEW/PlayerIcon.png" type="Texture" id=7]
+[ext_resource path="res://data/images/NEW/HorseIcon.png" type="Texture" id=8]
+[ext_resource path="res://data/images/NEW/Joystick/gdb-ps-over.png" type="Texture" id=9]
+[ext_resource path="res://data/images/NEW/Joystick/gdb-ps-under.png" type="Texture" id=10]
+[ext_resource path="res://joystick/virtual_joystick.gd" type="Script" id=11]
+[ext_resource path="res://data/images/NEW/Joystick/gdb-ps-over-rot.png" type="Texture" id=12]
+[ext_resource path="res://data/images/NEW/Joystick/gdb-ps-under-rot.png" type="Texture" id=13]
+[ext_resource path="res://data/images/NEW/Joystick/joystick-labels.png" type="Texture" id=14]
+[ext_resource path="res://data/images/NEW/Joystick/evade-arrow-normal.png" type="Texture" id=15]
+[ext_resource path="res://data/images/NEW/Joystick/evade-arrow-pressed.png" type="Texture" id=16]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Mobile"
+tracks/0/type = "value"
+tracks/0/path = NodePath("HUD/BottomBorder:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 534.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/TopBorder:margin_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 20.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Gameplay:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "PC"
+tracks/0/type = "value"
+tracks/0/path = NodePath("HUD/BottomBorder:margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 600 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/TopBorder:margin_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 86.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Gameplay:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 0, 66 ) ]
+}
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 4 )
 
-[node name="background" type="Sprite" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="BottomBorder" type="ColorRect" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 534.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="HealthBarContainer" type="VBoxContainer" parent="HUD/BottomBorder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -83.0
+margin_right = 600.0
+margin_bottom = 83.0
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Player" type="HBoxContainer" parent="HUD/BottomBorder/HealthBarContainer"]
+margin_left = 435.0
+margin_top = 41.0
+margin_right = 765.0
+margin_bottom = 73.0
+size_flags_horizontal = 6
+
+[node name="TextureRect" type="TextureRect" parent="HUD/BottomBorder/HealthBarContainer/Player"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 7 )
+expand = true
+
+[node name="PlayerHealth" type="TextureProgress" parent="HUD/BottomBorder/HealthBarContainer/Player"]
+margin_left = 36.0
+margin_right = 330.0
+margin_bottom = 32.0
+value = 100.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 6 )
+
+[node name="Horse" type="HBoxContainer" parent="HUD/BottomBorder/HealthBarContainer"]
+margin_left = 435.0
+margin_top = 93.0
+margin_right = 765.0
+margin_bottom = 125.0
+size_flags_horizontal = 6
+
+[node name="TextureRect" type="TextureRect" parent="HUD/BottomBorder/HealthBarContainer/Horse"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+texture = ExtResource( 8 )
+expand = true
+
+[node name="HorseHealth" type="TextureProgress" parent="HUD/BottomBorder/HealthBarContainer/Horse"]
+margin_left = 36.0
+margin_right = 330.0
+margin_bottom = 32.0
+value = 100.0
+texture_over = ExtResource( 2 )
+texture_progress = ExtResource( 6 )
+
+[node name="MobileJoysticks" type="HBoxContainer" parent="HUD/BottomBorder"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 75.0
+margin_right = -75.0
+margin_bottom = -2.0
+alignment = 1
+
+[node name="MovementJoystick" type="Control" parent="HUD/BottomBorder/MobileJoysticks"]
+modulate = Color( 1, 1, 1, 0.509804 )
+margin_top = 7.0
+margin_right = 778.0
+margin_bottom = 157.0
+rect_min_size = Vector2( 150, 150 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+script = ExtResource( 11 )
+
+[node name="Base" type="TextureRect" parent="HUD/BottomBorder/MobileJoysticks/MovementJoystick"]
+margin_right = 150.0
+margin_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 150, 150 )
+rect_pivot_offset = Vector2( 75, 75 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="Tip" type="TextureRect" parent="HUD/BottomBorder/MobileJoysticks/MovementJoystick/Base"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 50.0
+margin_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 150, 150 )
+rect_pivot_offset = Vector2( 75, 75 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AimingJoystick" type="Control" parent="HUD/BottomBorder/MobileJoysticks"]
+margin_left = 782.0
+margin_top = 7.0
+margin_right = 932.0
+margin_bottom = 157.0
+rect_min_size = Vector2( 150, 150 )
+size_flags_vertical = 6
+script = ExtResource( 11 )
+
+[node name="Base" type="TextureRect" parent="HUD/BottomBorder/MobileJoysticks/AimingJoystick"]
+margin_right = 150.0
+margin_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 150, 150 )
+rect_pivot_offset = Vector2( 75, 75 )
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+
+[node name="Tip" type="TextureRect" parent="HUD/BottomBorder/MobileJoysticks/AimingJoystick/Base"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 50.0
+margin_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 50, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Padding" type="Control" parent="HUD/BottomBorder/MobileJoysticks"]
+margin_left = 936.0
+margin_right = 966.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 30, 0 )
+
+[node name="Button" type="TextureButton" parent="HUD/BottomBorder/MobileJoysticks"]
+margin_left = 970.0
+margin_top = 42.0
+margin_right = 1050.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 80, 80 )
+size_flags_vertical = 6
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 16 )
+expand = true
+stretch_mode = 5
+
+[node name="TopBorder" type="ColorRect" parent="HUD"]
+anchor_right = 1.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 1200, 20 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="LeftBorder" type="ColorRect" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1180.0
+margin_bottom = -166.0
+rect_min_size = Vector2( 20, 700 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="RightBorder" type="ColorRect" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_bottom = 534.0
+rect_min_size = Vector2( 20, 700 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -69.0
+margin_top = -135.0
+margin_right = -21.0
+margin_bottom = -35.0
+rect_min_size = Vector2( 48, 100 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+
+[node name="Gameplay" type="Node2D" parent="."]
+
+[node name="background" type="Sprite" parent="Gameplay"]
 position = Vector2( 599.827, 350.264 )
 texture = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="bge1" type="Sprite" parent="."]
+[node name="bge1" type="Sprite" parent="Gameplay"]
 position = Vector2( 599.173, 1052.88 )
 texture = ExtResource( 3 )
 
-[node name="bge2" type="Sprite" parent="."]
+[node name="bge2" type="Sprite" parent="Gameplay"]
 position = Vector2( 599.173, -1050 )
 texture = ExtResource( 3 )
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="e1_spawns" type="Node2D" parent="Gameplay"]
 
-[node name="ColorRect" type="ColorRect" parent="HUD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 534.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="player_health" type="TextureProgress" parent="HUD/ColorRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -147.0
-margin_top = -12.5
-margin_right = 147.0
-margin_bottom = 12.5
-size_flags_horizontal = 2
-size_flags_vertical = 2
-value = 100.0
-texture_over = ExtResource( 2 )
-texture_progress = ExtResource( 6 )
-
-[node name="e1_spawns" type="Node" parent="."]
-
-[node name="pos1" type="Position2D" parent="e1_spawns"]
+[node name="pos1" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( -70.4341, 429.421 )
 
-[node name="pos2" type="Position2D" parent="e1_spawns"]
+[node name="pos2" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1049.8, 787.878 )
 
-[node name="pos3" type="Position2D" parent="e1_spawns"]
+[node name="pos3" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1282.64, 741.249 )
 
-[node name="pos4" type="Position2D" parent="e1_spawns"]
+[node name="pos4" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1254.18, 518.033 )
 
-[node name="pos5" type="Position2D" parent="e1_spawns"]
+[node name="pos5" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 731.71, 787.878 )
 
-[node name="pos6" type="Position2D" parent="e1_spawns"]
+[node name="pos6" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 127.339, 781.062 )
 
-[node name="pos7" type="Position2D" parent="e1_spawns"]
+[node name="pos7" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 406.05, 788.506 )
 
-[node name="pos8" type="Position2D" parent="e1_spawns"]
+[node name="pos8" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( -70.4909, 528.682 )
 
-[node name="pos9" type="Position2D" parent="e1_spawns"]
+[node name="pos9" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 132.461, -85.4066 )
 
-[node name="pos10" type="Position2D" parent="e1_spawns"]
+[node name="pos10" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 500.986, -87.6277 )
 
-[node name="pos11" type="Position2D" parent="e1_spawns"]
+[node name="pos11" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 808.3, -87.6277 )
 
-[node name="pos12" type="Position2D" parent="e1_spawns"]
+[node name="pos12" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1057.16, -84.2874 )
 
-[node name="pos13" type="Position2D" parent="e1_spawns"]
+[node name="pos13" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( -71.2989, 190.384 )
 
-[node name="pos14" type="Position2D" parent="e1_spawns"]
+[node name="pos14" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1283.94, 206.034 )
 
-[node name="pos15" type="Position2D" parent="e1_spawns"]
+[node name="pos15" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( 1272.25, 77.4303 )
 
-[node name="pos16" type="Position2D" parent="e1_spawns"]
+[node name="pos16" type="Position2D" parent="Gameplay/e1_spawns"]
 position = Vector2( -68.9288, 69.0096 )
 
-[node name="effects_container" type="Node2D" parent="."]
+[node name="effects_container" type="Node2D" parent="Gameplay"]
 
-[node name="bullet_container" type="Node2D" parent="."]
+[node name="bullet_container" type="Node2D" parent="Gameplay"]
 
-[node name="enemy_container" type="Node2D" parent="."]
+[node name="enemy_container" type="Node2D" parent="Gameplay"]
 
-[node name="PlayerHorse" parent="." instance=ExtResource( 5 )]
+[node name="PlayerHorse" parent="Gameplay" instance=ExtResource( 5 )]
 position = Vector2( 520, 283 )
 scale = Vector2( 1.5, 1.5 )
 
-[node name="spawn_timer" type="Timer" parent="."]
+[node name="spawn_timer" type="Timer" parent="Gameplay"]
 
-[node name="whinny_sounds" type="Node" parent="."]
+[node name="whinny_sounds" type="Node" parent="Gameplay"]
 
-[node name="LowerBounds" type="Position2D" parent="."]
+[node name="LowerBounds" type="Position2D" parent="Gameplay"]
 position = Vector2( -146, -145 )
 
-[node name="PlayerLowerBounds" type="Position2D" parent="LowerBounds"]
+[node name="PlayerLowerBounds" type="Position2D" parent="Gameplay/LowerBounds"]
 position = Vector2( 153, 157 )
 
-[node name="UpperBounds" type="Position2D" parent="."]
+[node name="UpperBounds" type="Position2D" parent="Gameplay"]
 position = Vector2( 1412, 706 )
 
-[node name="PlayerUpperBounds" type="Position2D" parent="UpperBounds"]
+[node name="PlayerUpperBounds" type="Position2D" parent="Gameplay/UpperBounds"]
 position = Vector2( -228, -181 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Mobile = SubResource( 1 )
+anims/PC = SubResource( 2 )

@@ -14,19 +14,22 @@ var Treadmark = preload("res://scenes/level/character/Treadmark.tscn")
 
 
 onready var player_horse = get_node("PlayerHorse")
-onready var HUD = get_node("HUD")
-onready var bge1 = get_node("bge1")
-onready var bge2 = get_node("bge2")
-onready var e1_spawns = get_node("e1_spawns")
-onready var e2_spawns = get_node("e2_spawns")
-onready var enemy_container = get_node("enemy_container")
-onready var bullet_container = get_node("bullet_container")
-onready var effects_container = get_node("effects_container")
-onready var spawn_timer = get_node("spawn_timer")
-onready var whinny_sounds = get_node("whinny_sounds")
 
-onready var upper_bounds = $UpperBounds.global_position
-onready var lower_bounds = $LowerBounds.global_position
+onready var bge1 = $Gameplay/bge1
+onready var bge2 = $Gameplay/bge2
+
+onready var e1_spawns = $Gameplay/e1_spawns
+
+onready var enemy_container = $Gameplay/enemy_container
+onready var bullet_container = $Gameplay/bullet_container
+onready var effects_container = $Gameplay/effects_container
+onready var spawn_timer = $Gameplay/spawn_timer
+onready var whinny_sounds = $Gameplay/whinny_sounds
+
+onready var HUD = $HUD
+
+onready var upper_bounds = $Gameplay/UpperBounds.global_position
+onready var lower_bounds = $Gameplay/LowerBounds.global_position
 
 var bge1_pos 
 var bge2_pos
@@ -48,9 +51,9 @@ func _ready():
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
 	
-	#global.game_won = falses
-#	set_process(true)
-#	set_process_input(true)
+	$AnimationPlayer.play(global.device)
+	
+
 
 	global.upper_bounds = upper_bounds
 	global.lower_bounds = lower_bounds

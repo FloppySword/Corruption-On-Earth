@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Control",
+"class": "VirtualJoystickDemo",
+"language": "GDScript",
+"path": "res://joystick/virtual_joystick.gd"
+} ]
+_global_script_class_icons={
+"VirtualJoystickDemo": ""
+}
+
 [application]
 
 config/name="Trigger Mortis"
@@ -22,6 +32,7 @@ global="*res://scripts/global.gd"
 mouse="*res://scripts/mouse.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.tscn"
 AudioStreams="*res://scenes/autoload/AudioStreams.tscn"
+DetectMobileOrDesktop="*res://scenes/autoload/DetectMobileOrDesktop.tscn"
 
 [display]
 
