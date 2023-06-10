@@ -1,7 +1,7 @@
 [gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/boss.gd" type="Script" id=1]
-[ext_resource path="res://scenes/blood_effect.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/level/character/BloodEffect.tscn" type="PackedScene" id=2]
 [ext_resource path="res://data/images/boss/boss_charge2.png" type="Texture" id=3]
 [ext_resource path="res://data/images/boss/boss_charge3.png" type="Texture" id=4]
 [ext_resource path="res://data/images/boss/boss_charge4.png" type="Texture" id=5]

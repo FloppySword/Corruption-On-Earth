@@ -6,6 +6,7 @@ extends KinematicBody2D
 
 signal shoot
 signal hoof_step
+signal game_over
 
 onready var player_anim_sprite = $PlayerArea2D/PlayerAnimatedSprite
 onready var current_frame = 0
@@ -14,6 +15,9 @@ onready var current_frame = 0
 var muzzle_flash1 = preload("res://scenes/muzzle_flash.tscn")
 var gunshot_wound = preload("res://scenes/gunshot_wound.tscn")
 var bullet_trail = preload("res://scenes/bullet_trail.tscn")
+
+var KickImpact = preload("res://scenes/level/character/KickImpact.tscn")
+var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
 
 onready var bullet_pos0 = get_node("PlayerArea2D/MuzzlePositions/pos0")
 onready var bullet_pos1 = get_node("PlayerArea2D/MuzzlePositions/pos1")
@@ -77,13 +81,15 @@ onready var dodge_cooldown= get_node("dodge_cooldown")
 onready var chase_pos_left = $ChasePositions/Left
 onready var chase_pos_right = $ChasePositions/Right
 
+onready var player_hitbox = $PlayerArea2D
+onready var horse_hitbox = $HorseArea2D
+
 var frame = 0
 var bullet_pos = Vector2.ZERO
 var screen_size = Vector2()
 var rot = 0
 var pos = global_position
 var vel = Vector2()
-var health = global.player_health
 var locked = false
 var hit_location = Vector2()
 var target_enemy = null
@@ -100,37 +106,30 @@ var mouse_pos = Vector2()
 func _ready():
 	player_anim_sprite.animation = "default"
 	$AnimationPlayer.play("HorseGallop")
-#	current_frame.show()
-	#current_frame2.hide()
-	#reload_AR_anim.hide()
-	#reload_pistol_anim.hide()
+
 	randomize()
 	global.player = self
-	#screen_size = get_viewport_rect().size
-	#pos = screen_size / 2
-	#set_pos(pos)
+	
+	
+
 
 
 func _input(event):
-	#if (ev.type==InputEvent.MOUSE_BUTTON):
-		#print("Mouse Click/Unclick at: ",ev.pos)
+
 	if event is InputEventMouseMotion:
-		#print("Mouse Motion at: ",ev.pos)
-		#print(ev.pos - pos)
-		mouse_pos = get_global_mouse_position()#event.global_position
-		var target_dist = mouse_pos - global_position#event.global_position - global_position
+
+		mouse_pos = get_global_mouse_position()
+		var target_dist = mouse_pos - global_position
 		rot = -target_dist.angle_to(Vector2(0, 1))
 		
 	if event is InputEventKey:
 		if event.is_action_released("ui_down"):
 			pass
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
+
 	
 	
 func get_player_direction():
 	if player_anim_sprite.animation == "default":
-		#if reloading == false:
-		#	print(rot)
 		if .25 >= rot and rot > .125:
 			player_anim_sprite.frame = 1
 			rot = .20
@@ -301,56 +300,39 @@ func get_player_action():
 	
 func get_horse_movement(delta):
 	var stop_moving = false
-	#var vel = Vector2(0, 0)
-	#var acc = Vector2.ZERO
 	#fast_gallop = false
 	if stop_moving == false:
 		if Input.is_action_pressed("ui_left"):
 			vel = Vector2(-150, 0)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
 		else: vel = Vector2(0, 0)
 		if Input.is_action_pressed("ui_right"):
 			vel = Vector2(150, 0)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
 		if Input.is_action_pressed("ui_up"):
 			vel = Vector2(0, -119)
-			#animation.get_sprite_frames().set_animation_speed("default", 8)
 		if Input.is_action_pressed("ui_down"):
 			vel = Vector2(0, 200)
-			#animation.get_sprite_frames().set_animation_speed("default", 12)
 			#fast_gallop = true
-			#print(animation.get_sprite_frames().get_animation_speed("player_horse"))
 		if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_up"):
 			vel = Vector2(-100, -100)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
 		if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_down"):
 			vel = Vector2(-100, 100)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
 		if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_up"):
 			vel = Vector2(100, -100)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
 		if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_down"):
 			vel = Vector2(100, 100)
-			#animation.get_sprite_frames().set_animation_speed("default", 10)
-	#elif stop_moving == true:
-		
-	
-	#avoid_horses()
 
-	#vel += acc * delta
-	#pos += vel * delta + 0.5 * acc * delta*delta
+
 	move_and_collide(vel * delta)
 	pos = global_position
-	#global_position = pos
-	"""
-	update above, and not just here but on all horse scenes, to move_and_slide or collide
-	"""
-	
+
 	
 	global.playerhorse_pos = pos
 	global.playerhorse_vel = vel
-	#print(global.target)
+
 	
+	"""
+	update this, it's wrong
+	"""
 	if pos.x > 1175:
 		pos.x = 1175
 	if pos.x < 25:
@@ -362,15 +344,39 @@ func get_horse_movement(delta):
 
 
 func _physics_process(delta):
-	get_player_direction()
-	get_player_action()
-	get_horse_movement(delta)
+	if global.player_health > 0 && global.playerhorse_health > 0:
+		get_player_direction()
+		get_player_action()
+		get_horse_movement(delta)
+		
+
+func _damage(hitbox, damage, type, _pos):
+	if type == "gunshot":
+		var blood_impact = BloodImpact.instance()
+		add_child(blood_impact)
+		blood_impact.init(pos, type)
+		
+	if hitbox == player_hitbox:
+		global.player_health -= damage
+	elif hitbox == horse_hitbox:
+		global.playerhorse_health -= damage
 	
-#	print(rot)
-#	print(player_anim_sprite.frame)
+	if global.player_health <= 0 || global.playerhorse_health <= 0:
+		emit_signal("game_over")
+		
+
+
+		
 	
-#	health = global.player_health
-#
+
+func _heal(healee, _health):
+	if healee == "player":
+		global.player_health += _health
+	elif healee == "horse":
+		global.playerhorse_health += _health
+	
+func _change_health(damage):
+	pass
 
 func shoot_AR():
 	AR_timer.start()

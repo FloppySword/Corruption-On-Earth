@@ -22,7 +22,12 @@ var lower_bounds = Vector2.ZERO
 
 
 #player settings
-var player_health = 105
+var player_starting_health = 100
+var player_health = player_starting_health
+
+var playerhorse_starting_health = 100
+var playerhorse_health = player_starting_health
+
 
 var player_bleeding = false
 var player_grunts = ["player_grunts1", "player_grunts2", "player_grunts3", "player_grunts4", "player_grunts5"]

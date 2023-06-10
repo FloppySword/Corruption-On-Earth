@@ -10,34 +10,32 @@ var acc = Vector2(0, 0)
 var _flock = []
 export var cohesion_force: = 0.05
 export var algin_force: = 0.05
-export var separation_force: = 0.05
+export var separation_force: = 0.025
 export(float) var view_distance: = 50.0
 export(float) var avoid_distance: = 20.0
-#var acc = Vector2(0, 0)
+
 const AVOID_RADIUS = 150
 const DETECT_RADIUS = 1200
 const FRICTION = -500
-var empty_selector
+
 var target = Vector2()
 var target_dist
-#var touching = false
-#var player_touching
-#var col_body = null
+
 var driver
 var passenger
 
+var in_shoot_range = false
+
 var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
+
+var MetalImpact = preload("res://scenes/level/character/MetalImpact.tscn")
+
 
 onready var seat1 = $SpriteRear/Seat1
 onready var seat2 = $SpriteRear/Seat2
 
 func _ready():
 	randomize()
-	#speed = 150#global.mob_speeds[randi()%6]
-	empty_selector = randi()%5
-	#global_position = pos#set_pos(pos)
-	#gallop_spread.set_wait_time(randf())
-	
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
 	
 func init(spawnpos, type):
@@ -48,7 +46,6 @@ func init(spawnpos, type):
 	var e1 = Enemy.instance()
 	seat1.add_child(e1)
 	e1.init(seat1.global_position, "Driver")
-	e1.anim_player.play("MotorcycleDriver")
 	driver = e1
 		
 		#$Seat1.add_child()
@@ -56,7 +53,6 @@ func init(spawnpos, type):
 		var e2 = Enemy.instance()
 		seat2.add_child(e2)
 		e2.init(seat2.global_position, "Passenger")
-		#e2.anim_player.play("MotorcyclePassenger")
 		passenger = e2
 		
 func _physics_process(delta):
@@ -66,15 +62,10 @@ func _physics_process(delta):
 		target = global.player.chase_pos_right.global_position
 	else:
 		target = global.player.chase_pos_left.global_position
-#	if global_position.distance_to(target) < 5:
-#		target = global_position
 	$Icon.global_position = target
-	#target = global.player.global_position
-	#target_dist = target - pos
-	#acc += target_dist.normalized()
+
 	
 	var acceleration = Vector2.ZERO
-
 	var vectors = get_flock_status()
 	
 	# steer towards vectors
@@ -82,23 +73,23 @@ func _physics_process(delta):
 	var align_vector = vectors[1] * algin_force
 	var separation_vector = vectors[2] * separation_force
 	var target_vector = (target - global_position).normalized() * speed * 0.05
-#	if global_position.distance_to(global.player.global_position) < 50:
-#		target_vector = Vector2.ZERO
+
 	acceleration = cohesion_vector + align_vector + separation_vector + target_vector
 	
 	vel = (vel + acceleration).clamped(speed)
+	var turn_dir
 	if vel.x > 70:
+		turn_dir = "TurnLeft"
 		$AnimationPlayer.play("MotorcycleTurnLeft")
 	elif vel.x < -70:
+		turn_dir = "TurnRight"
 		$AnimationPlayer.play("MotorcycleTurnRight")
 	else:
-		$AnimationPlayer.play("MotorcycleStraight")
-	#driver.set_anim($AnimationPlayer.current_animation)
-	#if passenger:
-	#	passenger.set_anim("MotorcyclePassenger")
-#	if vel.length() < 5:
-#	if global_position.distance_to(target) < 5:
-#		vel = Vector2.ZERO
+		turn_dir = "Straight"
+		$AnimationPlayer.play("Motorcycle"+turn_dir)
+	driver.set_anim("MotorcycleDriver"+turn_dir)
+	if passenger && in_shoot_range:
+		passenger.shoot()
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
@@ -143,3 +134,13 @@ func _on_BoidArea2D_body_entered(body):
 func _on_BoidArea2D_body_exited(body):
 	if self != body && _flock.has(body):
 		_flock.remove(_flock.find(body))
+
+
+func _on_ShootRange_body_entered(body):
+	if body.is_in_group("Player"):
+		in_shoot_range = true
+
+
+func _on_ShootRange_body_exited(body):
+	if body.is_in_group("Player"):
+		in_shoot_range = false

@@ -26,13 +26,13 @@ var link_youtube = 'https://www.youtube.com/watch?v=oc0QAY-hy38'
 var link_about = 'https://freetoomajsalehi.com/'
 var link_sign = 'https://www.change.org/p/free-iranian-protest-rapper-toomaj-salehi-freetoomajsalehi-freetoomaj'
 
-
+var Level = preload("res://scenes/level/Level1.tscn")
+var level
 
 
 func _ready():
 	
 	$Bottom/PlayButton.grab_focus()
-	
 	
 	
 func _process(delta):
@@ -67,7 +67,26 @@ func setup():
 
 
 func _on_PlayButton_pressed():
-	pass # Replace with function body.
+	get_tree().paused = true
+	
+	level = Level.instance()
+	add_child(level)
+
+	level.connect("game_over", self, "_GameOver")
+	level.connect("game_won", self, "_GameWon")
+
+	yield(get_tree().create_timer(1.75), "timeout")
+	get_tree().paused = false
+	
+func _GameOver():
+	$GameEnded/TabContainer.current_tab = 1
+	$GameEnded/ButtonsContainer/PlayAgainButton.text = "Try Again"
+	$GameEnded.popup()
+
+func _GameWon():
+	$GameEnded/TabContainer.current_tab = 0
+	$GameEnded/ButtonsContainer/PlayAgainButton.text = "Play Again"
+	$GameEnded.popup()
 
 
 func _on_OptionsButton_pressed():
@@ -92,3 +111,13 @@ func _on_FarsiButton_pressed():
 
 func _on_RichTextLabel_meta_clicked(meta):
 	OS.shell_open(meta)
+
+
+func _on_PlayAgainButton_button_up():
+	_on_PlayButton_pressed()
+	$GameEnded.hide()
+
+
+func _on_ReturnToMenuButton_button_up():
+	get_tree().paused = false
+	$GameEnded.hide()

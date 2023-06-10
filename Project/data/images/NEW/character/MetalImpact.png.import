@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blood1.png-aec6185881f8b0d2e775b5f8fa65991d.stex"
+path="res://.import/MetalImpact.png-65e35e8f5fb79db495bea1547667167d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/images/effects/blood1.png"
-dest_files=[ "res://.import/blood1.png-aec6185881f8b0d2e775b5f8fa65991d.stex" ]
+source_file="res://data/images/NEW/character/MetalImpact.png"
+dest_files=[ "res://.import/MetalImpact.png-65e35e8f5fb79db495bea1547667167d.stex" ]
 
 [params]
 

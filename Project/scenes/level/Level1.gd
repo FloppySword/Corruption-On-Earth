@@ -1,19 +1,16 @@
 extends Node2D
 
+signal game_over
+signal game_won
 
 
-#as a level, this will need its own init function that the new node I make can call after
-#instancing it
-#var boss_horse = preload("res://scenes/boss_horse.tscn")
 var Enemy = preload("res://scenes/level/character/enemy/EnemyVehicle.tscn")
-#var enemy2 = preload("res://scenes/enemy_horse2.tscn")
-var gunshot_wound = preload("res://scenes/gunshot_wound.tscn")
-var hit_pos = preload("res://scenes/hit_pos.tscn")
-#var bullet_trail = preload("res://scenes/bullet_trail.tscn")
-#var booster = preload("res://scenes/booster.tscn")
-
+var GunshotWound = preload("res://scenes/gunshot_wound.tscn")
+var HitPos = preload("res://scenes/hit_pos.tscn")
 var Bullet = preload("res://scenes/level/item/Bullet.tscn")
 var Treadmark = preload("res://scenes/level/character/Treadmark.tscn")
+
+
 
 
 onready var player_horse = get_node("PlayerHorse")
@@ -43,12 +40,14 @@ var wave = 0
 
 
 func _ready():
-	player_horse.connect("hit", self, "show_hit")
-	player_horse.connect("wound_enemy", self, "enemy_lose_health")
+#	player_horse.connect("hit", self, "show_hit")
+#	player_horse.connect("wound_enemy", self, "enemy_lose_health")
 	randomize()
 	time_start = OS.get_unix_time()
 	player_horse.connect("shoot", self, "_spawn_bullet")
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
+	player_horse.connect("game_over", self, "_set_game_over")
+	
 	#global.game_won = falses
 #	set_process(true)
 #	set_process_input(true)
@@ -73,6 +72,9 @@ func _spawn_treadmark(pos, type):
 	effects_container.add_child(t)
 	t.init(pos, type)
 	#t.global_position = pos
+	
+func _spawn_blood():
+	pass
 
 
 func spawn_enemy1(pos):
@@ -81,23 +83,7 @@ func spawn_enemy1(pos):
 	e.connect("skid", self, "_spawn_treadmark")
 	#e1.connect("dead", self, "")
 	e.init(pos, "MotorcycleDuo")
-#
-#func spawn_enemy2(pos):
-#	var e2 = enemy2.instance()
-#	enemyhorse_container.add_child(e2)
-#	#e2.connect("dead_archer", self, "spawn_dead_archer")
-#	e2.init(pos)
-##func spawn_dead_archer(pos):
-##	var e2_d = dead_archer.instance()
-##	add_child(e2_d)
-##	e2_d.set_pos(pos)
-	
-	
-	
-#func spawn_boss(pos):
-#	var b1 = boss_horse.instance()
-#	enemy_container.add_child(b1)
-#	b1.init(pos)
+
 
 func show_player_health():
 	var health_level = global.player_health
@@ -112,35 +98,20 @@ func show_player_health():
 	HUD.get_node("ColorRect/player_health").set_value(health_level)
 	
 	
-	
-	
-	
-func show_hit(shoot_location, hit_location):
-	# enemy blood splatter when shot
-	var splatter = gunshot_wound.instance()
-	effects_container.add_child(splatter)
-	splatter.set_pos(hit_location)
-	splatter.set_emitting(true)
-	#bullet trail
-	#var trail = bullet_trail.instance()
-	#add_child(trail)
-#	trail.set_pos(shoot_location)
-#	var trail_length = hit_location - shoot_location
-#	trail.set_region_rect(Rect2(0, 0, trail_length.length(), 2))
-#	trail.set_rot(-trail_length.angle_to(Vector2(1, 0)))
-	
-	
+#func show_hit(shoot_location, hit_location):
+#	# enemy blood splatter when shot
+#	var splatter = GunshotWound.instance()
+#	effects_container.add_child(splatter)
+#	splatter.set_pos(hit_location)
+#	splatter.set_emitting(true)
 
 
-func enemy_lose_health(collision_point):
-	var hit_position = hit_pos.instance()
-	add_child(hit_position)
-	hit_position.global_position = (collision_point)
+#func enemy_lose_health(collision_point):
+#	var hit_position = HitPos.instance()
+#	add_child(hit_position)
+#	hit_position.global_position = (collision_point)
+#
 	
-	
-
-
-
 
 func _process(delta):
 #	
@@ -152,6 +123,9 @@ func _process(delta):
 #	show_player_health()
 	
 	if enemy_container.get_child_count() == 0:
+		if wave == 4:
+			set_game_won()
+			return
 		wave += 1
 		var enemy_spawns = e1_spawns.get_children()
 		for i in range(0, 1):#5):#wave):
@@ -178,41 +152,22 @@ func _process(delta):
 		if effect.global_position.y < lower_bounds.y:
 			effect.queue_free()
 	
-	if global.player_health <= 0:
-		set_game_over()
-		
-	if global.boss_health <= 0:
-		if global.boss_has_bled == true:
-			global.boss_has_bled = false
-			global.boss_health = 140
-			wave += 1
-			#global.game_won = true
-			#HUD.set_layer(-1)
-			#get_tree().set_pause(true)
-	if wave >= 7:
-		set_game_won()
 
 
 
-#	if global.booster_present == false:
-#		spawn_booster()
-#	if randf() < 0.001:
-#		if whinny_sounds.is_active() == false:
-#			whinny_sounds.play("horse_whinny")
 	
-	
-func set_game_over():
-	global.game_over = true
-	HUD.set_layer(-1)
-	get_tree().set_pause(true)
+func _set_game_over():
+	emit_signal("game_over")
+	queue_free()
+	#get_tree().set_pause(true)
 	
 func set_game_won():
-	global.game_won = true
-	HUD.set_layer(-1)
-	get_tree().set_pause(true)
 	time_now = OS.get_unix_time()
 	var elapsed = time_now - time_start
-	global.score = 20000 - 37 * elapsed
+	global.score = 20000 - (37 * elapsed)
+	emit_signal("game_won")
+	queue_free()
+
 
 	
 	

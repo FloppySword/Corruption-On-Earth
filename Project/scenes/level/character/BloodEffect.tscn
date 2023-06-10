@@ -1,0 +1,56 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/level/character/BloodEffect.gd" type="Script" id=1]
+[ext_resource path="res://data/images/effects/blood2.png" type="Texture" id=2]
+[ext_resource path="res://data/images/effects/blood3.png" type="Texture" id=3]
+[ext_resource path="res://data/images/effects/blood1.png" type="Texture" id=4]
+[ext_resource path="res://data/images/NEW/character/Blood_explosion_32x32.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 5 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "gunshot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "trail",
+"speed": 5.0
+} ]
+
+[node name="BloodEffect" type="AnimatedSprite"]
+frames = SubResource( 1 )
+animation = "gunshot"
+speed_scale = 3.0
+script = ExtResource( 1 )
+
+[connection signal="animation_finished" from="." to="." method="_on_BloodEffect_animation_finished"]

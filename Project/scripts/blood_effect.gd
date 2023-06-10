@@ -1,4 +1,4 @@
-extends Area2D
+extends AnimatedSprite
 
 var vel = Vector2()
 var pos = Vector2()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blood1.png-aec6185881f8b0d2e775b5f8fa65991d.stex"
+path="res://.import/Blood_explosion_32x32.png-b4ec531f3de761fccbe9b2c4394b5029.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://data/images/effects/blood1.png"
-dest_files=[ "res://.import/blood1.png-aec6185881f8b0d2e775b5f8fa65991d.stex" ]
+source_file="res://data/images/NEW/character/Blood_explosion_32x32.png"
+dest_files=[ "res://.import/Blood_explosion_32x32.png-b4ec531f3de761fccbe9b2c4394b5029.stex" ]
 
 [params]
 

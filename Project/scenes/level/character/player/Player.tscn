@@ -10,7 +10,7 @@ b = Vector2( 15, 15 )
 
 [sub_resource type="CapsuleShape2D" id=49]
 radius = 11.0
-height = 42.0
+height = 62.0
 
 [sub_resource type="RectangleShape2D" id=51]
 extents = Vector2( 1.5, 4 )
@@ -258,7 +258,7 @@ tracks/2/keys = {
 "values": [ Vector2( -2, 4 ), Vector2( -2, 6 ), Vector2( 0, 2 ), Vector2( 1, 2 ), Vector2( -1, 4 ), Vector2( 0, 4 ) ]
 }
 
-[node name="Horse" type="KinematicBody2D"]
+[node name="Horse" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 1 )
 
 [node name="PaddingCollisionShape2D" type="CollisionShape2D" parent="."]
@@ -266,7 +266,7 @@ shape = SubResource( 52 )
 disabled = true
 
 [node name="HorseCollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 14 )
+position = Vector2( 0, 7 )
 shape = SubResource( 49 )
 
 [node name="HorseArea2D" type="Area2D" parent="."]
