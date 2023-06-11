@@ -115,8 +115,9 @@ func _ready():
 
 
 func _input(event):
+	
 
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && global.device == "PC":
 
 		mouse_pos = get_global_mouse_position()
 		var target_dist = mouse_pos - global_position
@@ -130,6 +131,8 @@ func _input(event):
 	
 func get_player_direction():
 	if player_anim_sprite.animation == "default":
+		if global.device == "Mobile":
+			rot = global.joystick_rot
 		if .25 >= rot and rot > .125:
 			player_anim_sprite.frame = 1
 			rot = .20
@@ -287,8 +290,8 @@ func get_player_direction():
 func get_player_action():
 	if player_anim_sprite.animation == "default":
 		if Input.is_action_just_pressed("player_shoot"):
-			if AR_timer.get_time_left() == 0:
-				shoot_AR()
+			shoot_AR()
+
 				
 	if Input.is_action_just_pressed("player_evade"):
 			player_anim_sprite.play("evade")
@@ -379,23 +382,24 @@ func _change_health(damage):
 	pass
 
 func shoot_AR():
-	AR_timer.start()
-	var gunshot_choice = global.gunshots[randi()%3]
-	#var prob = randf()
-	#if prob > 0.05:
-	var m = muzzle_flash1.instance()
-	add_child(m)
-	m.init(rot, bullet_pos)
-	
-	#gun_sounds.play(gunshot_choice)
-	
-	emit_signal("shoot", rot, bullet_pos)
-	
-	AR_ammo += 1
-	if AR_ammo / 15 == 1:
-		#reloading = true
-		reload_AR()
-		AR_ammo = 0
+	if AR_timer.get_time_left() == 0:
+		AR_timer.start()
+		var gunshot_choice = global.gunshots[randi()%3]
+		#var prob = randf()
+		#if prob > 0.05:
+		var m = muzzle_flash1.instance()
+		add_child(m)
+		m.init(rot, bullet_pos)
+		
+		#gun_sounds.play(gunshot_choice)
+		
+		emit_signal("shoot", rot, bullet_pos)
+		
+		AR_ammo += 1
+		if AR_ammo / 15 == 1:
+			#reloading = true
+			reload_AR()
+			AR_ammo = 0
 		
 
 func reload_AR():

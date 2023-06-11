@@ -448,7 +448,7 @@ position = Vector2( 24, 14 )
 anims/HorseGallop = SubResource( 48 )
 
 [node name="AR_timer" type="Timer" parent="."]
-wait_time = 0.12
+wait_time = 0.5
 one_shot = true
 
 [node name="bleeding_timer" type="Timer" parent="."]

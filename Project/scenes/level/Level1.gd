@@ -13,7 +13,7 @@ var Treadmark = preload("res://scenes/level/character/Treadmark.tscn")
 
 
 
-onready var player_horse = get_node("PlayerHorse")
+onready var player_horse = $Gameplay/PlayerHorse
 
 onready var bge1 = $Gameplay/bge1
 onready var bge2 = $Gameplay/bge2
@@ -27,9 +27,14 @@ onready var spawn_timer = $Gameplay/spawn_timer
 onready var whinny_sounds = $Gameplay/whinny_sounds
 
 onready var HUD = $HUD
+onready var player_healthbar = $HUD/BottomBorder/HealthBarContainer/Player/PlayerHealth
+onready var horse_healthbar = $HUD/BottomBorder/HealthBarContainer/Horse/HorseHealth
 
 onready var upper_bounds = $Gameplay/UpperBounds.global_position
 onready var lower_bounds = $Gameplay/LowerBounds.global_position
+
+onready var joystickMovement = $HUD/BottomBorder/MobileButtons/MovementJoystick
+onready var joystickAiming = $HUD/BottomBorder/MobileButtons/AimingJoystick
 
 var bge1_pos 
 var bge2_pos
@@ -42,7 +47,11 @@ var time_now = 0
 var wave = 0
 
 
+
 func _ready():
+	global.device = "Mobile"
+	
+	
 #	player_horse.connect("hit", self, "show_hit")
 #	player_horse.connect("wound_enemy", self, "enemy_lose_health")
 	randomize()
@@ -53,7 +62,7 @@ func _ready():
 	
 	$AnimationPlayer.play(global.device)
 	
-
+	
 
 	global.upper_bounds = upper_bounds
 	global.lower_bounds = lower_bounds
@@ -89,16 +98,25 @@ func spawn_enemy1(pos):
 
 
 func show_player_health():
-	var health_level = global.player_health
-	#print(health_level)
+	var player_health_level = global.player_health
 	var color = "green"
-	if health_level < 40:
+	if player_health_level < 40:
 		color = "red"
-	elif health_level < 70:
+	elif player_health_level < 70:
 		color = "yellow"
 	var texture = load("res://data/images/gui/health_%s.png" % color)
-	HUD.get_node("ColorRect/player_health").set_progress_texture(texture)
-	HUD.get_node("ColorRect/player_health").set_value(health_level)
+	player_healthbar.set_progress_texture(texture)
+	player_healthbar.set_value(player_health_level)
+	
+	var horse_health_level = global.playerhorse_health
+	color = "green"
+	if horse_health_level < 40:
+		color = "red"
+	elif horse_health_level < 70:
+		color = "yellow"
+	texture = load("res://data/images/gui/health_%s.png" % color)
+	horse_healthbar.set_progress_texture(texture)
+	horse_healthbar.set_value(horse_health_level)
 	
 	
 #func show_hit(shoot_location, hit_location):
@@ -155,6 +173,19 @@ func _process(delta):
 		if effect.global_position.y < lower_bounds.y:
 			effect.queue_free()
 	
+	
+	
+	#if global.device == "Mobile":
+#		# Movement using Input functions:
+#		var move := Vector2.ZERO
+#		move.x = Input.get_axis("ui_left", "ui_right")
+#		move.y = Input.get_axis("ui_up", "ui_down")
+#		position += move * speed * delta
+		
+		# Rotation:
+		#if joystickAiming and joystickAiming.is_pressed():
+			#global.joystick_rot = joystickAiming.get_output().angle() - (PI/2)
+			#global.joystick_rot = 
 
 
 

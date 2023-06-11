@@ -1,5 +1,3 @@
-class_name VirtualJoystickDemo
-
 extends Control
 
 # https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
@@ -23,9 +21,9 @@ export(JoystickMode) var joystick_mode := JoystickMode.FIXED
 
 # VISIBILITY_ALWAYS = Always visible.
 # VISIBILITY_TOUCHSCREEN_ONLY = Visible on touch screens only.
-#enum VisibilityMode {ALWAYS , TOUCHSCREEN_ONLY }
-#
-#export(VisibilityMode) var visibility_mode := VisibilityMode.ALWAYS
+enum VisibilityMode {ALWAYS , TOUCHSCREEN_ONLY }
+
+export(VisibilityMode) var visibility_mode := VisibilityMode.ALWAYS
 
 # Use Input Actions
 export var use_input_actions := true
@@ -35,9 +33,7 @@ export var action_left := "ui_left"
 export var action_right := "ui_right"
 export var action_up := "ui_up"
 export var action_down := "ui_down"
-
 export var action_shoot := "player_shoot"
-export var action_evade := "player_evade"
 
 #### PUBLIC VARIABLES ####
 
@@ -67,12 +63,14 @@ onready var _tip_default_position : Vector2 = _tip.rect_position
 
 onready var _default_color : Color = _tip.modulate
 
+
+signal joystick_shoot
+
 #### FUNCTIONS ####
 
 func _ready() -> void:
-	pass
-#	if not OS.has_touchscreen_ui_hint() and visibility_mode == VisibilityMode.TOUCHSCREEN_ONLY:
-#		hide()
+	if not OS.has_touchscreen_ui_hint() and visibility_mode == VisibilityMode.TOUCHSCREEN_ONLY:
+		hide()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -115,7 +113,7 @@ func _is_point_inside_base(point: Vector2) -> bool:
 func _update_joystick(touch_position: Vector2) -> void:
 	var center : Vector2 = _base.rect_global_position + _base_radius
 	var vector : Vector2 = touch_position - center
-	vector = vector.clamped(clampzone_size)
+	vector = vector.limit_length(clampzone_size)
 	
 	_move_tip(center + vector)
 	
@@ -128,8 +126,27 @@ func _update_joystick(touch_position: Vector2) -> void:
 	
 	if use_input_actions:
 		_update_input_actions()
+		
+	
+	if action_shoot != "":
+		if vector.length() == clampzone_size:
+			Input.action_press(action_shoot, 1.0)
+			emit_signal("joystick_shoot")
+			#_reset()
+		
+		
+		global.joystick_rot = -vector.angle_to(Vector2(0, 1))
+	
+	
+
 
 func _update_input_actions():
+	if action_shoot != "":
+		#this tells us that the joystick has been designated for aiming, not movement
+		
+		
+		#because aiming joystick only, don't do the below calculations
+		return
 	if _output.x < 0:
 		Input.action_press(action_left, -_output.x)
 	elif Input.is_action_pressed(action_left):
@@ -154,6 +171,14 @@ func _reset():
 	_tip.modulate = _default_color
 	_base.rect_position = _base_default_position
 	_tip.rect_position = _tip_default_position
+	
+	if action_shoot != "":
+		#this tells us that the joystick has been designated for aiming, not movement
+		global.joystick_rot = 0
+		
+		#because aiming joystick only, don't do the below calculations
+		return
+	
 	if use_input_actions:
 		if Input.is_action_pressed(action_left) or Input.is_action_just_pressed(action_left):
 			Input.action_release(action_left)

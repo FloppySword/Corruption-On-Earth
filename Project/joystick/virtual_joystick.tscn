@@ -9,6 +9,7 @@ modulate = Color( 1, 1, 1, 0.509804 )
 margin_right = 100.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 50, 50 )
 script = ExtResource( 3 )
 
 [node name="Base" type="TextureRect" parent="."]
@@ -17,7 +18,7 @@ margin_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 100, 100 )
-rect_pivot_offset = Vector2( 100, 100 )
+rect_pivot_offset = Vector2( 50, 50 )
 texture = ExtResource( 2 )
 expand = true
 

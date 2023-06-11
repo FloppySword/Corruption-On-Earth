@@ -46,6 +46,8 @@ var playerhorse_pos = Vector2()
 var playerhorse_vel = Vector2()
 var player_pos = Vector2()
 
+var joystick_rot = 0
+
 
 
 #enemy settings
