@@ -10,14 +10,17 @@ func _ready():
 	
 	
 func init(pos, _type):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	global_rotation = rng.randi_range(-180, 180)
+	
 	global_position = pos
 
 	type = _type
 	if type == "gunshot":
+		scale = Vector2(0.5, 0.5)
 		play("gunshot")
 	else:
-		
-		var rng = RandomNumberGenerator.new()
 		rng.randomize()
 		var frame = rng.randi_range(0,2)
 		set_frame(frame)
@@ -27,5 +30,4 @@ func init(pos, _type):
 
 func _on_BloodEffect_animation_finished():
 	if type == "gunshot":
-		
 		queue_free()

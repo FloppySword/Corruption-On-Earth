@@ -48,6 +48,8 @@ var player_pos = Vector2()
 
 var joystick_rot = 0
 
+var ground_vel = Vector2(0, -400)
+
 
 
 #enemy settings

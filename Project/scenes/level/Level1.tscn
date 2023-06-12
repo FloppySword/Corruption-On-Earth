@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://data/images/screens/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -78,6 +78,59 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 480.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:rect_scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "MobileShoot"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -393,6 +446,7 @@ stretch_mode = 6
 [node name="Gameplay" type="Node2D" parent="."]
 
 [node name="background" type="Sprite" parent="Gameplay"]
+self_modulate = Color( 0.843137, 0.843137, 0.843137, 1 )
 position = Vector2( 599.827, 350.264 )
 texture = ExtResource( 1 )
 __meta__ = {
@@ -400,10 +454,12 @@ __meta__ = {
 }
 
 [node name="bge1" type="Sprite" parent="Gameplay"]
+self_modulate = Color( 0.768627, 0.768627, 0.768627, 1 )
 position = Vector2( 599.173, 1052.88 )
 texture = ExtResource( 3 )
 
 [node name="bge2" type="Sprite" parent="Gameplay"]
+self_modulate = Color( 0.768627, 0.768627, 0.768627, 1 )
 position = Vector2( 599.173, -1050 )
 texture = ExtResource( 3 )
 
@@ -485,4 +541,5 @@ position = Vector2( -228, -181 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Mobile = SubResource( 1 )
+anims/MobileShoot = SubResource( 3 )
 anims/PC = SubResource( 2 )

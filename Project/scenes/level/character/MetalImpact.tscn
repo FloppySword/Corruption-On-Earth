@@ -33,7 +33,6 @@ animations = [ {
 
 [node name="MetalImpact" type="AnimatedSprite"]
 frames = SubResource( 4 )
-frame = 4
 speed_scale = 3.0
 script = ExtResource( 2 )
 

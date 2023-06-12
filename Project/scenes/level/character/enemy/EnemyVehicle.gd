@@ -30,7 +30,7 @@ var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
 
 var MetalImpact = preload("res://scenes/level/character/MetalImpact.tscn")
 
-
+onready var front_tire = $SpriteRear/SpriteFront/SpriteTire
 onready var seat1 = $SpriteRear/Seat1
 onready var seat2 = $SpriteRear/Seat2
 
@@ -54,6 +54,32 @@ func init(spawnpos, type):
 		seat2.add_child(e2)
 		e2.init(seat2.global_position, "Passenger")
 		passenger = e2
+		
+		
+func _hit_metal(hit_pos):
+	var m = MetalImpact.instance()
+	add_child(m)
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	m.global_rotation = rng.randi_range(-180, 180)
+	m.global_position = hit_pos
+	m.play('default')
+	
+func _hit_tire(hit_pos):
+	front_tire.play("flat")
+	
+	#reusing MetalImpact for this
+	var t = MetalImpact.instance()
+	add_child(t)
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	t.global_rotation = rng.randi_range(-180, 180)
+	t.tire = true
+	#t.speed_scale = 2
+	t.scale = Vector2(2, 2)
+	t.global_position = hit_pos
+	t.modulate = Color.black
+	t.play("default")
 		
 func _physics_process(delta):
 	emit_signal("skid", global_position + Vector2(0, 10), "tire")

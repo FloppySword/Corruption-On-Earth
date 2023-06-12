@@ -38,7 +38,6 @@ onready var joystickAiming = $HUD/BottomBorder/MobileButtons/AimingJoystick
 
 var bge1_pos 
 var bge2_pos
-var bge_vel
 var bge1_startpos = Vector2(599.1729, 2100)
 var bge2_startpos = Vector2(599.1729, 2100)
 
@@ -49,27 +48,24 @@ var wave = 0
 
 
 func _ready():
-	global.device = "Mobile"
+	#Toggle to debug mobile
+	#global.device = "Mobile"
 	
+	$AnimationPlayer.play(global.device)
 	
-#	player_horse.connect("hit", self, "show_hit")
-#	player_horse.connect("wound_enemy", self, "enemy_lose_health")
 	randomize()
 	time_start = OS.get_unix_time()
 	player_horse.connect("shoot", self, "_spawn_bullet")
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
-	
-	$AnimationPlayer.play(global.device)
-	
-	
 
 	global.upper_bounds = upper_bounds
 	global.lower_bounds = lower_bounds
 
+	joystickAiming.connect("joystick_shoot", self, "_mobile_shoot")
 
 	#HUD.set_layer(-1)
-	HUD.set_layer(1)
+	#HUD.set_layer(1)
 
 	get_tree().set_pause(false)
 	show_player_health()
@@ -79,14 +75,17 @@ func _spawn_bullet(dir, pos):
 	bullet_container.add_child(b)
 	b.start_at(dir, pos)
 	
+	
 func _spawn_treadmark(pos, type):
 	var t = Treadmark.instance()
 	effects_container.add_child(t)
 	t.init(pos, type)
-	#t.global_position = pos
 	
 func _spawn_blood():
 	pass
+	
+func _mobile_shoot():
+	$AnimationPlayer.play("MobileShoot")
 
 
 func spawn_enemy1(pos):
@@ -162,14 +161,14 @@ func _process(delta):
 		bge2_pos = bge2_startpos
 	else:
 		bge2_pos = bge2.global_position
-	bge_vel = Vector2(0, -400)
-	bge1_pos += bge_vel * delta
-	bge2_pos += bge_vel * delta
+	
+	bge1_pos += global.ground_vel * delta
+	bge2_pos += global.ground_vel * delta
 	bge1.global_position = (bge1_pos)
 	bge2.global_position = (bge2_pos)
 	
 	for effect in effects_container.get_children():
-		effect.global_position += bge_vel * delta
+		effect.global_position += global.ground_vel * delta
 		if effect.global_position.y < lower_bounds.y:
 			effect.queue_free()
 	
