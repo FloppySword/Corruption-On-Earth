@@ -3,7 +3,7 @@ extends KinematicBody2D
 signal skid
 
 var pos = Vector2()
-var speed = 120
+var speed = 90
 var rot = 0
 var vel = Vector2(0, 0)
 var acc = Vector2(0, 0)
@@ -13,16 +13,17 @@ export var algin_force: = 0.05
 export var separation_force: = 0.025
 export(float) var view_distance: = 50.0
 export(float) var avoid_distance: = 20.0
-
-const AVOID_RADIUS = 150
-const DETECT_RADIUS = 1200
-const FRICTION = -500
+#
+#const AVOID_RADIUS = 150
+#const DETECT_RADIUS = 1200
+#const FRICTION = -500
 
 var target = Vector2()
 var target_dist
 
 var driver
 var passenger
+
 
 #var in_shoot_range = false
 
@@ -151,7 +152,6 @@ func get_flock_status():
 	return [center_vector, align_vector, avoid_vector]
 
 
-
 func _on_BoidArea2D_body_entered(body):
 	if self != body:# && body.is_in_group("enemy"):
 		_flock.append(body)
@@ -161,12 +161,3 @@ func _on_BoidArea2D_body_exited(body):
 	if self != body && _flock.has(body):
 		_flock.remove(_flock.find(body))
 
-
-#func _on_ShootRange_body_entered(body):
-#	if body.is_in_group("Player"):
-#		in_shoot_range = true
-#
-#
-#func _on_ShootRange_body_exited(body):
-#	if body.is_in_group("Player"):
-#		in_shoot_range = false

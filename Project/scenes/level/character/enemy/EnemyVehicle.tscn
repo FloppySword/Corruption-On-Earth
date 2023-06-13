@@ -170,6 +170,7 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
+frame = 5
 speed_scale = 10.0
 playing = true
 
@@ -204,5 +205,3 @@ shape = SubResource( 20 )
 
 [connection signal="body_entered" from="BoidArea2D" to="." method="_on_BoidArea2D_body_entered"]
 [connection signal="body_exited" from="BoidArea2D" to="." method="_on_BoidArea2D_body_exited"]
-[connection signal="body_entered" from="ShootRange" to="." method="_on_ShootRange_body_entered"]
-[connection signal="body_exited" from="ShootRange" to="." method="_on_ShootRange_body_exited"]

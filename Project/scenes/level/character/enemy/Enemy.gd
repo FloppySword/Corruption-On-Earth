@@ -5,14 +5,17 @@ var type = ""
 onready var anim_player = $AnimationPlayer
 onready var kick_timer = $Detectors/KickDetector/KickTimer
 onready var kick_detector = $Detectors/KickDetector
+onready var muzzle = $ArmLeft/Gun/Muzzle
 
 var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
 
 var health = 100
 var ammo = 19
 
+var target_rot = 0
+
 var armed_vars = {"Passenger":
-						{"ViewDist":250,
+						{"ViewDist":300,
 						"RotLimit":2.55},
 					"DriverArmed":
 						{"ViewDist":150,
@@ -21,6 +24,7 @@ var armed_vars = {"Passenger":
 var vehicle = null
 
 signal ready_to_fire
+signal  shoot
 
 #func _ready():
 #	$AnimationPlayer.play("Motorcycle"+type)
@@ -39,8 +43,8 @@ func init(pos, _type, _vehicle):
 	elif type == "Driver":
 		ammo = 0
 	#$AnimationPlayer.call_deferred("play", "Motorcycle"+type)
-	$AnimationPlayer.play("Motorcycle"+type)
-	anim_locked = false
+	anim_player.play("Motorcycle"+type)
+	anim_unlock()
 	
 	connect("ready_to_fire", global, "_enemy_remote_shoot")
 	
@@ -77,19 +81,20 @@ func die(pos):
 		else:
 			impact_dir = "Left"
 	anim_lock()
-	$AnimationPlayer.play("Die"+type+impact_dir)
+	anim_player.play("Die"+type+impact_dir)
 	
 func fall_off():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var rn = rng.randf()
 	if rn > 0.5:
-		set_anim("Fall"+type)
+		
+		anim_player.play("Fall"+type)
 		#$AnimationPlayer.play("Fall"+type)
 	
 func set_anim(animation):
 	if !anim_locked:
-		$AnimationPlayer.play(animation)
+		anim_player.play(animation)
 	
 func anim_lock():
 	anim_locked = true
@@ -98,22 +103,38 @@ func anim_unlock():
 	anim_locked = false
 	
 func _shoot():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	print(rng.randi())
+	ammo -= 1
+	
+	emit_signal("shoot", target_rot, muzzle.global_position)
+	
+	anim_lock()
+	anim_player.play("Shoot")
+	
+	
+func _check_ammo():
+	if ammo <= 0:
+		anim_player.play("OutOfAmmo")
+
+#	var rng = RandomNumberGenerator.new()
+#	rng.randomize()
+#	print(rng.randi())
 	#var player_pos = global.player.global_position
+	
 	
 
 func _on_KickDetector_area_entered(area):
 	if kick_timer.time_left > 0:
 		return
 	if type == "Driver":
+		anim_lock()
 		if area.global_position.x > global_position.x:
-			anim_lock()
-			$AnimationPlayer.play("MotorcycleDriverKickLeft")
+
+			anim_player.play("MotorcycleDriverKickLeft")
 		elif area.global_position.x < global_position.x:
-			anim_lock()
-			$AnimationPlayer.play("MotorcycleDriverKickRight")
+			
+			anim_player.play("MotorcycleDriverKickRight")
+		else:
+			anim_unlock()
 			
 			
 
@@ -129,9 +150,9 @@ func _on_KickTimer_timeout():
 
 func _on_ReactionTimer_timeout():
 	var target_dist = global.player.global_position - global_position
-	var target_rot = -target_dist.angle_to(Vector2(0, 1))
+	var true_target_rot = -target_dist.angle_to(Vector2(0, 1))
 	
-	target_rot = stepify(target_rot, PI/12)
+	target_rot = stepify(true_target_rot, PI/12)
 	if abs(target_rot) < armed_vars[type]["RotLimit"] \
 		&& target_dist.length() < armed_vars[type]["ViewDist"]:
 		set_anim("Motorcycle"+type+"Aim")

@@ -57,7 +57,6 @@ func _enemy_remote_shoot(enemy):
 	enemy._shoot()
 
 
-
 #enemy settings
 var mob_speeds = [150, 100, 75, 125, 150, 150]
 var mob_moans = ["mob_pain1", "mob_pain2", "mob_pain3", "mob_pain4"]

@@ -1,13 +1,13 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/level/character/enemy/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://data/images/NEW/character/enemy/EnemyFrames.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 5, 3.5 )
+extents = Vector2( 5, 10 )
 
 [sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 3, 2.25 )
+extents = Vector2( 2, 2.25 )
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 3.25, 2.25 )
@@ -28,9 +28,13 @@ region = Rect2( 91, 36, 3, 16 )
 atlas = ExtResource( 2 )
 region = Rect2( 94, 36, 3, 16 )
 
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 2 )
+region = Rect2( 97, 36, 3, 16 )
+
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 16 ) ],
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 16 ), SubResource( 24 ) ],
 "loop": false,
 "name": "default",
 "speed": 5.0
@@ -2753,6 +2757,35 @@ tracks/26/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=26]
+resource_name = "OutOfAmmo"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("ArmLeft/Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ArmLeft/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( -2.63573, 10.7263 ) ]
+}
+
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
@@ -2827,6 +2860,61 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( 0, 8.75 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("ArmLeft/Gun:frame")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "Shoot"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("ArmLeft/Gun:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ArmLeft/Gun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( -2.63573, 10.7263 ), Vector2( -2.63573, 11.7263 ), Vector2( -2.63573, 10.7263 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "anim_unlock"
+} ]
+}
 
 [node name="Enemy" type="Area2D" groups=["Character", "Enemy"]]
 collision_layer = 2
@@ -2865,26 +2953,23 @@ shape = SubResource( 10 )
 one_shot = true
 
 [node name="Torso" type="Sprite" parent="."]
-position = Vector2( 0, 3 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 71, 25, 10, 9 )
+region_rect = Rect2( 51, 21, 10, 13 )
 
 [node name="LegRight" type="Sprite" parent="."]
-position = Vector2( 3, 1 )
-rotation = 2.07694
+position = Vector2( 3, -9 )
 texture = ExtResource( 2 )
 offset = Vector2( 1, -2 )
 region_enabled = true
-region_rect = Rect2( 59, 14, 4, 5 )
+region_rect = Rect2( 59, 8, 4, 11 )
 
 [node name="LegLeft" type="Sprite" parent="."]
-position = Vector2( -2, 0 )
-rotation = -2.07694
+position = Vector2( -3, -9 )
 texture = ExtResource( 2 )
 offset = Vector2( -1, -3 )
 region_enabled = true
-region_rect = Rect2( 48, 14, 4, 5 )
+region_rect = Rect2( 48, 9, 4, 10 )
 
 [node name="ArmRight" type="Sprite" parent="."]
 position = Vector2( 4, 2 )
@@ -2892,15 +2977,15 @@ rotation = -0.398705
 texture = ExtResource( 2 )
 offset = Vector2( 2, 4 )
 region_enabled = true
-region_rect = Rect2( 62, 30, 6, 11 )
+region_rect = Rect2( 62, 30, 6, 12 )
 
 [node name="ArmLeft" type="Sprite" parent="."]
-position = Vector2( -4, 1 )
+position = Vector2( -6, 6 )
 rotation = 0.31969
 texture = ExtResource( 2 )
 offset = Vector2( -1, 4 )
 region_enabled = true
-region_rect = Rect2( 44, 30, 5, 11 )
+region_rect = Rect2( 44, 30, 5, 12 )
 
 [node name="ReactionTimer" type="Timer" parent="ArmLeft"]
 one_shot = true
@@ -2909,14 +2994,14 @@ one_shot = true
 position = Vector2( -2.63573, 10.7263 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 20 )
-frame = 4
-speed_scale = 3.0
-playing = true
 
 [node name="RateOfFire" type="Timer" parent="ArmLeft/Gun"]
 
+[node name="Muzzle" type="Position2D" parent="ArmLeft/Gun"]
+position = Vector2( 0.164911, 1.30532 )
+
 [node name="Head" type="Sprite" parent="."]
-position = Vector2( 0, -1 )
+position = Vector2( 0, 7 )
 rotation = 0.360484
 texture = ExtResource( 2 )
 region_enabled = true
@@ -2937,7 +3022,9 @@ anims/MotorcycleDriverTurnLeft = SubResource( 5 )
 anims/MotorcycleDriverTurnRight = SubResource( 6 )
 anims/MotorcyclePassenger = SubResource( 15 )
 anims/MotorcyclePassengerAim = SubResource( 21 )
+anims/OutOfAmmo = SubResource( 26 )
 anims/RESET = SubResource( 4 )
+anims/Shoot = SubResource( 25 )
 
 [connection signal="area_entered" from="Detectors/KickDetector" to="." method="_on_KickDetector_area_entered"]
 [connection signal="timeout" from="Detectors/KickDetector/KickTimer" to="." method="_on_KickTimer_timeout"]
