@@ -24,7 +24,7 @@ var target_dist
 var driver
 var passenger
 
-var in_shoot_range = false
+#var in_shoot_range = false
 
 var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
 
@@ -45,14 +45,14 @@ func init(spawnpos, type):
 		
 	var e1 = Enemy.instance()
 	seat1.add_child(e1)
-	e1.init(seat1.global_position, "Driver")
+	e1.init(seat1.global_position, "Driver", self)
 	driver = e1
 		
 		#$Seat1.add_child()
 	if type == "MotorcycleDuo":
 		var e2 = Enemy.instance()
 		seat2.add_child(e2)
-		e2.init(seat2.global_position, "Passenger")
+		e2.init(seat2.global_position, "Passenger", self)
 		passenger = e2
 		
 		
@@ -114,8 +114,8 @@ func _physics_process(delta):
 		turn_dir = "Straight"
 		$AnimationPlayer.play("Motorcycle"+turn_dir)
 	driver.set_anim("MotorcycleDriver"+turn_dir)
-	if passenger && in_shoot_range:
-		passenger.shoot()
+#	if passenger && in_shoot_range:
+#		passenger.shoot()
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
@@ -162,11 +162,11 @@ func _on_BoidArea2D_body_exited(body):
 		_flock.remove(_flock.find(body))
 
 
-func _on_ShootRange_body_entered(body):
-	if body.is_in_group("Player"):
-		in_shoot_range = true
-
-
-func _on_ShootRange_body_exited(body):
-	if body.is_in_group("Player"):
-		in_shoot_range = false
+#func _on_ShootRange_body_entered(body):
+#	if body.is_in_group("Player"):
+#		in_shoot_range = true
+#
+#
+#func _on_ShootRange_body_exited(body):
+#	if body.is_in_group("Player"):
+#		in_shoot_range = false

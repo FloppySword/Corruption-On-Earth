@@ -9,19 +9,53 @@ onready var kick_detector = $Detectors/KickDetector
 var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
 
 var health = 100
+var ammo = 19
+
+var armed_vars = {"Passenger":
+						{"ViewDist":250,
+						"RotLimit":2.55},
+					"DriverArmed":
+						{"ViewDist":150,
+						"RotLimit":1.75}}
+
+var vehicle = null
+
+signal ready_to_fire
 
 #func _ready():
 #	$AnimationPlayer.play("Motorcycle"+type)
 
-func init(pos, _type):
+
+
+func init(pos, _type, _vehicle):
+	vehicle = _vehicle
 	type = _type
 	global_position = pos
 	if type == "Passenger":
+		ammo = 19
 		$Detectors/KickDetector.monitoring = false
-	
+	elif type == "DriverArmed":
+		ammo = 19
+	elif type == "Driver":
+		ammo = 0
 	#$AnimationPlayer.call_deferred("play", "Motorcycle"+type)
 	$AnimationPlayer.play("Motorcycle"+type)
 	anim_locked = false
+	
+	connect("ready_to_fire", global, "_enemy_remote_shoot")
+	
+func _physics_process(delta):
+	if ammo > 0 && type in ["DriverArmed", "Passenger"] && $ArmLeft/ReactionTimer.time_left == 0:
+		$ArmLeft/ReactionTimer.start()
+#			var target_dist = global.player.global_position - global_position
+#			var target_rot = -target_dist.angle_to(Vector2(0, 1))
+#
+
+#			target_rot = stepify(target_rot, PI/12)
+#			if abs(target_rot) < 2.55 && target_dist.length() < 250:
+#				$ArmLeft.global_rotation = target_rot
+#			else:
+#				anim_player.play("Motorcycle"+type)
 	
 func _damage(hitbox, damage, type, pos):
 	if type == "gunshot":
@@ -42,7 +76,7 @@ func die(pos):
 			impact_dir = "Right"
 		else:
 			impact_dir = "Left"
-	
+	anim_lock()
 	$AnimationPlayer.play("Die"+type+impact_dir)
 	
 func fall_off():
@@ -50,7 +84,8 @@ func fall_off():
 	rng.randomize()
 	var rn = rng.randf()
 	if rn > 0.5:
-		$AnimationPlayer.play("Fall"+type)
+		set_anim("Fall"+type)
+		#$AnimationPlayer.play("Fall"+type)
 	
 func set_anim(animation):
 	if !anim_locked:
@@ -62,8 +97,11 @@ func anim_lock():
 func anim_unlock():
 	anim_locked = false
 	
-func shoot():
-	var player_pos = global.player.global_position
+func _shoot():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	print(rng.randi())
+	#var player_pos = global.player.global_position
 	
 
 func _on_KickDetector_area_entered(area):
@@ -87,3 +125,24 @@ func _on_KickTimer_timeout():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	kick_timer.wait_time = 1 + rng.randf_range(-0.2,2.0)
+
+
+func _on_ReactionTimer_timeout():
+	var target_dist = global.player.global_position - global_position
+	var target_rot = -target_dist.angle_to(Vector2(0, 1))
+	
+	target_rot = stepify(target_rot, PI/12)
+	if abs(target_rot) < armed_vars[type]["RotLimit"] \
+		&& target_dist.length() < armed_vars[type]["ViewDist"]:
+		set_anim("Motorcycle"+type+"Aim")
+		#anim_player.play("Motorcycle"+type+"Aim")
+		$ArmLeft.global_rotation = target_rot
+		$Head.global_rotation = target_rot
+		emit_signal("ready_to_fire", self)
+	else:
+		set_anim("Motorcycle"+type)
+		#anim_player.play("Motorcycle"+type)
+
+
+func _on_RateOfFire_timeout():
+	pass # Replace with function body.

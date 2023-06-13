@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Trigger Mortis"
+config/name="Corruption on Earth"
 run/main_scene="res://scenes/menu/MainMenu.tscn"
 icon="res://icon.png"
 main_scene="res://scenes/menu.tscn"
