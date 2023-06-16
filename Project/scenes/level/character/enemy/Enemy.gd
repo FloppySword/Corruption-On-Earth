@@ -12,6 +12,8 @@ var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
 var health = 100
 var ammo = 19
 
+var dead = false
+
 var target_rot = 0
 
 var armed_vars = {"Passenger":
@@ -24,7 +26,9 @@ var armed_vars = {"Passenger":
 var vehicle = null
 
 signal ready_to_fire
-signal  shoot
+signal shoot
+
+#signal die
 
 #func _ready():
 #	$AnimationPlayer.play("Motorcycle"+type)
@@ -43,10 +47,13 @@ func init(pos, _type, _vehicle):
 	elif type == "Driver":
 		ammo = 0
 	#$AnimationPlayer.call_deferred("play", "Motorcycle"+type)
-	anim_player.play("Motorcycle"+type)
+	#anim_player.play("Motorcycle"+type)
 	anim_unlock()
 	
+	connect("shoot", vehicle, "_rider_shoot")
+	#connect("die", vehicle, "_check_for_riders")
 	connect("ready_to_fire", global, "_enemy_remote_shoot")
+	
 	
 func _physics_process(delta):
 	if ammo > 0 && type in ["DriverArmed", "Passenger"] && $ArmLeft/ReactionTimer.time_left == 0:
@@ -62,16 +69,18 @@ func _physics_process(delta):
 #				anim_player.play("Motorcycle"+type)
 	
 func _damage(hitbox, damage, type, pos):
-	if type == "gunshot":
-		var blood_impact = BloodImpact.instance()
-		add_child(blood_impact)
-		blood_impact.init(pos, type)
+
+	var blood_impact = BloodImpact.instance()
+	add_child(blood_impact)
+	blood_impact.init(pos, type)
 		
 	health -= damage
 	if health <= 0:
-		die(pos)
+		if !dead:
+			die(pos)
 
 func die(pos):
+	dead = true
 	var impact_dir = ""
 	if abs(pos.x - global_position.x) < 20:
 		impact_dir = "Normal"
@@ -82,6 +91,9 @@ func die(pos):
 			impact_dir = "Left"
 	anim_lock()
 	anim_player.play("Die"+type+impact_dir)
+	
+	if "Driver" in type:
+		vehicle._driver_dead()
 	
 func fall_off():
 	var rng = RandomNumberGenerator.new()
@@ -101,17 +113,19 @@ func anim_lock():
 	
 func anim_unlock():
 	anim_locked = false
+
 	
 func _shoot():
 	ammo -= 1
 	
-	emit_signal("shoot", target_rot, muzzle.global_position)
+	emit_signal("shoot", target_rot, muzzle.global_position, "Enemy")
 	
 	anim_lock()
 	anim_player.play("Shoot")
 	
 	
 func _check_ammo():
+	print("ammo: " + str(ammo))
 	if ammo <= 0:
 		anim_player.play("OutOfAmmo")
 
@@ -149,6 +163,9 @@ func _on_KickTimer_timeout():
 
 
 func _on_ReactionTimer_timeout():
+	if dead:
+		return
+	
 	var target_dist = global.player.global_position - global_position
 	var true_target_rot = -target_dist.angle_to(Vector2(0, 1))
 	

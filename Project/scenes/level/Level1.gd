@@ -64,16 +64,14 @@ func _ready():
 
 	joystickAiming.connect("joystick_shoot", self, "_mobile_shoot")
 
-	#HUD.set_layer(-1)
-	#HUD.set_layer(1)
 
 	get_tree().set_pause(false)
 	show_player_health()
 	
-func _spawn_bullet(dir, pos):
+func _spawn_bullet(dir, pos, shooter):
 	var b = Bullet.instance()
 	bullet_container.add_child(b)
-	b.start_at(dir, pos)
+	b.start_at(dir, pos, shooter)
 	
 	
 func _spawn_treadmark(pos, type):
@@ -92,6 +90,7 @@ func spawn_enemy1(pos):
 	var e = Enemy.instance()
 	enemy_container.add_child(e)
 	e.connect("skid", self, "_spawn_treadmark")
+	e.connect("rider_shoot", self, "_spawn_bullet")
 	#e1.connect("dead", self, "")
 	e.init(pos, "MotorcycleDuo")
 
@@ -148,7 +147,7 @@ func _process(delta):
 			return
 		wave += 1
 		var enemy_spawns = e1_spawns.get_children()
-		for i in range(0, 1):#5):#wave):
+		for i in range(0, wave):
 			var rn = rng.randi_range(0, enemy_spawns.size() - 1)
 			spawn_enemy1(enemy_spawns[rn].global_position)
 			enemy_spawns.remove(rn)

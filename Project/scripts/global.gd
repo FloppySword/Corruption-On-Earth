@@ -51,6 +51,9 @@ var joystick_rot = 0
 var ground_vel = Vector2(0, -400)
 
 func _enemy_remote_shoot(enemy):
+	#we do this here in the global script because calling the yield timer
+	#should be done by a scene that can't disappear before
+	#the time is up. 
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	yield(get_tree().create_timer(rng.randf_range(0.1, 0.7)), "timeout")

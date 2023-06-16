@@ -12,29 +12,29 @@ extents = Vector2( 2, 2.25 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 3.25, 2.25 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
-region = Rect2( 85, 36, 3, 16 )
+region = Rect2( 85, 36, 3, 20 )
 
-[sub_resource type="AtlasTexture" id=17]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 88, 36, 3, 16 )
+region = Rect2( 88, 36, 3, 20 )
 
-[sub_resource type="AtlasTexture" id=18]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
-region = Rect2( 91, 36, 3, 16 )
+region = Rect2( 91, 36, 3, 20 )
 
-[sub_resource type="AtlasTexture" id=19]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
-region = Rect2( 94, 36, 3, 16 )
+region = Rect2( 94, 36, 3, 20 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 2 )
-region = Rect2( 97, 36, 3, 16 )
+region = Rect2( 97, 36, 3, 20 )
 
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 16 ), SubResource( 24 ) ],
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 27 ), SubResource( 31 ) ],
 "loop": false,
 "name": "default",
 "speed": 5.0
@@ -2875,8 +2875,8 @@ tracks/6/keys = {
 
 [sub_resource type="Animation" id=25]
 resource_name = "Shoot"
-length = 0.25
-step = 0.05
+length = 0.3
+step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("ArmLeft/Gun:frame")
 tracks/0/interp = 1
@@ -2884,7 +2884,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"times": PoolRealArray( 0, 0.06, 0.12, 0.18, 0.24 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4 ]
@@ -2896,7 +2896,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1 ),
+"times": PoolRealArray( 0, 0.06, 0.12 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -2.63573, 10.7263 ), Vector2( -2.63573, 11.7263 ), Vector2( -2.63573, 10.7263 ) ]
@@ -2908,11 +2908,25 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.25 ),
+"times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "anim_unlock"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_check_ammo"
 } ]
 }
 
@@ -2991,8 +3005,9 @@ region_rect = Rect2( 44, 30, 5, 12 )
 one_shot = true
 
 [node name="Gun" type="AnimatedSprite" parent="ArmLeft"]
+visible = false
 position = Vector2( -2.63573, 10.7263 )
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 20 )
 
 [node name="RateOfFire" type="Timer" parent="ArmLeft/Gun"]
@@ -3008,7 +3023,6 @@ region_enabled = true
 region_rect = Rect2( 52, 42, 8, 9 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-method_call_mode = 1
 anims/Default = SubResource( 2 )
 anims/DieDriverNormal = SubResource( 12 )
 anims/DiePassengerNormal = SubResource( 11 )

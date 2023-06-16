@@ -393,7 +393,7 @@ func shoot_AR():
 		
 		#gun_sounds.play(gunshot_choice)
 		
-		emit_signal("shoot", rot, bullet_pos)
+		emit_signal("shoot", rot, bullet_pos, "Player")
 		
 		AR_ammo += 1
 		if AR_ammo / 15 == 1:

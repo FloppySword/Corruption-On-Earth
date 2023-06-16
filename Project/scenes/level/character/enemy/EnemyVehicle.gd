@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal skid
+signal rider_shoot
 
 var pos = Vector2()
 var speed = 90
@@ -23,6 +24,11 @@ var target_dist
 
 var driver
 var passenger
+
+enum vehicleStates {FlatTire, DriverDead, Normal}
+var vehicle_state = vehicleStates.Normal
+
+
 
 
 #var in_shoot_range = false
@@ -56,6 +62,9 @@ func init(spawnpos, type):
 		e2.init(seat2.global_position, "Passenger", self)
 		passenger = e2
 		
+func _rider_shoot(bullet_rot, bullet_pos, shooter):
+	emit_signal("rider_shoot", bullet_rot, bullet_pos, shooter)
+		
 		
 func _hit_metal(hit_pos):
 	var m = MetalImpact.instance()
@@ -66,7 +75,12 @@ func _hit_metal(hit_pos):
 	m.global_position = hit_pos
 	m.play('default')
 	
+	
 func _hit_tire(hit_pos):
+	if vehicle_state == vehicleStates.FlatTire:
+		return
+	
+	
 	front_tire.play("flat")
 	
 	#reusing MetalImpact for this
@@ -81,6 +95,10 @@ func _hit_tire(hit_pos):
 	t.global_position = hit_pos
 	t.modulate = Color.black
 	t.play("default")
+	
+	vehicle_state = vehicleStates.FlatTire
+	
+	
 		
 func _physics_process(delta):
 	emit_signal("skid", global_position + Vector2(0, 10), "tire")
@@ -104,6 +122,29 @@ func _physics_process(delta):
 	acceleration = cohesion_vector + align_vector + separation_vector + target_vector
 	
 	vel = (vel + acceleration).clamped(speed)
+	
+	var new_vel_x
+	var new_vel_y
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	match vehicle_state:
+		vehicleStates.Normal:
+			pass
+		vehicleStates.FlatTire:
+			new_vel_x = rng.randi_range(-30, 30)
+			new_vel_y = -70
+		vehicleStates.DriverDead:
+			if rng.randf() > 0.5:
+				new_vel_x = 70
+			else:
+				new_vel_x = -70
+			new_vel_y = rng.randi_range(-30, 200)
+	
+	if new_vel_x:
+		vel.x = new_vel_x
+	if new_vel_y:
+		vel.y = new_vel_y
+
 	var turn_dir
 	if vel.x > 70:
 		turn_dir = "TurnLeft"
@@ -121,8 +162,16 @@ func _physics_process(delta):
 	var collision = move_and_collide(vel * delta)
 	if collision:
 		pass
-
-	
+		
+	if global_position.x > global.upper_bounds.x \
+		or global_position.x < global.lower_bounds.x \
+		or global_position.y > global.upper_bounds.y \
+		or global_position.y < global.lower_bounds.y:
+		queue_free()
+		
+		
+func _driver_dead():
+	vehicle_state = vehicleStates.DriverDead
 
 func get_flock_status():
 	var center_vector: = Vector2()

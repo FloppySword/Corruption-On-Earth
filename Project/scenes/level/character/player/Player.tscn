@@ -13,13 +13,13 @@ radius = 11.0
 height = 62.0
 
 [sub_resource type="RectangleShape2D" id=53]
-extents = Vector2( 1.5, 3 )
+extents = Vector2( 1.5, 5 )
 
 [sub_resource type="RectangleShape2D" id=54]
-extents = Vector2( 1.5, 3 )
+extents = Vector2( 1.5, 5 )
 
 [sub_resource type="RectangleShape2D" id=55]
-extents = Vector2( 1.5, 4 )
+extents = Vector2( 1.5, 5 )
 
 [sub_resource type="CircleShape2D" id=50]
 radius = 9.0
@@ -275,20 +275,21 @@ disabled = true
 position = Vector2( 0, 7 )
 shape = SubResource( 49 )
 
-[node name="HorseArea2D" type="Area2D" parent="."]
+[node name="HorseArea2D" type="Area2D" parent="." groups=["Horse", "Player"]]
+z_index = 2
 collision_layer = 2
 collision_mask = 0
 
 [node name="RearLeftCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
-position = Vector2( -5, -11 )
+position = Vector2( -5, -10 )
 shape = SubResource( 53 )
 
 [node name="RearRightCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
-position = Vector2( 5, -11 )
+position = Vector2( 5, -10 )
 shape = SubResource( 54 )
 
 [node name="FrontCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
-position = Vector2( 1, 36 )
+position = Vector2( 1, 37 )
 shape = SubResource( 55 )
 
 [node name="HorseSprite" type="Sprite" parent="."]

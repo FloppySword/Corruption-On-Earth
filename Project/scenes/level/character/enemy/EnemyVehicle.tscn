@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/level/character/enemy/EnemyVehicle.gd" type="Script" id=1]
 [ext_resource path="res://data/images/NEW/character/enemy/EnemyFrames.png" type="Texture" id=2]
@@ -12,7 +12,7 @@ height = 27.6667
 extents = Vector2( 6.75, 2.125 )
 
 [sub_resource type="RectangleShape2D" id=22]
-extents = Vector2( 4.125, 6.25 )
+extents = Vector2( 4.125, 4.25 )
 
 [sub_resource type="RectangleShape2D" id=23]
 extents = Vector2( 6.75, 1.75 )
@@ -120,10 +120,7 @@ tracks/0/keys = {
 "values": [ 8.0 ]
 }
 
-[sub_resource type="CircleShape2D" id=20]
-radius = 95.0053
-
-[node name="EnemyVehicle" type="KinematicBody2D" groups=["character", "enemy"]]
+[node name="EnemyVehicle" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 avoid_distance = 80.0
@@ -132,7 +129,7 @@ avoid_distance = 80.0
 position = Vector2( 0, 5.33333 )
 shape = SubResource( 12 )
 
-[node name="MetalArea2D" type="Area2D" parent="." groups=["Metal"]]
+[node name="MetalArea2D" type="Area2D" parent="." groups=["Enemy", "Metal"]]
 z_index = 4
 collision_layer = 2
 collision_mask = 0
@@ -142,7 +139,7 @@ position = Vector2( 0.25, -15.375 )
 shape = SubResource( 21 )
 
 [node name="MiddleCollisionShape2D" type="CollisionShape2D" parent="MetalArea2D"]
-position = Vector2( 0, 5.75 )
+position = Vector2( 0, 7.75 )
 shape = SubResource( 22 )
 
 [node name="FrontCollisionShape2D" type="CollisionShape2D" parent="MetalArea2D"]
@@ -170,11 +167,11 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
-frame = 5
+frame = 3
 speed_scale = 10.0
 playing = true
 
-[node name="TireArea2D" type="Area2D" parent="SpriteRear/SpriteFront/SpriteTire" groups=["Tire"]]
+[node name="TireArea2D" type="Area2D" parent="SpriteRear/SpriteFront/SpriteTire" groups=["Enemy", "Tire"]]
 collision_layer = 2
 collision_mask = 0
 
@@ -188,6 +185,7 @@ position = Vector2( 0, 8 )
 position = Vector2( 0, -6.5 )
 
 [node name="Icon" type="Sprite" parent="."]
+visible = false
 position = Vector2( 70.5, 27 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
@@ -196,12 +194,6 @@ texture = ExtResource( 3 )
 anims/MotorcycleStraight = SubResource( 16 )
 anims/MotorcycleTurnLeft = SubResource( 17 )
 anims/MotorcycleTurnRight = SubResource( 18 )
-
-[node name="ShootRange" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="ShootRangeCollisionShape2D" type="CollisionShape2D" parent="ShootRange"]
-shape = SubResource( 20 )
 
 [connection signal="body_entered" from="BoidArea2D" to="." method="_on_BoidArea2D_body_entered"]
 [connection signal="body_exited" from="BoidArea2D" to="." method="_on_BoidArea2D_body_exited"]

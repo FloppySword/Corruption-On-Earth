@@ -18,6 +18,9 @@ func init(pos, _type):
 
 	type = _type
 	if type == "gunshot":
+		scale = Vector2(0.4, 0.4)
+		play("gunshot")
+	elif type == "headshot":
 		scale = Vector2(0.5, 0.5)
 		play("gunshot")
 	else:
@@ -29,5 +32,5 @@ func init(pos, _type):
 
 
 func _on_BloodEffect_animation_finished():
-	if type == "gunshot":
+	if type == "gunshot" || type == "headshot":
 		queue_free()
