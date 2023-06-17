@@ -12,21 +12,26 @@ var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
 var health = 100
 var ammo = 19
 
+var dead_pos = Vector2.ZERO
+var vel = Vector2.ZERO
+
 var dead = false
+var initiated = false
 
 var target_rot = 0
 
 var armed_vars = {"Passenger":
-						{"ViewDist":300,
+						{"ViewDist":400,
 						"RotLimit":2.55},
 					"DriverArmed":
-						{"ViewDist":150,
+						{"ViewDist":200,
 						"RotLimit":1.75}}
 
 var vehicle = null
 
 signal ready_to_fire
 signal shoot
+signal fall
 
 #signal die
 
@@ -47,13 +52,16 @@ func init(pos, _type, _vehicle):
 	elif type == "Driver":
 		ammo = 0
 	#$AnimationPlayer.call_deferred("play", "Motorcycle"+type)
-	#anim_player.play("Motorcycle"+type)
+	anim_player.play("Motorcycle"+type)
 	anim_unlock()
 	
 	connect("shoot", vehicle, "_rider_shoot")
 	#connect("die", vehicle, "_check_for_riders")
 	connect("ready_to_fire", global, "_enemy_remote_shoot")
+	connect("fall", global, "_enemy_remote_fall")
 	
+func _set_initiated():
+	initiated = true
 	
 func _physics_process(delta):
 	if ammo > 0 && type in ["DriverArmed", "Passenger"] && $ArmLeft/ReactionTimer.time_left == 0:
@@ -67,42 +75,46 @@ func _physics_process(delta):
 #				$ArmLeft.global_rotation = target_rot
 #			else:
 #				anim_player.play("Motorcycle"+type)
+#	if dead && !"Die" in anim_player.current_animation:
+#		die()
+#	if type == "Passenger":
+#		print(anim_player.current_animation)
+	if dead:
+		if dead_pos.x != 0:
+			global_position.x = dead_pos.x
+		global_position.y += vel.y * delta
 	
 func _damage(hitbox, damage, type, pos):
 
 	var blood_impact = BloodImpact.instance()
 	add_child(blood_impact)
 	blood_impact.init(pos, type)
+	
+#	if dead && type == "Passenger":
+#		anim_player.play("Die"+type+"Normal")
 		
 	health -= damage
 	if health <= 0:
 		if !dead:
-			die(pos)
+#			if type == "Passenger":
+#				$Head.global_rotation = 20
+			die()
 
-func die(pos):
+func die():
 	dead = true
-	var impact_dir = ""
-	if abs(pos.x - global_position.x) < 20:
-		impact_dir = "Normal"
-	else:
-		if pos.x > global_position.x:
-			impact_dir = "Right"
-		else:
-			impact_dir = "Left"
 	anim_lock()
-	anim_player.play("Die"+type+impact_dir)
+	anim_player.play("Die"+type+"Normal")
 	
 	if "Driver" in type:
 		vehicle._driver_dead()
 	
-func fall_off():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	var rn = rng.randf()
-	if rn > 0.5:
-		
-		anim_player.play("Fall"+type)
-		#$AnimationPlayer.play("Fall"+type)
+	
+	
+func fall():
+	dead_pos = global_position
+	vel = global.ground_vel #+ Vector2(0, 200)
+	#emit_signal("fall", self)
+
 	
 func set_anim(animation):
 	if !anim_locked:
@@ -116,6 +128,9 @@ func anim_unlock():
 
 	
 func _shoot():
+	if dead:
+		return
+
 	ammo -= 1
 	
 	emit_signal("shoot", target_rot, muzzle.global_position, "Enemy")
@@ -125,7 +140,7 @@ func _shoot():
 	
 	
 func _check_ammo():
-	print("ammo: " + str(ammo))
+	#print("ammo: " + str(ammo))
 	if ammo <= 0:
 		anim_player.play("OutOfAmmo")
 
@@ -137,7 +152,7 @@ func _check_ammo():
 	
 
 func _on_KickDetector_area_entered(area):
-	if kick_timer.time_left > 0:
+	if area.is_in_group("Enemy") || dead || kick_timer.time_left > 0:
 		return
 	if type == "Driver":
 		anim_lock()
@@ -154,6 +169,8 @@ func _on_KickDetector_area_entered(area):
 
 
 func _on_KickTimer_timeout():
+	if dead:
+		return
 	var areas = kick_detector.get_overlapping_areas()
 	if areas.size() > 0:
 		_on_KickDetector_area_entered(areas[0])

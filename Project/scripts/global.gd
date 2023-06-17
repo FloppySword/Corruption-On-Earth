@@ -12,7 +12,7 @@ var game_reset = false
 var show_credits = false
 var score = 0
 var high_score = 0
-var level = 0
+#var level = 0
 
 
 var mute_sound = false
@@ -21,6 +21,7 @@ var mute_music = false
 
 var upper_bounds = Vector2.ZERO
 var lower_bounds = Vector2.ZERO
+var screen_middle = Vector2(600, 275)
 
 
 #player settings
@@ -50,14 +51,20 @@ var joystick_rot = 0
 
 var ground_vel = Vector2(0, -400)
 
+var current_level
+
 func _enemy_remote_shoot(enemy):
-	#we do this here in the global script because calling the yield timer
-	#should be done by a scene that can't disappear before
-	#the time is up. 
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	yield(get_tree().create_timer(rng.randf_range(0.1, 0.7)), "timeout")
-	enemy._shoot()
+	if enemy:
+		#we do this here in the global script because calling the yield timer
+		#should be done by a scene that can't disappear before
+		#the time is up. 
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		yield(get_tree().create_timer(rng.randf_range(0.1, 0.7)), "timeout")
+		enemy._shoot()
+	
+#func _enemy_remote_fall(enemy):
+#	current_level._enemy_remote_fall(enemy, enemy.global_position)
 
 
 #enemy settings

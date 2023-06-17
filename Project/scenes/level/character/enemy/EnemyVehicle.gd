@@ -8,6 +8,12 @@ var speed = 90
 var rot = 0
 var vel = Vector2(0, 0)
 var acc = Vector2(0, 0)
+
+var new_vel_x
+var new_vel_y
+var colliding = false
+	
+	
 var _flock = []
 export var cohesion_force: = 0.05
 export var algin_force: = 0.05
@@ -80,6 +86,8 @@ func _hit_tire(hit_pos):
 	if vehicle_state == vehicleStates.FlatTire:
 		return
 	
+	new_vel_x = null
+	new_vel_y = null
 	
 	front_tire.play("flat")
 	
@@ -103,11 +111,7 @@ func _hit_tire(hit_pos):
 func _physics_process(delta):
 	emit_signal("skid", global_position + Vector2(0, 10), "tire")
 	
-	if global_position.x >= global.player.global_position.x:
-		target = global.player.chase_pos_right.global_position
-	else:
-		target = global.player.chase_pos_left.global_position
-	$Icon.global_position = target
+
 
 	
 	var acceleration = Vector2.ZERO
@@ -123,27 +127,43 @@ func _physics_process(delta):
 	
 	vel = (vel + acceleration).clamped(speed)
 	
-	var new_vel_x
-	var new_vel_y
+	
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	match vehicle_state:
 		vehicleStates.Normal:
-			pass
-		vehicleStates.FlatTire:
-			new_vel_x = rng.randi_range(-30, 30)
-			new_vel_y = -70
-		vehicleStates.DriverDead:
-			if rng.randf() > 0.5:
-				new_vel_x = 70
+			if global_position.x >= global.player.global_position.x:
+				target = global.player.chase_pos_right.global_position
 			else:
-				new_vel_x = -70
-			new_vel_y = rng.randi_range(-30, 200)
+				target = global.player.chase_pos_left.global_position
+			$Icon.global_position = target
+		vehicleStates.FlatTire:
+			target = Vector2.ZERO
+			if !new_vel_x:
+				new_vel_x = rng.randi_range(-70, 70)
+			if !new_vel_y:
+				new_vel_y = -170
+			if colliding:
+				new_vel_x *= -1
+		vehicleStates.DriverDead:
+			target = Vector2.ZERO
+			if !new_vel_x:
+				if global_position.x > global.screen_middle.x:
+					new_vel_x = 250
+				else:
+					new_vel_x = -250
+			if !new_vel_y:
+				new_vel_y = rng.randi_range(-30, 200)
+				
+			if colliding:
+				new_vel_x *= -1
 	
 	if new_vel_x:
-		vel.x = new_vel_x
+		vel.x = lerp(vel.x, new_vel_x, 0.5)
+		#vel.x = new_vel_x
 	if new_vel_y:
-		vel.y = new_vel_y
+		vel.y = lerp(vel.y, new_vel_y, 0.5)
+		#vel.y = new_vel_y
 
 	var turn_dir
 	if vel.x > 70:
@@ -155,13 +175,18 @@ func _physics_process(delta):
 	else:
 		turn_dir = "Straight"
 		$AnimationPlayer.play("Motorcycle"+turn_dir)
-	driver.set_anim("MotorcycleDriver"+turn_dir)
+	if driver.initiated:
+		driver.set_anim("MotorcycleDriver"+turn_dir)
 #	if passenger && in_shoot_range:
 #		passenger.shoot()
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
-		pass
+		colliding = true
+	else:
+		colliding = false
+	print(colliding)
+
 		
 	if global_position.x > global.upper_bounds.x \
 		or global_position.x < global.lower_bounds.x \
@@ -171,7 +196,8 @@ func _physics_process(delta):
 		
 		
 func _driver_dead():
-	vehicle_state = vehicleStates.DriverDead
+	if vehicle_state == vehicleStates.Normal:
+		vehicle_state = vehicleStates.DriverDead
 
 func get_flock_status():
 	var center_vector: = Vector2()

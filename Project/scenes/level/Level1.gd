@@ -61,12 +61,28 @@ func _ready():
 
 	global.upper_bounds = upper_bounds
 	global.lower_bounds = lower_bounds
+	global.current_level = self
 
 	joystickAiming.connect("joystick_shoot", self, "_mobile_shoot")
 
 
 	get_tree().set_pause(false)
 	show_player_health()
+	
+#func _enemy_remote_fall(enemy, enemy_pos):
+#	if enemy.get_parent() == effects_container:
+#		return
+#
+#	var old_transform = enemy.get_global_transform()
+#	var seat = enemy.get_parent()
+#	seat.remove_child(enemy)
+#	effects_container.add_child(enemy)
+#	enemy.transform = effects_container.get_global_transform().inverse() * old_transform
+##
+#	func _reparent(new_parent, node, old_transform):
+#    node.get_parent().remove_child(node)
+#    new_parent.add_child(node)
+#    node.transform = new_parent.get_global_transform.inverse() * old_transform
 	
 func _spawn_bullet(dir, pos, shooter):
 	var b = Bullet.instance()

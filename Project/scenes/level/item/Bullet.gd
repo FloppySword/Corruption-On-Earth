@@ -66,8 +66,9 @@ func hit_area(area, _collision_pos):
 	#print(area.name)
 	
 	if area.is_in_group("Character"):
-		var additional_damage = rng.randi_range(-5, 5)
-		var damage = max(20 + additional_damage, (100 - collision_dist + additional_damage))
+		var primary_damage = 100 - (0.8 * collision_dist)
+		var additional_damage = 30 + rng.randi_range(-5, 5)
+		var damage = max(additional_damage, primary_damage)
 		#print(collision_dist)
 		var character_scene
 		var damage_type = "gunshot"
@@ -81,12 +82,15 @@ func hit_area(area, _collision_pos):
 			else:
 				character_scene = area
 		character_scene._damage(character_scene, damage, damage_type, collision_pos)
-	elif area.is_in_group("Metal"):
-		area.owner._hit_metal(collision_pos)
-	elif area.is_in_group("Tire"):
-		area.owner._hit_tire(collision_pos)
-	elif area.is_in_group("Horse"):
-		pass
+	else:
+		if shooter == "Player":
+			if area.is_in_group("Metal"):
+				area.owner._hit_metal(collision_pos)
+			elif area.is_in_group("Tire"):
+				area.owner._hit_tire(collision_pos)
+		elif shooter == "Enemy":
+			if area.is_in_group("Horse"):
+				pass
 	
 
 		
