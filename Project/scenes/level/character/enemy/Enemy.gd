@@ -24,8 +24,8 @@ var armed_vars = {"Passenger":
 						{"ViewDist":400,
 						"RotLimit":2.55},
 					"DriverArmed":
-						{"ViewDist":200,
-						"RotLimit":1.75}}
+						{"ViewDist":350,
+						"RotLimit":1.85}}
 
 var vehicle = null
 

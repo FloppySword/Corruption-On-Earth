@@ -19,9 +19,9 @@ var collision_count = 0
 var _flock = []
 export var cohesion_force: = 0.00
 export var align_force: = 0.00
-export var separation_force: = 3.00
-export(float) var view_distance: = 95.0
-export(float) var avoid_distance: = 95.0
+export var separation_force: = 1
+export(float) var view_distance: = 45.0
+export(float) var avoid_distance: = 25.0
 #
 #const AVOID_RADIUS = 150
 #const DETECT_RADIUS = 1200
@@ -39,6 +39,7 @@ var vehicle_state = vehicleStates.Normal
 
 
 
+
 #var in_shoot_range = false
 
 var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
@@ -48,6 +49,8 @@ var MetalImpact = preload("res://scenes/level/character/MetalImpact.tscn")
 onready var front_tire = $SpriteRear/SpriteFront/SpriteTire
 onready var seat1 = $SpriteRear/Seat1
 onready var seat2 = $SpriteRear/Seat2
+onready var motorcycle_rear = $SpriteRear
+onready var motorcycle_front = $SpriteRear/SpriteFront
 
 func _ready():
 	randomize()
@@ -74,6 +77,20 @@ func init(spawnpos, type):
 		seat2.add_child(e2)
 		e2.init(seat2.global_position, "Passenger", self)
 		passenger = e2
+	
+	var color 
+	if type == "u":
+		color = Color.mediumaquamarine
+	elif type == "a":
+		color = Color.orangered
+	elif type == "du":
+		color = Color.lightslategray
+	elif type == "da":
+		color = Color.fuchsia
+	
+	motorcycle_rear.self_modulate = color 
+	motorcycle_front.self_modulate = color 
+	
 		
 func _rider_shoot(bullet_rot, bullet_pos, shooter):
 	emit_signal("rider_shoot", bullet_rot, bullet_pos, shooter)
@@ -176,6 +193,8 @@ func _physics_process(delta):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	if vehicle_state == vehicleStates.Normal:
+		#target = global.player.global_position
+
 		if global_position.x >= global.player.global_position.x:
 			target = global.player.chase_pos_right.global_position
 		else:
@@ -186,53 +205,17 @@ func _physics_process(delta):
 		
 	match vehicle_state:
 		vehicleStates.Normal:
-			speed = 110
-			#print("driver is normal")
-#			if global_position.x >= global.player.global_position.x:
-#				target = global.player.chase_pos_right.global_position
-#			else:
-#				target = global.player.chase_pos_left.global_position
-#			$Icon.global_position = target
+			speed = 150
+		
 		vehicleStates.FlatTire:
 			speed = 300
-#			pass
-##			$BoidArea2D.monitoring = false
-##			target = Vector2.ZERO
-##			if !new_vel_x:
-##				new_vel_x = rng.randi_range(-70, 70)
-##			if !new_vel_y:
-##				new_vel_y = -170
-##			if colliding:
-##				new_vel_x *= -1
+#		
 		vehicleStates.DriverDead:
 			speed = rng.randi_range(200, 350)
-#			print("driver is dead")
-#			print(target)
-#			pass
-##			$BoidArea2D.monitoring = false
-##			target = Vector2.ZERO
-##			if !new_vel_x:
-##				if global_position.x > global.screen_middle.x:
-##					new_vel_x = 250
-##				else:
-##					new_vel_x = -250
-##			if !new_vel_y:
-##				new_vel_y = rng.randi_range(-30, 200)
-##
-##			if colliding:
-##				new_vel_x *= -1
+#			
 		vehicleStates.Explode:
 			speed = 0
-#			target = Vector2.ZERO
-#			vel = Vector2.ZERO
-#
-#	if new_vel_x:
-#		vel.x = lerp(vel.x, new_vel_x, 0.5)
-#		#vel.x = new_vel_x
-#	if new_vel_y:
-#		vel.y = lerp(vel.y, new_vel_y, 0.5)
-		#vel.y = new_vel_y
-
+#			
 	var turn_dir
 	if vel.x > 70:
 		turn_dir = "TurnLeft"
@@ -249,14 +232,16 @@ func _physics_process(delta):
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
-		if collision_count >= 3:
-			target.x = global_position.x
-			target.y = -170
-		else:
-#			if driver.dead:
-#				trigger_explosion(collision.collider)
-			vel = vel.bounce(collision.normal)
-			collision_count += 1
+		if vehicle_state != vehicleStates.Normal:
+			if collision_count >= 3:
+				target.x = global_position.x
+				target.y = -170
+			else:
+	#			if driver.dead:
+	#				trigger_explosion(collision.collider)
+				
+				vel = vel.bounce(collision.normal) 
+				collision_count += 1
 	
 
 	if !vehicle_state == vehicleStates.Explode:
@@ -275,7 +260,11 @@ func get_flock_status():
 	var align_vector: = Vector2()
 	var avoid_vector: = Vector2()
 	
+	if vehicle_state != vehicleStates.Normal:
+		return [Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
+		
 	for f in _flock:
+		
 		var neighbor_pos: Vector2 = f.global_position
 
 		align_vector += f.vel
@@ -298,7 +287,7 @@ func get_flock_status():
 
 
 func _on_BoidArea2D_body_entered(body):
-	if self != body:# && body.is_in_group("enemy"):
+	if self != body && body.is_in_group("enemy"):
 		_flock.append(body)
 
 
