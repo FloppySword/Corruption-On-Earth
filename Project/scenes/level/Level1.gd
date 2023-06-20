@@ -84,11 +84,11 @@ func _ready():
 	if DEBUG:
 		$DEBUG.visible = true
 		$DEBUG.enemy_container = $Gameplay/enemy_container
-		$DEBUG.cohesion_force = 0.00
-		$DEBUG.align_force = 0.00
-		$DEBUG.separation_force = 0.85
-		$DEBUG.view_distance = 65.0
-		$DEBUG.avoid_distance = 95.0
+#		$DEBUG.cohesion_force = 0.00
+#		$DEBUG.align_force = 0.00
+#		$DEBUG.separation_force = 0.85
+#		$DEBUG.view_distance = 65.0
+#		$DEBUG.avoid_distance = 95.0
 		$DEBUG.set_vars()
 	else:
 		$DEBUG.visible = false

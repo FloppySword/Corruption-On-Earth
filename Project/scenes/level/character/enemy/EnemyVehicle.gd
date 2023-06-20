@@ -17,11 +17,11 @@ var collision_count = 0
 	
 	
 var _flock = []
-export var cohesion_force: = 0.00
-export var align_force: = 0.00
-export var separation_force: = 1
-export(float) var view_distance: = 45.0
-export(float) var avoid_distance: = 25.0
+var cohesion_force: = 0
+var align_force: = 0
+var separation_force: = 0
+var view_distance: = 0
+var avoid_distance: = 0
 #
 #const AVOID_RADIUS = 150
 #const DETECT_RADIUS = 1200
@@ -55,6 +55,12 @@ onready var motorcycle_front = $SpriteRear/SpriteFront
 func _ready():
 	randomize()
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
+	
+	cohesion_force = global.cohesion_force
+	align_force = global.align_force
+	separation_force = global.separation_force
+	view_distance = global.view_distance
+	avoid_distance = global.avoid_distance
 	
 func init(spawnpos, type):
 	global_position = spawnpos
@@ -287,7 +293,7 @@ func get_flock_status():
 
 
 func _on_BoidArea2D_body_entered(body):
-	if self != body && body.is_in_group("enemy"):
+	if self != body:# && body.is_in_group("enemy"):
 		_flock.append(body)
 
 

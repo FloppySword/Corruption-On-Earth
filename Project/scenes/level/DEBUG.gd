@@ -1,54 +1,56 @@
 extends Node2D
 
 
-var cohesion_force: = 0.05
-var align_force: = 0.05
-var separation_force: = 0.025
-var view_distance: = 20.0
-var avoid_distance: = 50.0
+var cohesion_force: = global.cohesion_force
+var align_force: = global.align_force
+var separation_force: = global.separation_force
+var view_distance: = global.view_distance
+var avoid_distance: = global.avoid_distance
 
 var enemy_container
 
 
 func set_vars():
+	global.cohesion_force = cohesion_force
+	global.align_force = align_force
+	global.separation_force = separation_force
+	global.view_distance = view_distance
+	global.avoid_distance = avoid_distance
 	$Control/Cohesion/Label.text = "Cohesion Force " + str(cohesion_force)
 	$Control/Alignment/Label.text = "Align Force " + str(align_force)
 	$Control/Separation/Label.text = "Separation Force " + str(separation_force)
 	$Control/ViewDistance/Label.text = "View Distance " + str(view_distance)
 	$Control/AvoidDistance/Label.text = "Avoid Distance " + str(avoid_distance)
-
-
-
+	for enemy in enemy_container.get_children():
+		enemy.cohesion_force = global.cohesion_force
+		enemy.align_force = global.align_force
+		enemy.separation_force = global.separation_force
+		enemy.view_distance = global.view_distance
+		enemy.get_node("BoidArea2D/CollisionShape2D").shape.radius = enemy.view_distance
+		enemy.avoid_distance = global.avoid_distance
 
 
 
 func _on_Cohesion_value_changed(value):
-	for enemy in enemy_container.get_children():
-		$Control/Cohesion/Label.text = "Cohesion Force " + str(value)
-		enemy.cohesion_force = value
-
+	cohesion_force = value
+	set_vars()
+	
 
 func _on_Alignment_value_changed(value):
-	for enemy in enemy_container.get_children():
-		$Control/Alignment/Label.text = "Align Force " + str(value)
-		enemy.align_force = value
+	align_force = value
+	set_vars()
 
 
 func _on_Separation_value_changed(value):
-	for enemy in enemy_container.get_children():
-		$Control/Separation/Label.text = "Separation Force " + str(value)
-		enemy.separation_force = value
+	separation_force = value
+	set_vars()
 
 
 func _on_ViewDistance_value_changed(value):
-	for enemy in enemy_container.get_children():
-		$Control/ViewDistance/Label.text = "View Distance " + str(value)
-		enemy.view_distance = value
-		enemy.get_node("BoidArea2D/CollisionShape2D").shape.radius = enemy.view_distance
-
+	view_distance = value
+	set_vars()
 
 func _on_AvoidDistance_value_changed(value):
-	for enemy in enemy_container.get_children():
-		$Control/AvoidDistance/Label.text = "Avoid Distance " + str(value)
-		enemy.avoid_distance = value
+	avoid_distance = value
+	set_vars()
 		

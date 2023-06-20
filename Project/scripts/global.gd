@@ -77,7 +77,14 @@ var waves = {
 				10:["du","a","a","a"],
 				11:["da","da","da","da"]
 			}
-					
+
+#Enemy boid variables
+var cohesion_force: = 0.05
+var align_force: = 0.05
+var separation_force: = 0.05
+var view_distance: = 45.0
+var avoid_distance: = 45.0
+
 
 func _enemy_remote_shoot(enemy):
 	if weakref(enemy).get_ref():
