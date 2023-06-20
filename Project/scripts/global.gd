@@ -21,6 +21,8 @@ var mute_music = false
 
 var upper_bounds = Vector2.ZERO
 var lower_bounds = Vector2.ZERO
+var player_upper_bounds = Vector2.ZERO
+var player_lower_bounds = Vector2.ZERO
 var screen_middle = Vector2(600, 275)
 
 
@@ -41,6 +43,7 @@ var gun_dmg_max = 120
 var AR_active = true
 var pistol_active = false
 
+
 #player_horse settings
 var player
 var playerhorse_pos = Vector2()
@@ -53,15 +56,39 @@ var ground_vel = Vector2(0, -400)
 
 var current_level
 
+var enemy_spawns
+var die_targets
+
+#Waves
+#Key: 		u = solo unarmed,
+#			a = armed,
+#			du = duo unarmed
+#			da = duo armed
+var waves = {
+				1:["u"],
+				2:["u","u"],
+				3:["a"],
+				4:["u","u","u"],
+				5:["a","a"],
+				6:["u","u","u","u","u"],
+				7:["du"],
+				8:["a","a","a","a"],
+				9:["du","du","du"],
+				10:["du","a","a","a"],
+				11:["da","da","da","da"]
+			}
+					
+
 func _enemy_remote_shoot(enemy):
-	if enemy:
+	if weakref(enemy).get_ref():
 		#we do this here in the global script because calling the yield timer
 		#should be done by a scene that can't disappear before
 		#the time is up. 
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
 		yield(get_tree().create_timer(rng.randf_range(0.1, 0.7)), "timeout")
-		enemy._shoot()
+		if weakref(enemy).get_ref():
+			enemy._shoot()
 	
 #func _enemy_remote_fall(enemy):
 #	current_level._enemy_remote_fall(enemy, enemy.global_position)

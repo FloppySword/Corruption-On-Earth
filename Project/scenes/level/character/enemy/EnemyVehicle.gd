@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal skid
 signal rider_shoot
+signal explosion
 
 var pos = Vector2()
 var speed = 90
@@ -9,17 +10,18 @@ var rot = 0
 var vel = Vector2(0, 0)
 var acc = Vector2(0, 0)
 
-var new_vel_x
-var new_vel_y
-var colliding = false
+#var new_vel_x
+#var new_vel_y
+#var colliding = false
+var collision_count = 0
 	
 	
 var _flock = []
-export var cohesion_force: = 0.05
-export var algin_force: = 0.05
-export var separation_force: = 0.025
-export(float) var view_distance: = 50.0
-export(float) var avoid_distance: = 20.0
+export var cohesion_force: = 0.00
+export var align_force: = 0.00
+export var separation_force: = 3.00
+export(float) var view_distance: = 95.0
+export(float) var avoid_distance: = 95.0
 #
 #const AVOID_RADIUS = 150
 #const DETECT_RADIUS = 1200
@@ -31,7 +33,7 @@ var target_dist
 var driver
 var passenger
 
-enum vehicleStates {FlatTire, DriverDead, Normal}
+enum vehicleStates {FlatTire, DriverDead, Normal, Explode}
 var vehicle_state = vehicleStates.Normal
 
 
@@ -53,16 +55,21 @@ func _ready():
 	
 func init(spawnpos, type):
 	global_position = spawnpos
-	if type == "MotorcycleSolo":
-		pass
+	
+	var armed
+	if "u" in type:
+		armed = ""
+	elif "a" in type:
+		armed = "Armed"
 		
 	var e1 = Enemy.instance()
 	seat1.add_child(e1)
-	e1.init(seat1.global_position, "Driver", self)
+	e1.init(seat1.global_position, "Driver"+armed, self)
 	driver = e1
-		
+	
+	if "d" in type:
 		#$Seat1.add_child()
-	if type == "MotorcycleDuo":
+	#if type == "MotorcycleDuo":
 		var e2 = Enemy.instance()
 		seat2.add_child(e2)
 		e2.init(seat2.global_position, "Passenger", self)
@@ -82,35 +89,73 @@ func _hit_metal(hit_pos):
 	m.play('default')
 	
 	
+#State changing functions
 func _hit_tire(hit_pos):
-	if vehicle_state == vehicleStates.FlatTire:
-		return
+	if vehicle_state == vehicleStates.Normal:
+		front_tire.play("flat")
+		
+		#reusing MetalImpact for this
+		var t = MetalImpact.instance()
+		add_child(t)
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		t.global_rotation = rng.randi_range(-180, 180)
+		t.tire = true
+		#t.speed_scale = 2
+		t.scale = Vector2(2, 2)
+		t.global_position = hit_pos
+		t.modulate = Color.black
+		t.play("default")
+		
+		vehicle_state = vehicleStates.FlatTire
+		
+		reshuffle_dead_target()
+		
+		
+		
+
+		#set new target
+		
+		
 	
-	new_vel_x = null
-	new_vel_y = null
+func _driver_dead():
+	if vehicle_state == vehicleStates.Normal:
+		#$BoidArea2D.monitoring = false
+		vehicle_state = vehicleStates.DriverDead
+		reshuffle_dead_target()
+
+
+		
+func trigger_explosion(collider):
+	return
+	emit_signal("explosion", self, collider)
 	
-	front_tire.play("flat")
-	
-	#reusing MetalImpact for this
-	var t = MetalImpact.instance()
-	add_child(t)
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	t.global_rotation = rng.randi_range(-180, 180)
-	t.tire = true
-	#t.speed_scale = 2
-	t.scale = Vector2(2, 2)
-	t.global_position = hit_pos
-	t.modulate = Color.black
-	t.play("default")
-	
-	vehicle_state = vehicleStates.FlatTire
+	vehicle_state = vehicleStates.Explode
 	
 	
+func reshuffle_dead_target():
+	match vehicle_state:
+		vehicleStates.FlatTire:
+			randomize()
+			var possible_targets = [0, 1, 2]
+			possible_targets.shuffle()
+			target = global.die_targets.get_child(possible_targets[0]).global_position
+		vehicleStates.DriverDead:
+			randomize()
+			var possible_targets = [3, 4, 5, 6]
+			possible_targets.shuffle()
+			target = global.die_targets.get_child(possible_targets[0]).global_position
+			vehicle_state = vehicleStates.DriverDead
+
+
 		
 func _physics_process(delta):
+	#consider passing rotation of front and making treadmark rotate
 	emit_signal("skid", global_position + Vector2(0, 10), "tire")
 	
+	
+#	if colliding:
+#		reshuffle_dead_target()
 
 
 	
@@ -119,7 +164,7 @@ func _physics_process(delta):
 	
 	# steer towards vectors
 	var cohesion_vector = vectors[0] * cohesion_force
-	var align_vector = vectors[1] * algin_force
+	var align_vector = vectors[1] * align_force
 	var separation_vector = vectors[2] * separation_force
 	var target_vector = (target - global_position).normalized() * speed * 0.05
 
@@ -130,39 +175,62 @@ func _physics_process(delta):
 	
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
+	if vehicle_state == vehicleStates.Normal:
+		if global_position.x >= global.player.global_position.x:
+			target = global.player.chase_pos_right.global_position
+		else:
+			target = global.player.chase_pos_left.global_position
+		$Icon.global_position = target
+	
+		
+		
 	match vehicle_state:
 		vehicleStates.Normal:
-			if global_position.x >= global.player.global_position.x:
-				target = global.player.chase_pos_right.global_position
-			else:
-				target = global.player.chase_pos_left.global_position
-			$Icon.global_position = target
+			speed = 110
+			#print("driver is normal")
+#			if global_position.x >= global.player.global_position.x:
+#				target = global.player.chase_pos_right.global_position
+#			else:
+#				target = global.player.chase_pos_left.global_position
+#			$Icon.global_position = target
 		vehicleStates.FlatTire:
-			target = Vector2.ZERO
-			if !new_vel_x:
-				new_vel_x = rng.randi_range(-70, 70)
-			if !new_vel_y:
-				new_vel_y = -170
-			if colliding:
-				new_vel_x *= -1
+			speed = 300
+#			pass
+##			$BoidArea2D.monitoring = false
+##			target = Vector2.ZERO
+##			if !new_vel_x:
+##				new_vel_x = rng.randi_range(-70, 70)
+##			if !new_vel_y:
+##				new_vel_y = -170
+##			if colliding:
+##				new_vel_x *= -1
 		vehicleStates.DriverDead:
-			target = Vector2.ZERO
-			if !new_vel_x:
-				if global_position.x > global.screen_middle.x:
-					new_vel_x = 250
-				else:
-					new_vel_x = -250
-			if !new_vel_y:
-				new_vel_y = rng.randi_range(-30, 200)
-				
-			if colliding:
-				new_vel_x *= -1
-	
-	if new_vel_x:
-		vel.x = lerp(vel.x, new_vel_x, 0.5)
-		#vel.x = new_vel_x
-	if new_vel_y:
-		vel.y = lerp(vel.y, new_vel_y, 0.5)
+			speed = rng.randi_range(200, 350)
+#			print("driver is dead")
+#			print(target)
+#			pass
+##			$BoidArea2D.monitoring = false
+##			target = Vector2.ZERO
+##			if !new_vel_x:
+##				if global_position.x > global.screen_middle.x:
+##					new_vel_x = 250
+##				else:
+##					new_vel_x = -250
+##			if !new_vel_y:
+##				new_vel_y = rng.randi_range(-30, 200)
+##
+##			if colliding:
+##				new_vel_x *= -1
+		vehicleStates.Explode:
+			speed = 0
+#			target = Vector2.ZERO
+#			vel = Vector2.ZERO
+#
+#	if new_vel_x:
+#		vel.x = lerp(vel.x, new_vel_x, 0.5)
+#		#vel.x = new_vel_x
+#	if new_vel_y:
+#		vel.y = lerp(vel.y, new_vel_y, 0.5)
 		#vel.y = new_vel_y
 
 	var turn_dir
@@ -177,27 +245,29 @@ func _physics_process(delta):
 		$AnimationPlayer.play("Motorcycle"+turn_dir)
 	if driver.initiated:
 		driver.set_anim("MotorcycleDriver"+turn_dir)
-#	if passenger && in_shoot_range:
-#		passenger.shoot()
+
 
 	var collision = move_and_collide(vel * delta)
 	if collision:
-		colliding = true
-	else:
-		colliding = false
-	print(colliding)
+		if collision_count >= 3:
+			target.x = global_position.x
+			target.y = -170
+		else:
+#			if driver.dead:
+#				trigger_explosion(collision.collider)
+			vel = vel.bounce(collision.normal)
+			collision_count += 1
+	
 
+	if !vehicle_state == vehicleStates.Explode:
+		if global_position.x > global.upper_bounds.x \
+			or global_position.x < global.lower_bounds.x \
+			or global_position.y > global.upper_bounds.y \
+			or global_position.y < global.lower_bounds.y:
+			queue_free()
 		
-	if global_position.x > global.upper_bounds.x \
-		or global_position.x < global.lower_bounds.x \
-		or global_position.y > global.upper_bounds.y \
-		or global_position.y < global.lower_bounds.y:
-		queue_free()
 		
-		
-func _driver_dead():
-	if vehicle_state == vehicleStates.Normal:
-		vehicle_state = vehicleStates.DriverDead
+
 
 func get_flock_status():
 	var center_vector: = Vector2()

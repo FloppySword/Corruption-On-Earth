@@ -9,6 +9,7 @@ var GunshotWound = preload("res://scenes/gunshot_wound.tscn")
 var HitPos = preload("res://scenes/hit_pos.tscn")
 var Bullet = preload("res://scenes/level/item/Bullet.tscn")
 var Treadmark = preload("res://scenes/level/character/Treadmark.tscn")
+var Explosion = preload("res://scenes/level/character/Explosion.tscn")
 
 
 
@@ -18,7 +19,8 @@ onready var player_horse = $Gameplay/PlayerHorse
 onready var bge1 = $Gameplay/bge1
 onready var bge2 = $Gameplay/bge2
 
-onready var e1_spawns = $Gameplay/e1_spawns
+onready var enemy_spawns = $Gameplay/enemy_spawns
+onready var die_targets = $Gameplay/die_targets
 
 onready var enemy_container = $Gameplay/enemy_container
 onready var bullet_container = $Gameplay/bullet_container
@@ -32,6 +34,8 @@ onready var horse_healthbar = $HUD/BottomBorder/HealthBarContainer/Horse/HorseHe
 
 onready var upper_bounds = $Gameplay/UpperBounds.global_position
 onready var lower_bounds = $Gameplay/LowerBounds.global_position
+onready var player_upper_bounds = $Gameplay/UpperBounds/PlayerUpperBounds.global_position
+onready var player_lower_bounds = $Gameplay/LowerBounds/PlayerLowerBounds.global_position
 
 onready var joystickMovement = $HUD/BottomBorder/MobileButtons/MovementJoystick
 onready var joystickAiming = $HUD/BottomBorder/MobileButtons/AimingJoystick
@@ -43,7 +47,10 @@ var bge2_startpos = Vector2(599.1729, 2100)
 
 var time_start = 0
 var time_now = 0
-var wave = 0
+var waves = global.waves
+var wave = 1
+
+export(bool) var DEBUG: = false
 
 
 
@@ -61,13 +68,30 @@ func _ready():
 
 	global.upper_bounds = upper_bounds
 	global.lower_bounds = lower_bounds
+	global.player_upper_bounds = player_upper_bounds
+	global.player_lower_bounds = player_lower_bounds
 	global.current_level = self
+	
+	global.enemy_spawns = enemy_spawns
+	global.die_targets = die_targets
 
 	joystickAiming.connect("joystick_shoot", self, "_mobile_shoot")
 
 
 	get_tree().set_pause(false)
 	show_player_health()
+	
+	if DEBUG:
+		$DEBUG.visible = true
+		$DEBUG.enemy_container = $Gameplay/enemy_container
+		$DEBUG.cohesion_force = 0.00
+		$DEBUG.align_force = 0.00
+		$DEBUG.separation_force = 0.85
+		$DEBUG.view_distance = 65.0
+		$DEBUG.avoid_distance = 95.0
+		$DEBUG.set_vars()
+	else:
+		$DEBUG.visible = false
 	
 #func _enemy_remote_fall(enemy, enemy_pos):
 #	if enemy.get_parent() == effects_container:
@@ -98,17 +122,37 @@ func _spawn_treadmark(pos, type):
 func _spawn_blood():
 	pass
 	
+func _spawn_explosion(enemy1, enemy2):
+	var enemyLeft
+	var enemyRight
+	if enemy1.global_position.x > enemy2.global_position.x:
+		enemyLeft = enemy2
+		enemyRight = enemy1
+	else:
+		enemyLeft = enemy1
+		enemyRight = enemy2
+		
+	enemyLeft.vehicle_state = enemyLeft.vehicleStates.Explode
+	enemyRight.vehicle_state = enemyLeft.vehicleStates.Explode
+		
+	var midpoint = Vector2((enemy1.global_position.x + enemy2.global_position.x) / 2, \
+				(enemy1.global_position.y + enemy2.global_position.y) / 2)
+	var e = Explosion.instance()
+	effects_container.add_child(e)
+	e.init(enemyLeft, enemyRight, midpoint)
+	
 func _mobile_shoot():
 	$AnimationPlayer.play("MobileShoot")
 
 
-func spawn_enemy1(pos):
+func spawn_enemy1(pos, type):
 	var e = Enemy.instance()
 	enemy_container.add_child(e)
 	e.connect("skid", self, "_spawn_treadmark")
 	e.connect("rider_shoot", self, "_spawn_bullet")
+	e.connect("explosion", self, "_spawn_explosion")
 	#e1.connect("dead", self, "")
-	e.init(pos, "MotorcycleDuo")
+	e.init(pos, type)
 
 
 func show_player_health():
@@ -146,28 +190,34 @@ func show_player_health():
 #	add_child(hit_position)
 #	hit_position.global_position = (collision_point)
 #
-	
+func set_next_wave():
+	if wave == waves.size():
+		set_game_won()
+		return
+		
+	var nextWave = waves[wave]
+	wave += 1
+	var enemy_spawns_list = enemy_spawns.get_children()
+	for i in range(0, nextWave.size() - 1):#wave):
+		var nextType = nextWave[i]
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var rn = rng.randi_range(0, enemy_spawns_list.size() - 1)
+		spawn_enemy1(enemy_spawns_list[rn].global_position, nextType)
+		enemy_spawns_list.remove(rn)
+			
 
 func _process(delta):
 #	
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+
 	#var rn = rng.randi_range(0, e1_spawns.get_child_count())
 #	HUD.set_layer(1)
 #	get_tree().set_pause(false)
 #	show_player_health()
 	
 	if enemy_container.get_child_count() == 0:
-		if wave == 4:
-			set_game_won()
-			return
-		wave += 1
-		var enemy_spawns = e1_spawns.get_children()
-		for i in range(0, wave):
-			var rn = rng.randi_range(0, enemy_spawns.size() - 1)
-			spawn_enemy1(enemy_spawns[rn].global_position)
-			enemy_spawns.remove(rn)
-			
+		set_next_wave()
+
 	if bge1.global_position.y < -2100 / 2:
 		bge1_pos = bge1_startpos
 	else:

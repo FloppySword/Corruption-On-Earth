@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://data/images/screens/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://data/images/NEW/Joystick/joystick-labels.png" type="Texture" id=14]
 [ext_resource path="res://data/images/NEW/Joystick/evade-arrow-normal.png" type="Texture" id=15]
 [ext_resource path="res://data/images/NEW/Joystick/evade-arrow-pressed.png" type="Texture" id=16]
+[ext_resource path="res://scenes/level/DEBUG.gd" type="Script" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Mobile"
@@ -463,54 +464,77 @@ self_modulate = Color( 0.768627, 0.768627, 0.768627, 1 )
 position = Vector2( 599.173, -1050 )
 texture = ExtResource( 3 )
 
-[node name="e1_spawns" type="Node2D" parent="Gameplay"]
+[node name="die_targets" type="Node2D" parent="Gameplay"]
 
-[node name="pos1" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="Tire1" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( -11, -297 )
+
+[node name="Tire2" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( 597, -328 )
+
+[node name="Tire3" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( 1222, -359 )
+
+[node name="Normal1" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( 1609, 348 )
+
+[node name="Normal2" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( 1632, 738 )
+
+[node name="Normal3" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( -328, 795 )
+
+[node name="Normal4" type="Position2D" parent="Gameplay/die_targets"]
+position = Vector2( -342, 376 )
+
+[node name="enemy_spawns" type="Node2D" parent="Gameplay"]
+
+[node name="pos1" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( -70.4341, 429.421 )
 
-[node name="pos2" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 1049.8, 787.878 )
+[node name="pos2" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( 1266, -69 )
 
-[node name="pos3" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 1282.64, 741.249 )
+[node name="pos3" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( 1292, 321 )
 
-[node name="pos4" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 1254.18, 518.033 )
+[node name="pos4" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( 1287, 455 )
 
-[node name="pos5" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 731.71, 787.878 )
+[node name="pos5" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( 300, -90 )
 
-[node name="pos6" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 127.339, 781.062 )
+[node name="pos6" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( -62, 319 )
 
-[node name="pos7" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( 406.05, 788.506 )
+[node name="pos7" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( 643, -89 )
 
-[node name="pos8" type="Position2D" parent="Gameplay/e1_spawns"]
-position = Vector2( -70.4909, 528.682 )
+[node name="pos8" type="Position2D" parent="Gameplay/enemy_spawns"]
+position = Vector2( -59, -59 )
 
-[node name="pos9" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos9" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 132.461, -85.4066 )
 
-[node name="pos10" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos10" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 500.986, -87.6277 )
 
-[node name="pos11" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos11" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 808.3, -87.6277 )
 
-[node name="pos12" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos12" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 1057.16, -84.2874 )
 
-[node name="pos13" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos13" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( -71.2989, 190.384 )
 
-[node name="pos14" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos14" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 1283.94, 206.034 )
 
-[node name="pos15" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos15" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( 1272.25, 77.4303 )
 
-[node name="pos16" type="Position2D" parent="Gameplay/e1_spawns"]
+[node name="pos16" type="Position2D" parent="Gameplay/enemy_spawns"]
 position = Vector2( -68.9288, 69.0096 )
 
 [node name="effects_container" type="Node2D" parent="Gameplay"]
@@ -531,15 +555,114 @@ scale = Vector2( 1.5, 1.5 )
 position = Vector2( -146, -145 )
 
 [node name="PlayerLowerBounds" type="Position2D" parent="Gameplay/LowerBounds"]
-position = Vector2( 153, 157 )
+position = Vector2( 168, 170 )
 
 [node name="UpperBounds" type="Position2D" parent="Gameplay"]
-position = Vector2( 1412, 706 )
+position = Vector2( 1409, 745 )
 
 [node name="PlayerUpperBounds" type="Position2D" parent="Gameplay/UpperBounds"]
-position = Vector2( -228, -181 )
+position = Vector2( -235, -182 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Mobile = SubResource( 1 )
 anims/MobileShoot = SubResource( 3 )
 anims/PC = SubResource( 2 )
+
+[node name="DEBUG" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 17 )
+
+[node name="Control" type="Control" parent="DEBUG"]
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1200, 600 )
+
+[node name="Cohesion" type="HSlider" parent="DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 132.0
+margin_top = 117.0
+margin_right = -768.0
+margin_bottom = 157.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 5.0
+step = 0.1
+
+[node name="Label" type="Label" parent="DEBUG/Control/Cohesion"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "COHESION"
+
+[node name="Alignment" type="HSlider" parent="DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 131.0
+margin_top = 168.0
+margin_right = -769.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 5.0
+step = 0.1
+
+[node name="Label" type="Label" parent="DEBUG/Control/Alignment"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Separation"
+
+[node name="Separation" type="HSlider" parent="DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 131.0
+margin_top = 223.0
+margin_right = -769.0
+margin_bottom = 263.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 5.0
+step = 0.1
+
+[node name="Label" type="Label" parent="DEBUG/Control/Separation"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Separation"
+
+[node name="ViewDistance" type="HSlider" parent="DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 131.0
+margin_top = 277.0
+margin_right = -769.0
+margin_bottom = 317.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+min_value = 1.0
+value = 20.0
+
+[node name="Label" type="Label" parent="DEBUG/Control/ViewDistance"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "View"
+
+[node name="AvoidDistance" type="HSlider" parent="DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 132.0
+margin_top = 340.0
+margin_right = -768.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+min_value = 1.0
+value = 20.0
+
+[node name="Label" type="Label" parent="DEBUG/Control/AvoidDistance"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Avoid"
+
+[connection signal="value_changed" from="DEBUG/Control/Cohesion" to="DEBUG" method="_on_Cohesion_value_changed"]
+[connection signal="value_changed" from="DEBUG/Control/Alignment" to="DEBUG" method="_on_Alignment_value_changed"]
+[connection signal="value_changed" from="DEBUG/Control/Separation" to="DEBUG" method="_on_Separation_value_changed"]
+[connection signal="value_changed" from="DEBUG/Control/ViewDistance" to="DEBUG" method="_on_ViewDistance_value_changed"]
+[connection signal="value_changed" from="DEBUG/Control/AvoidDistance" to="DEBUG" method="_on_AvoidDistance_value_changed"]

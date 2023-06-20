@@ -326,6 +326,8 @@ func get_horse_movement(delta):
 
 
 	move_and_collide(vel * delta)
+	global_position.x = clamp(global_position.x, global.player_lower_bounds.x, global.player_upper_bounds.x)
+	global_position.y = clamp(global_position.y, global.player_lower_bounds.y, global.player_upper_bounds.y)
 	pos = global_position
 
 	
@@ -351,6 +353,7 @@ func _physics_process(delta):
 		get_player_direction()
 		get_player_action()
 		get_horse_movement(delta)
+		
 		
 
 func _damage(hitbox, damage, type, _pos):
