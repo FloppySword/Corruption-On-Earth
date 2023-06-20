@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://data/images/screens/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -17,6 +17,8 @@
 [ext_resource path="res://data/images/NEW/Joystick/evade-arrow-normal.png" type="Texture" id=15]
 [ext_resource path="res://data/images/NEW/Joystick/evade-arrow-pressed.png" type="Texture" id=16]
 [ext_resource path="res://scenes/level/DEBUG.gd" type="Script" id=17]
+
+[sub_resource type="StyleBoxFlat" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Mobile"
@@ -199,6 +201,9 @@ tracks/4/keys = {
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 DEBUG = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -445,6 +450,130 @@ texture = ExtResource( 14 )
 expand = true
 stretch_mode = 6
 
+[node name="DEBUG" type="Node2D" parent="HUD"]
+script = ExtResource( 17 )
+
+[node name="Control" type="Control" parent="HUD/DEBUG"]
+anchor_bottom = 1.0
+margin_right = 1200.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1200, 600 )
+
+[node name="Panel" type="Panel" parent="HUD/DEBUG/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -61.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 1200, 150 )
+custom_styles/panel = SubResource( 4 )
+
+[node name="Target" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 12.0
+margin_top = 552.0
+margin_right = -888.0
+margin_bottom = 592.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 1.0
+step = 0.01
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/Target"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "TARGET"
+
+[node name="Cohesion" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 12.0
+margin_top = 606.0
+margin_right = -888.0
+margin_bottom = 646.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 1.0
+step = 0.05
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/Cohesion"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "COHESION"
+
+[node name="Alignment" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 332.0
+margin_top = 549.0
+margin_right = -568.0
+margin_bottom = 589.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 1.0
+step = 0.05
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/Alignment"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Separation"
+
+[node name="Separation" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 332.0
+margin_top = 601.0
+margin_right = -568.0
+margin_bottom = 641.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+max_value = 1.0
+step = 0.05
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/Separation"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Separation"
+
+[node name="ViewDistance" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 712.0
+margin_top = 553.0
+margin_right = -188.0
+margin_bottom = 593.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+min_value = 5.0
+max_value = 300.0
+step = 5.0
+value = 20.0
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/ViewDistance"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "View"
+
+[node name="AvoidDistance" type="HSlider" parent="HUD/DEBUG/Control"]
+anchor_right = 1.0
+margin_left = 707.0
+margin_top = 595.0
+margin_right = -193.0
+margin_bottom = 635.0
+rect_min_size = Vector2( 300, 40 )
+focus_mode = 0
+min_value = 5.0
+max_value = 300.0
+step = 5.0
+value = 20.0
+
+[node name="Label" type="Label" parent="HUD/DEBUG/Control/AvoidDistance"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Avoid"
+
 [node name="Gameplay" type="Node2D" parent="."]
 
 [node name="background" type="Sprite" parent="Gameplay"]
@@ -569,101 +698,9 @@ anims/Mobile = SubResource( 1 )
 anims/MobileShoot = SubResource( 3 )
 anims/PC = SubResource( 2 )
 
-[node name="DEBUG" type="Node2D" parent="."]
-visible = false
-script = ExtResource( 17 )
-
-[node name="Control" type="Control" parent="DEBUG"]
-anchor_bottom = 1.0
-rect_min_size = Vector2( 1200, 600 )
-
-[node name="Cohesion" type="HSlider" parent="DEBUG/Control"]
-anchor_right = 1.0
-margin_left = 132.0
-margin_top = 117.0
-margin_right = -768.0
-margin_bottom = 157.0
-rect_min_size = Vector2( 300, 40 )
-focus_mode = 0
-max_value = 5.0
-step = 0.1
-
-[node name="Label" type="Label" parent="DEBUG/Control/Cohesion"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "COHESION"
-
-[node name="Alignment" type="HSlider" parent="DEBUG/Control"]
-anchor_right = 1.0
-margin_left = 131.0
-margin_top = 168.0
-margin_right = -769.0
-margin_bottom = 208.0
-rect_min_size = Vector2( 300, 40 )
-focus_mode = 0
-max_value = 5.0
-step = 0.1
-
-[node name="Label" type="Label" parent="DEBUG/Control/Alignment"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Separation"
-
-[node name="Separation" type="HSlider" parent="DEBUG/Control"]
-anchor_right = 1.0
-margin_left = 131.0
-margin_top = 223.0
-margin_right = -769.0
-margin_bottom = 263.0
-rect_min_size = Vector2( 300, 40 )
-focus_mode = 0
-max_value = 5.0
-step = 0.1
-
-[node name="Label" type="Label" parent="DEBUG/Control/Separation"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Separation"
-
-[node name="ViewDistance" type="HSlider" parent="DEBUG/Control"]
-anchor_right = 1.0
-margin_left = 131.0
-margin_top = 277.0
-margin_right = -769.0
-margin_bottom = 317.0
-rect_min_size = Vector2( 300, 40 )
-focus_mode = 0
-min_value = 1.0
-value = 20.0
-
-[node name="Label" type="Label" parent="DEBUG/Control/ViewDistance"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "View"
-
-[node name="AvoidDistance" type="HSlider" parent="DEBUG/Control"]
-anchor_right = 1.0
-margin_left = 132.0
-margin_top = 340.0
-margin_right = -768.0
-margin_bottom = 380.0
-rect_min_size = Vector2( 300, 40 )
-focus_mode = 0
-min_value = 1.0
-value = 20.0
-
-[node name="Label" type="Label" parent="DEBUG/Control/AvoidDistance"]
-margin_right = 40.0
-margin_bottom = 14.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Avoid"
-
-[connection signal="value_changed" from="DEBUG/Control/Cohesion" to="DEBUG" method="_on_Cohesion_value_changed"]
-[connection signal="value_changed" from="DEBUG/Control/Alignment" to="DEBUG" method="_on_Alignment_value_changed"]
-[connection signal="value_changed" from="DEBUG/Control/Separation" to="DEBUG" method="_on_Separation_value_changed"]
-[connection signal="value_changed" from="DEBUG/Control/ViewDistance" to="DEBUG" method="_on_ViewDistance_value_changed"]
-[connection signal="value_changed" from="DEBUG/Control/AvoidDistance" to="DEBUG" method="_on_AvoidDistance_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/Target" to="HUD/DEBUG" method="_on_Target_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/Cohesion" to="HUD/DEBUG" method="_on_Cohesion_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/Alignment" to="HUD/DEBUG" method="_on_Alignment_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/Separation" to="HUD/DEBUG" method="_on_Separation_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/ViewDistance" to="HUD/DEBUG" method="_on_ViewDistance_value_changed"]
+[connection signal="value_changed" from="HUD/DEBUG/Control/AvoidDistance" to="HUD/DEBUG" method="_on_AvoidDistance_value_changed"]

@@ -249,7 +249,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 1, -1 ), Vector2( 2, -1 ), Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( 1, -1 ), Vector2( 3, -1 ), Vector2( 1, 1 ), Vector2( 2, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("HorseSprite/PlayerLegs:position")
@@ -261,7 +261,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( -2, 4 ), Vector2( -2, 6 ), Vector2( 0, 2 ), Vector2( 1, 2 ), Vector2( -1, 4 ), Vector2( 0, 4 ) ]
+"values": [ Vector2( -2, 4 ), Vector2( 0, 6 ), Vector2( 0, 2 ), Vector2( 1, 2 ), Vector2( -1, 4 ), Vector2( 0, 4 ) ]
 }
 
 [node name="Horse" type="KinematicBody2D" groups=["Player"]]
@@ -299,12 +299,13 @@ hframes = 6
 
 [node name="PlayerLegs" type="Sprite" parent="HorseSprite"]
 position = Vector2( -2, 4 )
+scale = Vector2( 1.1, 1.16667 )
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 19, 603, 25, 12 )
+region_rect = Rect2( 21.3915, 603, 20.5222, 12 )
 
 [node name="PlayerArea2D" type="Area2D" parent="." groups=["Character", "Player"]]
-position = Vector2( 2, 0 )
+position = Vector2( 1, 0 )
 collision_layer = 2
 collision_mask = 0
 
@@ -445,10 +446,10 @@ position = Vector2( -1.15143, 41.1369 )
 [node name="ChasePositions" type="Node2D" parent="."]
 
 [node name="Left" type="Position2D" parent="ChasePositions"]
-position = Vector2( -36, 14 )
+position = Vector2( -80, 14 )
 
 [node name="Right" type="Position2D" parent="ChasePositions"]
-position = Vector2( 36, 14 )
+position = Vector2( 80, 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/HorseGallop = SubResource( 48 )

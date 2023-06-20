@@ -30,6 +30,8 @@ var screen_middle = Vector2(600, 275)
 var player_starting_health = 100
 var player_health = player_starting_health
 
+var mouse_max_y = 0
+
 var playerhorse_starting_health = 100
 var playerhorse_health = player_starting_health
 
@@ -65,7 +67,7 @@ var die_targets
 #			du = duo unarmed
 #			da = duo armed
 var waves = {
-				1:["u"],
+				1:["u","u","u","u","u"],#["u"],
 				2:["u","u"],
 				3:["a"],
 				4:["u","u","u"],
@@ -79,11 +81,12 @@ var waves = {
 			}
 
 #Enemy boid variables
-var cohesion_force: = 0.05
-var align_force: = 0.05
-var separation_force: = 0.05
-var view_distance: = 45.0
-var avoid_distance: = 45.0
+var target_force = 0.04
+var cohesion_force = 0.00
+var align_force = 0.00
+var separation_force = 0.3
+var view_distance = 70
+var avoid_distance = 165
 
 
 func _enemy_remote_shoot(enemy):

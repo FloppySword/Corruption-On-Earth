@@ -17,11 +17,12 @@ var collision_count = 0
 	
 	
 var _flock = []
-var cohesion_force: = 0
-var align_force: = 0
-var separation_force: = 0
-var view_distance: = 0
-var avoid_distance: = 0
+var target_force = 0
+var cohesion_force = 0
+var align_force = 0
+var separation_force = 0
+var view_distance = 0
+var avoid_distance = 0
 #
 #const AVOID_RADIUS = 150
 #const DETECT_RADIUS = 1200
@@ -54,12 +55,12 @@ onready var motorcycle_front = $SpriteRear/SpriteFront
 
 func _ready():
 	randomize()
-	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
-	
+	target_force = global.target_force
 	cohesion_force = global.cohesion_force
 	align_force = global.align_force
 	separation_force = global.separation_force
 	view_distance = global.view_distance
+	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
 	avoid_distance = global.avoid_distance
 	
 func init(spawnpos, type):
@@ -180,7 +181,6 @@ func _physics_process(delta):
 #	if colliding:
 #		reshuffle_dead_target()
 
-
 	
 	var acceleration = Vector2.ZERO
 	var vectors = get_flock_status()
@@ -189,7 +189,10 @@ func _physics_process(delta):
 	var cohesion_vector = vectors[0] * cohesion_force
 	var align_vector = vectors[1] * align_force
 	var separation_vector = vectors[2] * separation_force
-	var target_vector = (target - global_position).normalized() * speed * 0.05
+	var target_vector = (target - global_position).normalized() * speed * target_force
+	
+#	if target.distance_to(global_position) < 100:
+#		target_vector = Vector2.ZERO
 
 	acceleration = cohesion_vector + align_vector + separation_vector + target_vector
 	
@@ -293,7 +296,7 @@ func get_flock_status():
 
 
 func _on_BoidArea2D_body_entered(body):
-	if self != body:# && body.is_in_group("enemy"):
+	if self != body && body.is_in_group("EnemyVehicle"):
 		_flock.append(body)
 
 

@@ -123,7 +123,7 @@ tracks/0/keys = {
 "values": [ 8.0 ]
 }
 
-[node name="EnemyVehicle" type="KinematicBody2D"]
+[node name="EnemyVehicle" type="KinematicBody2D" groups=["EnemyVehicle"]]
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 
@@ -177,7 +177,7 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
-frame = 1
+frame = 6
 speed_scale = 10.0
 playing = true
 

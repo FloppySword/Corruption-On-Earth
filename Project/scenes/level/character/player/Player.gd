@@ -118,8 +118,9 @@ func _input(event):
 	
 
 	if event is InputEventMouseMotion && global.device == "PC":
-
 		mouse_pos = get_global_mouse_position()
+		if mouse_pos.y > global.mouse_max_y:
+			return
 		var target_dist = mouse_pos - global_position
 		rot = -target_dist.angle_to(Vector2(0, 1))
 		
@@ -290,6 +291,8 @@ func get_player_direction():
 func get_player_action():
 	if player_anim_sprite.animation == "default":
 		if Input.is_action_just_pressed("player_shoot"):
+			if global.device == "PC" && get_global_mouse_position().y > global.mouse_max_y:
+				return
 			shoot_AR()
 
 				
