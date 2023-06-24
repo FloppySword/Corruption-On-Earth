@@ -202,12 +202,26 @@ func _physics_process(delta):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	if vehicle_state == vehicleStates.Normal:
+		var target_type = ""
+		if driver.ammo > 0 || (passenger && passenger.ammo > 0):
+			target_type = "shoot"
+		else:
+			target_type = "kick"
+			
 		#target = global.player.global_position
 
 		if global_position.x >= global.player.global_position.x:
-			target = global.player.chase_pos_right.global_position
+			if target_type == "shoot":
+				target = global.player.shoot_pos_left.global_position
+			elif target_type == "kick":
+				target = global.player.kick_pos_left.global_position
+			
 		else:
-			target = global.player.chase_pos_left.global_position
+			if target_type == "shoot":
+				target = global.player.shoot_pos_right.global_position
+			elif target_type == "kick":
+				target = global.player.kick_pos_right.global_position
+			
 		$Icon.global_position = target
 	
 		
@@ -253,7 +267,7 @@ func _physics_process(delta):
 				collision_count += 1
 	
 
-	if !vehicle_state == vehicleStates.Explode:
+	if !vehicle_state == vehicleStates.Normal:#!vehicle_state == vehicleStates.Explode:
 		if global_position.x > global.upper_bounds.x \
 			or global_position.x < global.lower_bounds.x \
 			or global_position.y > global.upper_bounds.y \

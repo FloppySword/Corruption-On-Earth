@@ -5,8 +5,7 @@ signal game_won
 
 
 var Enemy = preload("res://scenes/level/character/enemy/EnemyVehicle.tscn")
-var GunshotWound = preload("res://scenes/gunshot_wound.tscn")
-var HitPos = preload("res://scenes/hit_pos.tscn")
+
 var Bullet = preload("res://scenes/level/item/Bullet.tscn")
 var Treadmark = preload("res://scenes/level/character/Treadmark.tscn")
 var Explosion = preload("res://scenes/level/character/Explosion.tscn")

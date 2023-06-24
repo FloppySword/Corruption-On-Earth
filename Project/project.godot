@@ -18,7 +18,7 @@ name="TriggerWarning_Round6"
 
 [autoload]
 
-global="*res://scripts/global.gd"
+global="*res://global.gd"
 mouse="*res://scripts/mouse.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.tscn"
 AudioStreams="*res://scenes/autoload/AudioStreams.tscn"

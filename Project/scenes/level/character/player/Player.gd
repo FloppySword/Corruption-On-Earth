@@ -12,9 +12,9 @@ onready var player_anim_sprite = $PlayerArea2D/PlayerAnimatedSprite
 onready var current_frame = 0
 
 
-var muzzle_flash1 = preload("res://scenes/muzzle_flash.tscn")
-var gunshot_wound = preload("res://scenes/gunshot_wound.tscn")
-var bullet_trail = preload("res://scenes/bullet_trail.tscn")
+var muzzle_flash1 = preload("res://scenes/level/character/player/muzzle_flash.tscn")
+#var gunshot_wound = preload("res://scenes/gunshot_wound.tscn")
+#var bullet_trail = preload("res://scenes/bullet_trail.tscn")
 
 var KickImpact = preload("res://scenes/level/character/KickImpact.tscn")
 var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
@@ -78,8 +78,10 @@ onready var reload_AR_sound = get_node("reload_AR_sound")
 #onready var reload_pistol_sound = get_node("reload_pistol_sound")
 onready var dodge_cooldown= get_node("dodge_cooldown")
 
-onready var chase_pos_left = $ChasePositions/Left
-onready var chase_pos_right = $ChasePositions/Right
+onready var shoot_pos_left = $ChasePositions/LeftShooting
+onready var kick_pos_left = $ChasePositions/LeftKicking
+onready var shoot_pos_right = $ChasePositions/RightShooting
+onready var kick_pos_right = $ChasePositions/RightKicking
 
 onready var player_hitbox = $PlayerArea2D
 onready var horse_hitbox = $HorseArea2D

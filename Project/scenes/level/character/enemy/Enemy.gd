@@ -99,8 +99,8 @@ func _damage(hitbox, damage, type, pos):
 #			if type == "Passenger":
 #				$Head.global_rotation = 20
 			die()
-	elif health < 20:
-		vehicle._bleed()
+#	elif health < 20:
+#		vehicle._bleed()
 
 func die():
 	dead = true
