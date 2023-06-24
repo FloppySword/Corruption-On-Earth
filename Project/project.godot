@@ -18,11 +18,10 @@ name="TriggerWarning_Round6"
 
 [autoload]
 
-global="*res://global.gd"
-mouse="*res://scripts/mouse.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.tscn"
 AudioStreams="*res://scenes/autoload/AudioStreams.tscn"
 DetectMobileOrDesktop="*res://scenes/autoload/DetectMobileOrDesktop.tscn"
+Global="*res://scenes/autoload/Global.tscn"
 
 [display]
 

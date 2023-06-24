@@ -40,10 +40,10 @@ func _physics_process(delta):
 		hit_area(ray.get_collider(), ray.get_collision_point())
 	
 		
-	if sprite.global_position.x > global.upper_bounds.x \
-		or sprite.global_position.x < global.lower_bounds.x \
-		or sprite.global_position.y > global.upper_bounds.y \
-		or sprite.global_position.y < global.lower_bounds.y \
+	if sprite.global_position.x > Global.upper_bounds.x \
+		or sprite.global_position.x < Global.lower_bounds.x \
+		or sprite.global_position.y > Global.upper_bounds.y \
+		or sprite.global_position.y < Global.lower_bounds.y \
 		or sprite.global_position.distance_to(collision_pos) < 40 \
 		or elapsed_time > 1:
 		queue_free()

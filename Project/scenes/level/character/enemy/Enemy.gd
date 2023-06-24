@@ -57,8 +57,8 @@ func init(pos, _type, _vehicle):
 	
 	connect("shoot", vehicle, "_rider_shoot")
 	#connect("die", vehicle, "_check_for_riders")
-	connect("ready_to_fire", global, "_enemy_remote_shoot")
-	connect("fall", global, "_enemy_remote_fall")
+	connect("ready_to_fire", Global, "_enemy_remote_shoot")
+	connect("fall", Global, "_enemy_remote_fall")
 	
 func _set_initiated():
 	initiated = true
@@ -66,7 +66,7 @@ func _set_initiated():
 func _physics_process(delta):
 	if ammo > 0 && type in ["DriverArmed", "Passenger"] && $ArmLeft/ReactionTimer.time_left == 0:
 		$ArmLeft/ReactionTimer.start()
-#			var target_dist = global.player.global_position - global_position
+#			var target_dist = Global.player.global_position - global_position
 #			var target_rot = -target_dist.angle_to(Vector2(0, 1))
 #
 
@@ -114,7 +114,7 @@ func die():
 	
 func fall():
 	dead_pos = global_position
-	vel = global.ground_vel #+ Vector2(0, 200)
+	vel = Global.ground_vel #+ Vector2(0, 200)
 	#emit_signal("fall", self)
 
 	
@@ -149,7 +149,7 @@ func _check_ammo():
 #	var rng = RandomNumberGenerator.new()
 #	rng.randomize()
 #	print(rng.randi())
-	#var player_pos = global.player.global_position
+	#var player_pos = Global.player.global_position
 	
 	
 
@@ -185,7 +185,7 @@ func _on_ReactionTimer_timeout():
 	if dead:
 		return
 	
-	var target_dist = global.player.global_position - global_position
+	var target_dist = Global.player.global_position - global_position
 	var true_target_rot = -target_dist.angle_to(Vector2(0, 1))
 	
 	target_rot = stepify(true_target_rot, PI/12)

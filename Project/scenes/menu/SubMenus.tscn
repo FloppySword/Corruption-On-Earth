@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/menu/SubMenus.gd" type="Script" id=1]
 [ext_resource path="res://data/fonts/PixelAE-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Spritesheet_UI_Flat.png" type="Texture" id=3]
+[ext_resource path="res://data/images/gui/Spritesheet_UI_Flat.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.533333, 0.498039, 0.819608, 1 )

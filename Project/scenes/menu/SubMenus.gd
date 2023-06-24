@@ -15,7 +15,7 @@ export(Color) var font_color_focused
 
 func _ready():
 	if OS.get_name() != "HTML5":
-		$TabContainer/Credits/MarginContainer/VBoxContainer/RichTextLabel.connect("meta_clicked", self, "_on_RichTextLabel_meta_clicked")
+		$TabContainer/Credits/MarginContainer/VBoxContainer/CreditsBody.connect("meta_clicked", self, "_on_RichTextLabel_meta_clicked")
 		
 	setup()
 
@@ -32,8 +32,23 @@ func open_submenu(type):
 	else:
 		$TabContainer.current_tab = 1
 	popup()
+	
+	
+func _on_CloseButton_pressed():
+	hide()
 
 
 
 
 
+
+func _on_MasterSlider_value_changed(value):
+	pass # Replace with function body.
+
+
+func _on_MusicSlider_value_changed(value):
+	pass # Replace with function body.
+
+
+func _on_SFXSlider_value_changed(value):
+	pass # Replace with function body.

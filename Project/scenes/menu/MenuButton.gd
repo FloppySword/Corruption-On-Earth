@@ -18,7 +18,7 @@ func _ready():
 	hide_focus()
 	set_focus_mode(true)
 	
-	
+#
 func _process(delta):
 	if Engine.editor_hint:
 		setup()

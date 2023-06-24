@@ -19,7 +19,7 @@ func init(_enemyLeft, _enemyRight, start_pos):
 func _process(delta):
 	if starting_x:
 		global_position.x = starting_x
-		global_position += (global.ground_vel / 2) * delta
+		global_position += (Global.ground_vel / 2) * delta
 
 	
 

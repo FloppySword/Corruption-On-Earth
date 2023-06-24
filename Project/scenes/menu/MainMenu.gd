@@ -35,35 +35,16 @@ func _ready():
 	$Bottom/PlayButton.grab_focus()
 	
 	
-func _process(delta):
-	if Engine.editor_hint:
-		setup()
 
-func setup():
-	$Title.text = title_text
-	var dynamic_font = DynamicFont.new()
-	dynamic_font.font_data = title_font
-	dynamic_font.size = title_font_size
-	dynamic_font.outline_size = title_outline_size
-	dynamic_font.outline_color = title_outline_color
-	dynamic_font.extra_spacing_char = title_char_spacing
-	dynamic_font.extra_spacing_space = title_space_spacing
-	$Title.add_font_override("font",dynamic_font)
-	$Title.add_color_override("font_color",title_font_color)
-	if title_shadow_on:
-		$Title.add_color_override("font_color_shadow",title_shadow_color)
-		$Title.add_constant_override("shadow_offset_x",title_shadow_x_offset)
-		$Title.add_constant_override("shadow_offset_y",title_shadow_y_offset)
-		$Title.add_constant_override("shadow_as_outline",title_shadow_as_outline)
-	else:
-		$Title.remove_color_override("font_color_shadow")
-		$Title.remove_color_override("shadow_offset_x")
-		$Title.remove_color_override("shadow_offset_y")
-		$Title.remove_color_override("shadow_as_outline")
-
-	$Background.texture = background_texture
+func change_language(idx):
+	Global.farsi = idx
+	$Banner.texture = load(Global.LanguageBanner[idx])
+	for item in get_tree().get_nodes_in_group("Language"):
+		item.text = Global.Language[item.name][idx]
+		if item.is_in_group("MenuButton"):
+			item.setup()
 	
-
+	OS.shell_open('https://www.ac4a.net/')
 
 
 func _on_PlayButton_pressed():
@@ -102,11 +83,23 @@ func _on_ExitButton_pressed():
 
 
 func _on_EnglishButton_pressed():
-	pass # Replace with function body.
+	if Global.farsi:
+		$HBoxContainer/FarsiButton.pressed = false
+		change_language(0)
+	else:
+		$HBoxContainer/EnglishButton.pressed = true
+		$HBoxContainer/FarsiButton.pressed = false
+		
+
 
 
 func _on_FarsiButton_pressed():
-	pass # Replace with function body.
+	if !Global.farsi:
+		$HBoxContainer/EnglishButton.pressed = false
+		change_language(1)
+	else:
+		$HBoxContainer/EnglishButton.pressed = false
+		$HBoxContainer/FarsiButton.pressed = true
 
 
 func _on_RichTextLabel_meta_clicked(meta):
@@ -121,3 +114,26 @@ func _on_PlayAgainButton_button_up():
 func _on_ReturnToMenuButton_button_up():
 	get_tree().paused = false
 	$GameEnded.hide()
+
+
+func _on_YouTube_pressed():
+	pass # Replace with function body.
+
+
+func _on_SoundCloud_pressed():
+	pass # Replace with function body.
+
+
+func _on_Instagram_pressed():
+	pass # Replace with function body.
+
+
+func _on_LearnMoreButton_pressed():
+	pass # Replace with function body.
+
+
+func _on_SignPetitionButton_pressed():
+	pass # Replace with function body.
+
+
+

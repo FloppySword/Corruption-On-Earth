@@ -4,7 +4,7 @@ signal detected
 
 func _input(event):
 	if event.device == -1:
-		global.device = "Mobile"
+		Global.device = "Mobile"
 		print("MOBILE DEVICE DETECTED")
 		#emit_signal("detected")
 		queue_free()

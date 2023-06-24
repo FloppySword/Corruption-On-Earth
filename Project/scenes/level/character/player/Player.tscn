@@ -1,8 +1,8 @@
 [gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
-[ext_resource path="res://data/images/NEW/character/player/PlayerFrames.png" type="Texture" id=2]
-[ext_resource path="res://data/images/NEW/character/player/HorseFrames.png" type="Texture" id=3]
+[ext_resource path="res://data/images/character/player/PlayerFrames.png" type="Texture" id=2]
+[ext_resource path="res://data/images/character/player/HorseFrames.png" type="Texture" id=3]
 
 [sub_resource type="SegmentShape2D" id=52]
 a = Vector2( -15, 15 )

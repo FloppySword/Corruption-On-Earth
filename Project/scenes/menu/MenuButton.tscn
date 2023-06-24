@@ -4,7 +4,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 
-[node name="MenuButton" type="TextureButton"]
+[node name="MenuButton" type="TextureButton" groups=["MenuButton"]]
 margin_top = 130.0
 margin_right = 1024.0
 margin_bottom = 170.0

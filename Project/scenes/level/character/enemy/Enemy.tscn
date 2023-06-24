@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/level/character/enemy/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://data/images/NEW/character/enemy/EnemyFrames.png" type="Texture" id=2]
+[ext_resource path="res://data/images/character/enemy/EnemyFrames.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 6, 5.5 )

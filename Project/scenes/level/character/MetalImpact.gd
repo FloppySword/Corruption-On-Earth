@@ -7,7 +7,7 @@ func _process(delta):
 	if tire:
 		if starting_x:
 			global_position.x = starting_x
-			global_position += global.ground_vel * delta
+			global_position += Global.ground_vel * delta
 		else:
 			starting_x = global_position.x
 

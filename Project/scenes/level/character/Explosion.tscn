@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/level/character/Explosion.gd" type="Script" id=1]
-[ext_resource path="res://data/images/NEW/explosion.png" type="Texture" id=2]
+[ext_resource path="res://data/images/gui/explosion.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )

@@ -55,13 +55,13 @@ onready var motorcycle_front = $SpriteRear/SpriteFront
 
 func _ready():
 	randomize()
-	target_force = global.target_force
-	cohesion_force = global.cohesion_force
-	align_force = global.align_force
-	separation_force = global.separation_force
-	view_distance = global.view_distance
+	target_force = Global.target_force
+	cohesion_force = Global.cohesion_force
+	align_force = Global.align_force
+	separation_force = Global.separation_force
+	view_distance = Global.view_distance
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
-	avoid_distance = global.avoid_distance
+	avoid_distance = Global.avoid_distance
 	
 func init(spawnpos, type):
 	global_position = spawnpos
@@ -163,12 +163,12 @@ func reshuffle_dead_target():
 			randomize()
 			var possible_targets = [0, 1, 2]
 			possible_targets.shuffle()
-			target = global.die_targets.get_child(possible_targets[0]).global_position
+			target = Global.die_targets.get_child(possible_targets[0]).global_position
 		vehicleStates.DriverDead:
 			randomize()
 			var possible_targets = [3, 4, 5, 6]
 			possible_targets.shuffle()
-			target = global.die_targets.get_child(possible_targets[0]).global_position
+			target = Global.die_targets.get_child(possible_targets[0]).global_position
 			vehicle_state = vehicleStates.DriverDead
 
 
@@ -208,19 +208,19 @@ func _physics_process(delta):
 		else:
 			target_type = "kick"
 			
-		#target = global.player.global_position
+		#target = Global.player.global_position
 
-		if global_position.x >= global.player.global_position.x:
+		if global_position.x >= Global.player.global_position.x:
 			if target_type == "shoot":
-				target = global.player.shoot_pos_left.global_position
+				target = Global.player.shoot_pos_left.global_position
 			elif target_type == "kick":
-				target = global.player.kick_pos_left.global_position
+				target = Global.player.kick_pos_left.global_position
 			
 		else:
 			if target_type == "shoot":
-				target = global.player.shoot_pos_right.global_position
+				target = Global.player.shoot_pos_right.global_position
 			elif target_type == "kick":
-				target = global.player.kick_pos_right.global_position
+				target = Global.player.kick_pos_right.global_position
 			
 		$Icon.global_position = target
 	
@@ -268,10 +268,10 @@ func _physics_process(delta):
 	
 
 	if !vehicle_state == vehicleStates.Normal:#!vehicle_state == vehicleStates.Explode:
-		if global_position.x > global.upper_bounds.x \
-			or global_position.x < global.lower_bounds.x \
-			or global_position.y > global.upper_bounds.y \
-			or global_position.y < global.lower_bounds.y:
+		if global_position.x > Global.upper_bounds.x \
+			or global_position.x < Global.lower_bounds.x \
+			or global_position.y > Global.upper_bounds.y \
+			or global_position.y < Global.lower_bounds.y:
 			queue_free()
 		
 		

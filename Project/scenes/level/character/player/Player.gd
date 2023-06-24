@@ -71,10 +71,10 @@ onready var AR_timer = get_node("AR_timer")
 #onready var pistol_timer = get_node("pistol_timer")
 onready var bleeding_timer = get_node("bleeding_timer")
 #onready var grunt_timer = get_node("grunt_timer")
-onready var player_sounds = get_node("player_sounds")
-onready var gun_sounds = get_node("gun_sounds")
-#onready var pistol_sound = get_node("pistol_sound")
-onready var reload_AR_sound = get_node("reload_AR_sound")
+#onready var player_sounds = get_node("player_sounds")
+#onready var gun_sounds = get_node("gun_sounds")
+##onready var pistol_sound = get_node("pistol_sound")
+#onready var reload_AR_sound = get_node("reload_AR_sound")
 #onready var reload_pistol_sound = get_node("reload_pistol_sound")
 onready var dodge_cooldown= get_node("dodge_cooldown")
 
@@ -90,7 +90,7 @@ var frame = 0
 var bullet_pos = Vector2.ZERO
 var screen_size = Vector2()
 var rot = 0
-var pos = global_position
+var pos = Vector2.ZERO
 var vel = Vector2()
 var locked = false
 var hit_location = Vector2()
@@ -106,22 +106,20 @@ var mouse_pos = Vector2()
 
 
 func _ready():
+	pos = global_position
 	player_anim_sprite.animation = "default"
 	$AnimationPlayer.play("HorseGallop")
 
 	randomize()
-	global.player = self
+	Global.player = self
 	
-	
-
-
 
 func _input(event):
 	
 
-	if event is InputEventMouseMotion && global.device == "PC":
+	if event is InputEventMouseMotion && Global.device == "PC":
 		mouse_pos = get_global_mouse_position()
-		if mouse_pos.y > global.mouse_max_y:
+		if mouse_pos.y > Global.mouse_max_y:
 			return
 		var target_dist = mouse_pos - global_position
 		rot = -target_dist.angle_to(Vector2(0, 1))
@@ -134,8 +132,8 @@ func _input(event):
 	
 func get_player_direction():
 	if player_anim_sprite.animation == "default":
-		if global.device == "Mobile":
-			rot = global.joystick_rot
+		if Global.device == "Mobile":
+			rot = Global.joystick_rot
 		if .25 >= rot and rot > .125:
 			player_anim_sprite.frame = 1
 			rot = .20
@@ -293,7 +291,7 @@ func get_player_direction():
 func get_player_action():
 	if player_anim_sprite.animation == "default":
 		if Input.is_action_just_pressed("player_shoot"):
-			if global.device == "PC" && get_global_mouse_position().y > global.mouse_max_y:
+			if Global.device == "PC" && get_global_mouse_position().y > Global.mouse_max_y:
 				return
 			shoot_AR()
 
@@ -331,13 +329,13 @@ func get_horse_movement(delta):
 
 
 	move_and_collide(vel * delta)
-	global_position.x = clamp(global_position.x, global.player_lower_bounds.x, global.player_upper_bounds.x)
-	global_position.y = clamp(global_position.y, global.player_lower_bounds.y, global.player_upper_bounds.y)
+	global_position.x = clamp(global_position.x, Global.player_lower_bounds.x, Global.player_upper_bounds.x)
+	global_position.y = clamp(global_position.y, Global.player_lower_bounds.y, Global.player_upper_bounds.y)
 	pos = global_position
 
 	
-	global.playerhorse_pos = pos
-	global.playerhorse_vel = vel
+	Global.playerhorse_pos = pos
+	Global.playerhorse_vel = vel
 
 	
 	"""
@@ -354,7 +352,7 @@ func get_horse_movement(delta):
 
 
 func _physics_process(delta):
-	if global.player_health > 0 && global.playerhorse_health > 0:
+	if Global.player_health > 0 && Global.playerhorse_health > 0:
 		get_player_direction()
 		get_player_action()
 		get_horse_movement(delta)
@@ -368,11 +366,11 @@ func _damage(hitbox, damage, type, _pos):
 		blood_impact.init(pos, type)
 		
 	if hitbox == player_hitbox:
-		global.player_health -= damage
+		Global.player_health -= damage
 	elif hitbox == horse_hitbox:
-		global.playerhorse_health -= damage
+		Global.playerhorse_health -= damage
 	
-	if global.player_health <= 0 || global.playerhorse_health <= 0:
+	if Global.player_health <= 0 || Global.playerhorse_health <= 0:
 		emit_signal("game_over")
 		
 
@@ -382,9 +380,9 @@ func _damage(hitbox, damage, type, _pos):
 
 func _heal(healee, _health):
 	if healee == "player":
-		global.player_health += _health
+		Global.player_health += _health
 	elif healee == "horse":
-		global.playerhorse_health += _health
+		Global.playerhorse_health += _health
 	
 func _change_health(damage):
 	pass
@@ -392,7 +390,7 @@ func _change_health(damage):
 func shoot_AR():
 	if AR_timer.get_time_left() == 0:
 		AR_timer.start()
-		var gunshot_choice = global.gunshots[randi()%3]
+		var gunshot_choice = Global.gunshots[randi()%3]
 		#var prob = randf()
 		#if prob > 0.05:
 		var m = muzzle_flash1.instance()

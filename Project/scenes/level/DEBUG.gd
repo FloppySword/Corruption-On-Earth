@@ -1,22 +1,22 @@
 extends Node2D
 
-var target_force = global.target_force
-var cohesion_force = global.cohesion_force
-var align_force = global.align_force
-var separation_force = global.separation_force
-var view_distance = global.view_distance
-var avoid_distance = global.avoid_distance
+var target_force = Global.target_force
+var cohesion_force = Global.cohesion_force
+var align_force = Global.align_force
+var separation_force = Global.separation_force
+var view_distance = Global.view_distance
+var avoid_distance = Global.avoid_distance
 
 var enemy_container
 
 
 func set_vars():
-	global.target_force = target_force
-	global.cohesion_force = cohesion_force
-	global.align_force = align_force
-	global.separation_force = separation_force
-	global.view_distance = view_distance
-	global.avoid_distance = avoid_distance
+	Global.target_force = target_force
+	Global.cohesion_force = cohesion_force
+	Global.align_force = align_force
+	Global.separation_force = separation_force
+	Global.view_distance = view_distance
+	Global.avoid_distance = avoid_distance
 	$Control/Target/Label.text = "Target Force " + str(target_force)
 	$Control/Cohesion/Label.text = "Cohesion Force " + str(cohesion_force)
 	$Control/Alignment/Label.text = "Align Force " + str(align_force)
@@ -24,13 +24,13 @@ func set_vars():
 	$Control/ViewDistance/Label.text = "View Distance " + str(view_distance)
 	$Control/AvoidDistance/Label.text = "Avoid Distance " + str(avoid_distance)
 	for enemy in enemy_container.get_children():
-		enemy.target_force = global.target_force
-		enemy.cohesion_force = global.cohesion_force
-		enemy.align_force = global.align_force
-		enemy.separation_force = global.separation_force
-		enemy.view_distance = global.view_distance
+		enemy.target_force = Global.target_force
+		enemy.cohesion_force = Global.cohesion_force
+		enemy.align_force = Global.align_force
+		enemy.separation_force = Global.separation_force
+		enemy.view_distance = Global.view_distance
 		enemy.get_node("BoidArea2D/CollisionShape2D").shape.radius = enemy.view_distance
-		enemy.avoid_distance = global.avoid_distance
+		enemy.avoid_distance = Global.avoid_distance
 
 
 func _on_Target_value_changed(value):

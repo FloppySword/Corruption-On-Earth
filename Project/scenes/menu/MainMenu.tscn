@@ -1,17 +1,17 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/menu/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/menu/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://scenes/menu/SubMenus.gd" type="Script" id=3]
 [ext_resource path="res://data/fonts/PixelAE-Regular.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://data/images/NEW/banner_en.png" type="Texture" id=5]
-[ext_resource path="res://data/images/NEW/youtube.png" type="Texture" id=6]
+[ext_resource path="res://data/images/gui/banner_en.png" type="Texture" id=5]
+[ext_resource path="res://data/images/gui/youtube.png" type="Texture" id=6]
 [ext_resource path="res://data/fonts/PixelAE-Bold.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://data/images/NEW/soundcloud.png" type="Texture" id=8]
-[ext_resource path="res://Spritesheet_UI_Flat.png" type="Texture" id=9]
-[ext_resource path="res://data/images/NEW/close_button_pressed.png" type="Texture" id=10]
-[ext_resource path="res://data/images/NEW/close_button.png" type="Texture" id=11]
-[ext_resource path="res://data/images/NEW/lang_highlight.png" type="Texture" id=12]
+[ext_resource path="res://data/images/gui/soundcloud.png" type="Texture" id=8]
+[ext_resource path="res://data/fonts/Janna LT Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://data/images/gui/close_button_pressed.png" type="Texture" id=10]
+[ext_resource path="res://data/images/gui/close_button.png" type="Texture" id=11]
+[ext_resource path="res://data/images/gui/lang_highlight.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=33]
 size = 34
@@ -26,24 +26,59 @@ size = 34
 extra_spacing_char = -9
 font_data = ExtResource( 7 )
 
-[sub_resource type="DynamicFont" id=50]
-size = 120
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
-
 [sub_resource type="StreamTexture" id=2]
 load_path = "res://.import/instagram.png-c98973daf9893dbfd7250223c83ad54b.stex"
+
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 0.231373, 0.196078, 0.462745, 1 )
+
+[sub_resource type="DynamicFont" id=39]
+size = 116
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 7
+extra_spacing_space = 30
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=41]
+size = 60
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 1
+font_data = ExtResource( 9 )
+
+[sub_resource type="StyleBoxFlat" id=47]
+bg_color = Color( 0.156863, 0.145098, 0.231373, 1 )
+
+[sub_resource type="DynamicFont" id=48]
+size = 116
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 7
+extra_spacing_space = 30
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=49]
+size = 60
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 1
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 48
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=45]
+size = 48
+font_data = ExtResource( 9 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0.0117647, 0.376471, 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 60
-font_data = ExtResource( 4 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=31]
 size = 32
-font_data = ExtResource( 4 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="StreamTexture" id=9]
 load_path = "res://.import/Spritesheet_UI_Flat.png-f0bd062277c9c03f9022911d9969ec8d.stex"
@@ -65,58 +100,6 @@ thickness = 6
 [sub_resource type="StyleBoxEmpty" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="DynamicFont" id=20]
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxFlat" id=22]
-bg_color = Color( 0.258824, 0.258824, 0.258824, 1 )
-
-[sub_resource type="Theme" id=21]
-PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
-PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
-PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
-PopupMenu/colors/font_color_hover = Color( 0.88, 0.88, 0.88, 1 )
-PopupMenu/colors/font_color_separator = Color( 0.88, 0.88, 0.88, 1 )
-PopupMenu/constants/hseparation = 4
-PopupMenu/constants/vseparation = 4
-PopupMenu/fonts/font = SubResource( 20 )
-PopupMenu/fonts/font_separator = null
-PopupMenu/icons/checked = null
-PopupMenu/icons/radio_checked = null
-PopupMenu/icons/radio_unchecked = null
-PopupMenu/icons/submenu = null
-PopupMenu/icons/unchecked = null
-PopupMenu/styles/hover = null
-PopupMenu/styles/labeled_separator_left = null
-PopupMenu/styles/labeled_separator_right = null
-PopupMenu/styles/panel = SubResource( 22 )
-PopupMenu/styles/panel_disabled = null
-PopupMenu/styles/separator = null
-
-[sub_resource type="DynamicFont" id=14]
-size = 30
-font_data = ExtResource( 4 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 18, 32, 13 )
-
-[sub_resource type="StyleBoxFlat" id=17]
-bg_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 12.0
-
-[sub_resource type="StyleBoxFlat" id=18]
-bg_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 12.0
-
-[sub_resource type="StyleBoxFlat" id=19]
-bg_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 12.0
-
-[sub_resource type="StyleBoxFlat" id=16]
-bg_color = Color( 0, 0, 0, 1 )
-expand_margin_left = 12.0
 
 [sub_resource type="StyleBoxFlat" id=24]
 bg_color = Color( 0.878431, 0.678431, 0, 1 )
@@ -177,47 +160,7 @@ VScrollBar/styles/scroll = SubResource( 28 )
 VScrollBar/styles/scroll_focus = SubResource( 29 )
 
 [sub_resource type="DynamicFont" id=23]
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxFlat" id=37]
-bg_color = Color( 0.231373, 0.196078, 0.462745, 1 )
-
-[sub_resource type="DynamicFont" id=39]
-size = 116
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 7
-extra_spacing_space = 30
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=41]
-size = 60
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 1
-font_data = ExtResource( 4 )
-
-[sub_resource type="StyleBoxFlat" id=47]
-bg_color = Color( 0.156863, 0.145098, 0.231373, 1 )
-
-[sub_resource type="DynamicFont" id=48]
-size = 116
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 7
-extra_spacing_space = 30
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=49]
-size = 60
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 1
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=43]
-size = 48
-font_data = ExtResource( 7 )
-
-[sub_resource type="DynamicFont" id=45]
-size = 48
-font_data = ExtResource( 7 )
+font_data = ExtResource( 9 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -232,14 +175,14 @@ title_shadow_color = Color( 0, 0.313726, 0.321569, 1 )
 title_shadow_x_offset = 10
 title_shadow_y_offset = 3
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Banner" type="TextureRect" parent="." groups=["MainMenuInput"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 7
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." groups=["MainMenuInput"]]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 123.0
@@ -296,21 +239,7 @@ text = "اف"
 align = 1
 valign = 1
 
-[node name="Title" type="Label" parent="."]
-visible = false
-margin_left = 404.0
-margin_top = 60.0
-margin_right = 704.0
-margin_bottom = 240.0
-custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
-custom_colors/font_color_shadow = Color( 0, 0.313726, 0.321569, 1 )
-custom_constants/shadow_offset_x = 10
-custom_constants/shadow_offset_y = 3
-custom_constants/shadow_as_outline = 0
-custom_fonts/font = SubResource( 50 )
-text = "Title"
-
-[node name="Top" type="VBoxContainer" parent="."]
+[node name="Top" type="VBoxContainer" parent="." groups=["MainMenuInput"]]
 anchor_left = 0.886
 anchor_top = 0.01
 anchor_right = 0.99
@@ -353,106 +282,237 @@ texture_normal = SubResource( 2 )
 expand = true
 stretch_mode = 5
 
-[node name="MenuButton" parent="Top" instance=ExtResource( 1 )]
+[node name="LearnMoreButton" parent="Top" groups=["Language"] instance=ExtResource( 1 )]
 margin_left = 234.0
 margin_top = 90.0
 margin_right = 424.0
-margin_bottom = 130.0
-rect_min_size = Vector2( 190, 40 )
+margin_bottom = 140.0
+rect_min_size = Vector2( 190, 50 )
 size_flags_horizontal = 10
 text = "Learn More"
-font = ExtResource( 4 )
+font = ExtResource( 9 )
 font_size = 30
 font_color = Color( 0.568627, 0, 0.6, 1 )
 
-[node name="MenuButton2" parent="Top" instance=ExtResource( 1 )]
+[node name="SignPetitionButton" parent="Top" groups=["Language"] instance=ExtResource( 1 )]
 margin_left = 154.0
-margin_top = 150.0
+margin_top = 160.0
 margin_right = 424.0
-margin_bottom = 190.0
-rect_min_size = Vector2( 270, 40 )
+margin_bottom = 210.0
+rect_min_size = Vector2( 270, 50 )
 size_flags_horizontal = 10
 text = " Sign the Petition"
-font = ExtResource( 7 )
+font = ExtResource( 9 )
 font_size = 30
 font_color = Color( 0.568627, 0, 0.6, 1 )
 
-[node name="Bottom" type="VBoxContainer" parent="."]
+[node name="Bottom" type="VBoxContainer" parent="." groups=["MainMenuInput"]]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -220.0
-margin_top = -190.0
+margin_left = -269.0
+margin_top = -219.0
 rect_min_size = Vector2( 0, 150 )
 size_flags_horizontal = 6
 alignment = 1
 
-[node name="PlayButton" parent="Bottom" instance=ExtResource( 1 )]
-margin_top = 1.0
-margin_right = 220.0
-margin_bottom = 61.0
+[node name="PlayButton" parent="Bottom" groups=["Language"] instance=ExtResource( 1 )]
+margin_top = 15.0
+margin_right = 269.0
+margin_bottom = 75.0
 rect_min_size = Vector2( 220, 60 )
 focus_next = NodePath("../OptionsButton")
 focus_previous = NodePath("../../CreditsButton")
 text = "Play"
-font = ExtResource( 7 )
-font_size = 48
+font = ExtResource( 9 )
+font_size = 38
 font_color = Color( 1, 1, 1, 1 )
 font_color_change_focus = true
 font_color_focused = Color( 1, 0.913725, 0, 1 )
 
-[node name="OptionsButton" parent="Bottom" instance=ExtResource( 1 )]
-margin_top = 65.0
-margin_right = 220.0
-margin_bottom = 125.0
+[node name="OptionsButton" parent="Bottom" groups=["Language"] instance=ExtResource( 1 )]
+margin_top = 79.0
+margin_right = 269.0
+margin_bottom = 139.0
 rect_min_size = Vector2( 220, 60 )
 focus_next = NodePath("../ExitButton")
 focus_previous = NodePath("../PlayButton")
 text = "Options"
-font = ExtResource( 7 )
-font_size = 48
+font = ExtResource( 9 )
+font_size = 38
 font_color = Color( 1, 1, 1, 1 )
 font_color_change_focus = true
 font_color_focused = Color( 1, 0.913725, 0, 1 )
 
-[node name="ExitButton" parent="Bottom" instance=ExtResource( 1 )]
-margin_top = 129.0
-margin_right = 220.0
-margin_bottom = 189.0
+[node name="ExitButton" parent="Bottom" groups=["Language"] instance=ExtResource( 1 )]
+margin_top = 143.0
+margin_right = 269.0
+margin_bottom = 203.0
 rect_min_size = Vector2( 220, 60 )
 focus_next = NodePath("../../CreditsButton")
 focus_previous = NodePath("../OptionsButton")
 text = "Exit"
-font = ExtResource( 7 )
-font_size = 48
+font = ExtResource( 9 )
+font_size = 40
 font_color = Color( 1, 1, 1, 1 )
 font_color_change_focus = true
 font_color_focused = Color( 1, 0.913725, 0, 1 )
 
-[node name="CreditsButton" parent="." instance=ExtResource( 1 )]
+[node name="CreditsButton" parent="." groups=["Language", "MainMenuInput"] instance=ExtResource( 1 )]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -40.0
+margin_top = -55.0
 margin_right = 140.0
-margin_bottom = 0.0
+margin_bottom = -7.0
 rect_min_size = Vector2( 140, 40 )
 focus_next = NodePath("../Bottom/PlayButton")
 focus_previous = NodePath("../Bottom/ExitButton")
 text = "CREDITS"
-font = ExtResource( 7 )
+font = ExtResource( 9 )
 font_size = 30
 font_color = Color( 1, 1, 1, 1 )
 font_color_change_focus = true
 font_color_focused = Color( 1, 0.913725, 0, 1 )
 
+[node name="GameEnded" type="Popup" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TabContainer" type="TabContainer" parent="GameEnded"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -600.0
+margin_right = 600.0
+margin_bottom = 700.0
+tabs_visible = false
+
+[node name="GameWon" type="Panel" parent="GameEnded/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_styles/panel = SubResource( 37 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameEnded/TabContainer/GameWon"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 70.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="GameWonLabel" type="Label" parent="GameEnded/TabContainer/GameWon/VBoxContainer" groups=["Language"]]
+margin_top = 142.0
+margin_right = 1072.0
+margin_bottom = 316.0
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 39 )
+text = "GAME WON"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GameEnded/TabContainer/GameWon/VBoxContainer" groups=["Language"]]
+margin_top = 356.0
+margin_right = 1072.0
+margin_bottom = 446.0
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 41 )
+text = "SCORE: 123456"
+
+[node name="GameOver" type="Panel" parent="GameEnded/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 8.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_styles/panel = SubResource( 47 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameEnded/TabContainer/GameOver"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 70.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="GameEnded/TabContainer/GameOver/VBoxContainer" groups=["Language"]]
+margin_top = 142.0
+margin_right = 1072.0
+margin_bottom = 316.0
+custom_colors/font_color = Color( 1, 0.176471, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.670588, 0.682353, 0.882353, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 48 )
+text = "GAME OVER"
+align = 1
+
+[node name="ScoreLabel" type="Label" parent="GameEnded/TabContainer/GameOver/VBoxContainer"]
+margin_top = 356.0
+margin_right = 1072.0
+margin_bottom = 446.0
+custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 3
+custom_fonts/font = SubResource( 49 )
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="GameEnded"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -150.0
+size_flags_vertical = 3
+custom_constants/separation = 100
+alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="GameEnded/ButtonsContainer" groups=["Language"]]
+margin_left = 250.0
+margin_right = 550.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 300, 150 )
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.486275, 0.784314, 0.517647, 1 )
+custom_colors/font_color_pressed = Color( 0.52549, 0.937255, 0.898039, 1 )
+custom_fonts/font = SubResource( 43 )
+text = "Play Again"
+flat = true
+
+[node name="ReturnToMenuButton" type="Button" parent="GameEnded/ButtonsContainer" groups=["Language"]]
+margin_left = 650.0
+margin_right = 950.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 300, 150 )
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.784314, 0.486275, 0.486275, 1 )
+custom_colors/font_color_pressed = Color( 0.937255, 0.87451, 0.52549, 1 )
+custom_fonts/font = SubResource( 45 )
+text = "Main Menu"
+flat = true
+
 [node name="SubMenus" type="Popup" parent="."]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 90.0
 margin_top = 60.0
 margin_right = -90.0
 margin_bottom = -40.0
+popup_exclusive = true
 script = ExtResource( 3 )
 
 [node name="TabContainer" type="TabContainer" parent="SubMenus"]
@@ -479,29 +539,29 @@ margin_top = 70.0
 margin_right = 995.0
 margin_bottom = 575.0
 
-[node name="Label" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer"]
+[node name="SettingsTitle" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer" groups=["Language"]]
 margin_right = 970.0
-margin_bottom = 90.0
+margin_bottom = 112.0
 custom_fonts/font = SubResource( 3 )
 text = "Settings"
 align = 1
 
 [node name="GridContainer" type="GridContainer" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer"]
-margin_top = 94.0
+margin_top = 116.0
 margin_right = 970.0
-margin_bottom = 298.0
+margin_bottom = 304.0
 columns = 2
 
-[node name="MasterVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
-margin_right = 230.0
-margin_bottom = 48.0
+[node name="MasterVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer" groups=["Language"]]
+margin_right = 222.0
+margin_bottom = 60.0
 custom_fonts/font = SubResource( 31 )
 text = "Master Volume"
 
 [node name="MasterSlider" type="HSlider" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 570.0
 margin_right = 970.0
-margin_bottom = 48.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 1
@@ -515,18 +575,18 @@ max_value = 0.0
 value = -15.0
 rounded = true
 
-[node name="MusicVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
-margin_top = 52.0
-margin_right = 230.0
-margin_bottom = 100.0
+[node name="MusicVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer" groups=["Language"]]
+margin_top = 64.0
+margin_right = 222.0
+margin_bottom = 124.0
 custom_fonts/font = SubResource( 31 )
 text = "Music Volume"
 
 [node name="MusicSlider" type="HSlider" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 570.0
-margin_top = 52.0
+margin_top = 64.0
 margin_right = 970.0
-margin_bottom = 100.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 10
 size_flags_vertical = 1
@@ -540,20 +600,19 @@ max_value = 0.0
 value = -15.0
 rounded = true
 
-[node name="SFXVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
-margin_top = 104.0
-margin_right = 230.0
-margin_bottom = 152.0
+[node name="SFXVol" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer" groups=["Language"]]
+margin_top = 128.0
+margin_right = 222.0
+margin_bottom = 188.0
 custom_fonts/font = SubResource( 31 )
 text = "SFX  Volume"
 
 [node name="SFXSlider" type="HSlider" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
 margin_left = 570.0
-margin_top = 104.0
+margin_top = 128.0
 margin_right = 970.0
-margin_bottom = 152.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 400, 0 )
-focus_neighbour_bottom = NodePath("../LangSelection")
 size_flags_horizontal = 10
 size_flags_vertical = 1
 custom_icons/grabber_highlight = SubResource( 8 )
@@ -565,36 +624,6 @@ min_value = -50.0
 max_value = 0.0
 value = -15.0
 rounded = true
-
-[node name="Lang" type="Label" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
-margin_top = 156.0
-margin_right = 230.0
-margin_bottom = 204.0
-custom_fonts/font = SubResource( 31 )
-text = "Language"
-
-[node name="LangSelection" type="OptionButton" parent="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer"]
-margin_left = 770.0
-margin_top = 157.0
-margin_right = 970.0
-margin_bottom = 202.0
-rect_min_size = Vector2( 200, 0 )
-size_flags_horizontal = 12
-size_flags_vertical = 4
-theme = SubResource( 21 )
-custom_colors/font_color_focus = Color( 0.901961, 0.698039, 0, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.568627, 0.568627, 0.568627, 1 )
-custom_fonts/font = SubResource( 14 )
-custom_icons/arrow = SubResource( 15 )
-custom_styles/hover = SubResource( 17 )
-custom_styles/pressed = SubResource( 18 )
-custom_styles/focus = SubResource( 19 )
-custom_styles/normal = SubResource( 16 )
-text = "English"
-expand_icon = true
-items = [ "English", null, false, 0, null, "فارسي", null, false, 1, null ]
-selected = 0
 
 [node name="Credits" type="Tabs" parent="SubMenus/TabContainer"]
 visible = false
@@ -615,17 +644,17 @@ margin_top = 70.0
 margin_right = 995.0
 margin_bottom = 575.0
 
-[node name="Label" type="Label" parent="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer"]
-margin_right = 794.0
+[node name="CreditsTitle" type="Label" parent="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer" groups=["Language"]]
+margin_right = 970.0
 margin_bottom = 90.0
 custom_fonts/font = SubResource( 3 )
 text = "Credits"
 align = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer"]
+[node name="CreditsBody" type="RichTextLabel" parent="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer"]
 margin_top = 94.0
-margin_right = 794.0
-margin_bottom = 405.0
+margin_right = 970.0
+margin_bottom = 505.0
 size_flags_vertical = 3
 theme = SubResource( 27 )
 custom_fonts/normal_font = SubResource( 23 )
@@ -827,7 +856,7 @@ The font used in this game is Pixel AE,  created by Essssam. It is a pixel font 
 Made with Godot Game Engine.
 "
 
-[node name="TextureButton" type="TextureButton" parent="SubMenus"]
+[node name="CloseButton" type="TextureButton" parent="SubMenus"]
 self_modulate = Color( 1, 0.341176, 0.341176, 1 )
 margin_left = 18.0
 margin_top = 16.0
@@ -840,143 +869,21 @@ expand = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="Node" type="Node" parent="."]
-
-[node name="GameEnded" type="Popup" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="TabContainer" type="TabContainer" parent="GameEnded"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -600.0
-margin_right = 600.0
-margin_bottom = 700.0
-tabs_visible = false
-
-[node name="GameWon" type="Panel" parent="GameEnded/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-custom_styles/panel = SubResource( 37 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameEnded/TabContainer/GameWon"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 70.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
-custom_constants/separation = 40
-alignment = 1
-
-[node name="GameWonLabel" type="Label" parent="GameEnded/TabContainer/GameWon/VBoxContainer"]
-margin_top = 142.0
-margin_right = 1072.0
-margin_bottom = 316.0
-custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
-custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 3
-custom_fonts/font = SubResource( 39 )
-text = "GAME WON"
-align = 1
-
-[node name="ScoreLabel" type="Label" parent="GameEnded/TabContainer/GameWon/VBoxContainer"]
-margin_top = 356.0
-margin_right = 1072.0
-margin_bottom = 446.0
-custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
-custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 3
-custom_fonts/font = SubResource( 41 )
-text = "SCORE: 123456"
-
-[node name="GameOver" type="Panel" parent="GameEnded/TabContainer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 8.0
-margin_right = -4.0
-margin_bottom = -4.0
-custom_styles/panel = SubResource( 47 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameEnded/TabContainer/GameOver"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 70.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
-custom_constants/separation = 40
-alignment = 1
-
-[node name="GameOverLabel" type="Label" parent="GameEnded/TabContainer/GameOver/VBoxContainer"]
-margin_top = 142.0
-margin_right = 1072.0
-margin_bottom = 316.0
-custom_colors/font_color = Color( 1, 0.176471, 0, 1 )
-custom_colors/font_color_shadow = Color( 0.670588, 0.682353, 0.882353, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 3
-custom_fonts/font = SubResource( 48 )
-text = "GAME OVER"
-align = 1
-
-[node name="ScoreLabel" type="Label" parent="GameEnded/TabContainer/GameOver/VBoxContainer"]
-margin_top = 356.0
-margin_right = 1072.0
-margin_bottom = 446.0
-custom_colors/font_color = Color( 1, 0.819608, 0, 1 )
-custom_colors/font_color_shadow = Color( 0.670588, 0.878431, 0.882353, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 3
-custom_fonts/font = SubResource( 49 )
-
-[node name="ButtonsContainer" type="HBoxContainer" parent="GameEnded"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -150.0
-size_flags_vertical = 3
-custom_constants/separation = 100
-alignment = 1
-
-[node name="PlayAgainButton" type="Button" parent="GameEnded/ButtonsContainer"]
-margin_left = 250.0
-margin_right = 550.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 300, 150 )
-size_flags_vertical = 6
-custom_colors/font_color = Color( 0.486275, 0.784314, 0.517647, 1 )
-custom_colors/font_color_pressed = Color( 0.52549, 0.937255, 0.898039, 1 )
-custom_fonts/font = SubResource( 43 )
-text = "Play Again"
-flat = true
-
-[node name="ReturnToMenuButton" type="Button" parent="GameEnded/ButtonsContainer"]
-margin_left = 650.0
-margin_right = 950.0
-margin_bottom = 150.0
-rect_min_size = Vector2( 300, 150 )
-size_flags_vertical = 6
-custom_colors/font_color = Color( 0.784314, 0.486275, 0.486275, 1 )
-custom_colors/font_color_pressed = Color( 0.937255, 0.87451, 0.52549, 1 )
-custom_fonts/font = SubResource( 45 )
-text = "Main Menu"
-flat = true
-
 [connection signal="pressed" from="HBoxContainer/EnglishButton" to="." method="_on_EnglishButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/FarsiButton" to="." method="_on_FarsiButton_pressed"]
+[connection signal="pressed" from="Top/Social/YouTube" to="." method="_on_YouTube_pressed"]
+[connection signal="pressed" from="Top/Social/SoundCloud" to="." method="_on_SoundCloud_pressed"]
+[connection signal="pressed" from="Top/Social/Instagram" to="." method="_on_Instagram_pressed"]
+[connection signal="pressed" from="Top/LearnMoreButton" to="." method="_on_LearnMoreButton_pressed"]
+[connection signal="pressed" from="Top/SignPetitionButton" to="." method="_on_SignPetitionButton_pressed"]
 [connection signal="pressed" from="Bottom/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="Bottom/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="Bottom/ExitButton" to="." method="_on_ExitButton_pressed"]
 [connection signal="pressed" from="CreditsButton" to="." method="_on_CreditsButton_pressed"]
-[connection signal="meta_clicked" from="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
 [connection signal="button_up" from="GameEnded/ButtonsContainer/PlayAgainButton" to="." method="_on_PlayAgainButton_button_up"]
 [connection signal="button_up" from="GameEnded/ButtonsContainer/ReturnToMenuButton" to="." method="_on_ReturnToMenuButton_button_up"]
+[connection signal="value_changed" from="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer/MasterSlider" to="SubMenus" method="_on_MasterSlider_value_changed"]
+[connection signal="value_changed" from="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer/MusicSlider" to="SubMenus" method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="SubMenus/TabContainer/Settings/MarginContainer/VBoxContainer/GridContainer/SFXSlider" to="SubMenus" method="_on_SFXSlider_value_changed"]
+[connection signal="meta_clicked" from="SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer/CreditsBody" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="SubMenus/CloseButton" to="SubMenus" method="_on_CloseButton_pressed"]

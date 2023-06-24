@@ -4,7 +4,7 @@
 [ext_resource path="res://data/images/effects/blood2.png" type="Texture" id=2]
 [ext_resource path="res://data/images/effects/blood3.png" type="Texture" id=3]
 [ext_resource path="res://data/images/effects/blood1.png" type="Texture" id=4]
-[ext_resource path="res://data/images/NEW/character/Blood_explosion_32x32.png" type="Texture" id=5]
+[ext_resource path="res://data/images/character/Blood_explosion_32x32.png" type="Texture" id=5]
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 5 )

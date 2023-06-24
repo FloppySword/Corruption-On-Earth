@@ -46,7 +46,7 @@ var bge2_startpos = Vector2(599.1729, 2100)
 
 var time_start = 0
 var time_now = 0
-var waves = global.waves
+var waves = Global.waves
 var wave = 1
 
 export(bool) var DEBUG: = false
@@ -55,9 +55,9 @@ export(bool) var DEBUG: = false
 
 func _ready():
 	#Toggle to debug mobile
-	#global.device = "Mobile"
-	global.mouse_max_y = $HUD/BottomBorder.rect_global_position.y
-	$AnimationPlayer.play(global.device)
+	#Global.device = "Mobile"
+	Global.mouse_max_y = $HUD/BottomBorder.rect_global_position.y
+	$AnimationPlayer.play(Global.device)
 	
 	randomize()
 	time_start = OS.get_unix_time()
@@ -65,14 +65,14 @@ func _ready():
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
 
-	global.upper_bounds = upper_bounds
-	global.lower_bounds = lower_bounds
-	global.player_upper_bounds = player_upper_bounds
-	global.player_lower_bounds = player_lower_bounds
-	global.current_level = self
+	Global.upper_bounds = upper_bounds
+	Global.lower_bounds = lower_bounds
+	Global.player_upper_bounds = player_upper_bounds
+	Global.player_lower_bounds = player_lower_bounds
+	Global.current_level = self
 	
-	global.enemy_spawns = enemy_spawns
-	global.die_targets = die_targets
+	Global.enemy_spawns = enemy_spawns
+	Global.die_targets = die_targets
 
 	joystickAiming.connect("joystick_shoot", self, "_mobile_shoot")
 
@@ -150,7 +150,7 @@ func spawn_enemy1(pos, type):
 
 
 func show_player_health():
-	var player_health_level = global.player_health
+	var player_health_level = Global.player_health
 	var color = "green"
 	if player_health_level < 40:
 		color = "red"
@@ -160,7 +160,7 @@ func show_player_health():
 	player_healthbar.set_progress_texture(texture)
 	player_healthbar.set_value(player_health_level)
 	
-	var horse_health_level = global.playerhorse_health
+	var horse_health_level = Global.playerhorse_health
 	color = "green"
 	if horse_health_level < 40:
 		color = "red"
@@ -221,19 +221,19 @@ func _process(delta):
 	else:
 		bge2_pos = bge2.global_position
 	
-	bge1_pos += global.ground_vel * delta
-	bge2_pos += global.ground_vel * delta
+	bge1_pos += Global.ground_vel * delta
+	bge2_pos += Global.ground_vel * delta
 	bge1.global_position = (bge1_pos)
 	bge2.global_position = (bge2_pos)
 	
 	for effect in effects_container.get_children():
-		effect.global_position += global.ground_vel * delta
+		effect.global_position += Global.ground_vel * delta
 		if effect.global_position.y < lower_bounds.y:
 			effect.queue_free()
 	
 	
 	
-	#if global.device == "Mobile":
+	#if Global.device == "Mobile":
 #		# Movement using Input functions:
 #		var move := Vector2.ZERO
 #		move.x = Input.get_axis("ui_left", "ui_right")
@@ -242,8 +242,8 @@ func _process(delta):
 		
 		# Rotation:
 		#if joystickAiming and joystickAiming.is_pressed():
-			#global.joystick_rot = joystickAiming.get_output().angle() - (PI/2)
-			#global.joystick_rot = 
+			#Global.joystick_rot = joystickAiming.get_output().angle() - (PI/2)
+			#Global.joystick_rot = 
 
 
 
@@ -256,7 +256,7 @@ func _set_game_over():
 func set_game_won():
 	time_now = OS.get_unix_time()
 	var elapsed = time_now - time_start
-	global.score = 20000 - (37 * elapsed)
+	Global.score = 20000 - (37 * elapsed)
 	emit_signal("game_won")
 	queue_free()
 
