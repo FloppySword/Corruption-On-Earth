@@ -26,9 +26,8 @@ var link_youtube = 'https://www.youtube.com/watch?v=oc0QAY-hy38'
 var link_about = 'https://freetoomajsalehi.com/'
 var link_sign = 'https://www.change.org/p/free-iranian-protest-rapper-toomaj-salehi-freetoomajsalehi-freetoomaj'
 
-var Level = preload("res://scenes/level/Level1.tscn")
-var level
 
+signal start_level
 
 func _ready():
 	
@@ -44,29 +43,38 @@ func change_language(idx):
 		if item.is_in_group("MenuButton"):
 			item.setup()
 	
-	OS.shell_open('https://www.ac4a.net/')
+	
 
 
 func _on_PlayButton_pressed():
-	get_tree().paused = true
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var rn = rng.randf_range(1.5, 2.5)
 	
-	level = Level.instance()
-	add_child(level)
+	$LoadingScreen/Panel/Spinner.play("default")
+	$LoadingScreen.popup()
+	yield(get_tree().create_timer(rn), "timeout")
+	$LoadingScreen/Panel/Spinner.frame = 0
+	$LoadingScreen/Panel/Spinner.play("finished")
+	yield(get_tree().create_timer(0.5), "timeout")
+	$LoadingScreen.hide()
+	self.hide()
+	emit_signal("start_level")
 
-	level.connect("game_over", self, "_GameOver")
-	level.connect("game_won", self, "_GameWon")
-
-	yield(get_tree().create_timer(1.75), "timeout")
-	get_tree().paused = false
 	
 func _GameOver():
+	self.show()
+	$GameEnded/TabContainer/GameWon/VBoxContainer/ScoreLabel/ShareButton/ScoreCopied.hide()
 	$GameEnded/TabContainer.current_tab = 1
-	$GameEnded/ButtonsContainer/PlayAgainButton.text = "Try Again"
 	$GameEnded.popup()
 
 func _GameWon():
+	self.show()
+	$GameEnded/TabContainer/GameWon/VBoxContainer/ScoreLabel/ShareButton/ScoreCopied.hide()
+	var score_label = $GameEnded/TabContainer/GameWon/VBoxContainer/ScoreLabel
+	score_label.text = Global.Language.ScoreLabel[int(Global.farsi)] + str(Global.score)
+
 	$GameEnded/TabContainer.current_tab = 0
-	$GameEnded/ButtonsContainer/PlayAgainButton.text = "Play Again"
 	$GameEnded.popup()
 
 
@@ -112,28 +120,37 @@ func _on_PlayAgainButton_button_up():
 
 
 func _on_ReturnToMenuButton_button_up():
-	get_tree().paused = false
+	#get_tree().paused = false
 	$GameEnded.hide()
 
 
 func _on_YouTube_pressed():
-	pass # Replace with function body.
+	OS.shell_open(link_youtube)
 
 
 func _on_SoundCloud_pressed():
-	pass # Replace with function body.
+	OS.shell_open(link_soundcloud)
 
 
 func _on_Instagram_pressed():
-	pass # Replace with function body.
+	OS.shell_open(link_instagram)
 
 
 func _on_LearnMoreButton_pressed():
-	pass # Replace with function body.
+	OS.shell_open(link_about)
 
 
 func _on_SignPetitionButton_pressed():
-	pass # Replace with function body.
+	OS.shell_open(link_sign)
 
 
 
+func _on_ShareButton_button_up():
+	var paragraph
+	if Global.farsi:
+		paragraph = Global.share_score_fa
+	else:
+		paragraph = Global.share_score_en
+	paragraph = paragraph.replace("~", str(Global.score))
+	OS.set_clipboard(paragraph)
+	$GameEnded/TabContainer/GameWon/VBoxContainer/ScoreLabel/ShareButton/ScoreCopied.show()

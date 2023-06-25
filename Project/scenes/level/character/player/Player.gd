@@ -7,6 +7,8 @@ extends KinematicBody2D
 signal shoot
 signal hoof_step
 signal game_over
+signal set_aim_dir
+signal set_move_dir
 
 onready var player_anim_sprite = $PlayerArea2D/PlayerAnimatedSprite
 onready var current_frame = 0

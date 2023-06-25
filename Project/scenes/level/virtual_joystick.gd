@@ -136,6 +136,7 @@ func _update_joystick(touch_position: Vector2) -> void:
 		
 		
 		Global.joystick_rot = -vector.angle_to(Vector2(0, 1))
+		
 	
 	
 

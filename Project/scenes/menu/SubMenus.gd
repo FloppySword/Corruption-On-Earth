@@ -38,17 +38,18 @@ func _on_CloseButton_pressed():
 	hide()
 
 
-
-
-
+func change_vol(bus_name, value):
+	var bus = AudioServer.get_bus_index(bus_name)
+	var current_vol = db2linear(AudioServer.get_bus_volume_db(bus))
+	AudioServer.set_bus_volume_db(bus, linear2db(value))
 
 func _on_MasterSlider_value_changed(value):
-	pass # Replace with function body.
+	change_vol("Master", value)
 
 
 func _on_MusicSlider_value_changed(value):
-	pass # Replace with function body.
+	change_vol("Music", value)
 
 
 func _on_SFXSlider_value_changed(value):
-	pass # Replace with function body.
+	change_vol("Sound", value)

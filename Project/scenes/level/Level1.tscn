@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://data/images/effects/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -6,8 +6,8 @@
 [ext_resource path="res://scenes/level/Level1.gd" type="Script" id=4]
 [ext_resource path="res://scenes/level/character/player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://data/images/gui/health_green.png" type="Texture" id=6]
-[ext_resource path="res://data/images/gui/PlayerIcon.png" type="Texture" id=7]
-[ext_resource path="res://data/images/gui/HorseIcon.png" type="Texture" id=8]
+[ext_resource path="res://data/images/gui/HealthIcon.png" type="Texture" id=7]
+[ext_resource path="res://data/images/joystick/movement_dir_indicator.png" type="Texture" id=8]
 [ext_resource path="res://data/images/joystick/gdb-ps-over.png" type="Texture" id=9]
 [ext_resource path="res://data/images/joystick/gdb-ps-under.png" type="Texture" id=10]
 [ext_resource path="res://scenes/level/virtual_joystick.gd" type="Script" id=11]
@@ -17,6 +17,8 @@
 [ext_resource path="res://data/images/joystick/evade-arrow-normal.png" type="Texture" id=15]
 [ext_resource path="res://data/images/joystick/evade-arrow-pressed.png" type="Texture" id=16]
 [ext_resource path="res://scenes/level/DEBUG.gd" type="Script" id=17]
+[ext_resource path="res://data/images/joystick/aiming_dir_indicator_bg.png" type="Texture" id=18]
+[ext_resource path="res://data/images/joystick/aiming_dir_indicator.png" type="Texture" id=19]
 
 [sub_resource type="StyleBoxFlat" id=4]
 
@@ -71,7 +73,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("HUD/BottomBorder/HealthBarContainer:margin_right")
+tracks/4/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:self_modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -80,10 +82,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 480.0 ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:self_modulate")
+tracks/5/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:rect_scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -92,10 +94,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("HUD/BottomBorder/MobileButtons/AimingJoystick/Base/Tip:rect_scale")
+tracks/6/path = NodePath("HUD/BottomBorder/PlayerHealth:rect_position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -104,7 +106,55 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( 367, 88 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("HUD/BottomBorder/CurrentDirection:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 434, 8 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("HUD/BottomBorder/CurrentAim:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 650, 8 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("HUD/BottomBorder/CurrentDirection:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("HUD/BottomBorder/CurrentAim:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -187,7 +237,7 @@ tracks/3/keys = {
 "values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("HUD/BottomBorder/HealthBarContainer:margin_right")
+tracks/4/path = NodePath("HUD/BottomBorder/PlayerHealth:rect_position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -196,7 +246,55 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 600.0 ]
+"values": [ Vector2( 367, 52 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("HUD/BottomBorder/CurrentDirection:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 200, 43 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("HUD/BottomBorder/CurrentAim:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 1000, 44 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("HUD/BottomBorder/CurrentDirection:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("HUD/BottomBorder/CurrentAim:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [node name="Level1" type="Node2D"]
@@ -217,94 +315,80 @@ anchor_bottom = 1.0
 margin_top = 534.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="HealthBarContainer" type="VBoxContainer" parent="HUD/BottomBorder"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -600.0
-margin_top = -83.0
-margin_right = 480.0
-margin_bottom = 83.0
-custom_constants/separation = 20
-alignment = 1
-
-[node name="Player" type="HBoxContainer" parent="HUD/BottomBorder/HealthBarContainer"]
+[node name="PlayerHealth" type="HBoxContainer" parent="HUD/BottomBorder"]
 margin_left = 367.0
-margin_top = 25.0
-margin_right = 713.0
-margin_bottom = 73.0
+margin_top = 88.0
+margin_right = 719.0
+margin_bottom = 142.0
 size_flags_horizontal = 6
 
-[node name="PlayerIcon" type="TextureRect" parent="HUD/BottomBorder/HealthBarContainer/Player"]
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
+[node name="HealthIcon" type="TextureRect" parent="HUD/BottomBorder/PlayerHealth"]
+margin_right = 54.0
+margin_bottom = 54.0
+rect_min_size = Vector2( 54, 54 )
 texture = ExtResource( 7 )
 expand = true
 
-[node name="PlayerHealth" type="TextureProgress" parent="HUD/BottomBorder/HealthBarContainer/Player"]
-margin_left = 52.0
-margin_right = 346.0
-margin_bottom = 48.0
+[node name="Bars" type="VBoxContainer" parent="HUD/BottomBorder/PlayerHealth"]
+modulate = Color( 0.823529, 0.823529, 0.823529, 1 )
+margin_left = 58.0
+margin_top = 7.0
+margin_right = 352.0
+margin_bottom = 46.0
+size_flags_vertical = 6
+
+[node name="PlayerHealth" type="TextureProgress" parent="HUD/BottomBorder/PlayerHealth/Bars"]
+margin_right = 294.0
+margin_bottom = 25.0
 value = 100.0
 texture_over = ExtResource( 2 )
 texture_progress = ExtResource( 6 )
 
-[node name="Horse" type="HBoxContainer" parent="HUD/BottomBorder/HealthBarContainer"]
-margin_left = 367.0
-margin_top = 93.0
-margin_right = 713.0
-margin_bottom = 141.0
-size_flags_horizontal = 6
-
-[node name="HorseIcon" type="TextureRect" parent="HUD/BottomBorder/HealthBarContainer/Horse"]
-margin_right = 48.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 48, 48 )
-texture = ExtResource( 8 )
-expand = true
-
-[node name="HorseHealth" type="TextureProgress" parent="HUD/BottomBorder/HealthBarContainer/Horse"]
-margin_left = 52.0
-margin_right = 346.0
-margin_bottom = 48.0
+[node name="HorseHealth" type="TextureProgress" parent="HUD/BottomBorder/PlayerHealth/Bars"]
+margin_top = 29.0
+margin_right = 294.0
+margin_bottom = 39.0
+size_flags_vertical = 2
 value = 100.0
 texture_over = ExtResource( 2 )
 texture_progress = ExtResource( 6 )
+nine_patch_stretch = true
+stretch_margin_top = 10
 
 [node name="MobileButtons" type="HBoxContainer" parent="HUD/BottomBorder"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 75.0
-margin_right = -75.0
-margin_bottom = -2.0
+margin_top = -115.0
+margin_right = -23.0
+margin_bottom = -31.0
 alignment = 1
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="MovementJoystick" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-margin_top = 7.0
-margin_right = 778.0
-margin_bottom = 157.0
-rect_min_size = Vector2( 150, 150 )
-size_flags_horizontal = 3
-size_flags_vertical = 6
+modulate = Color( 1, 1, 1, 0.54902 )
+margin_top = 50.0
+margin_right = 700.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 700, 200 )
+size_flags_horizontal = 2
+size_flags_vertical = 10
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
-clampzone_size = 30.0
+clampzone_size = 80.0
 action_shoot = ""
 
 [node name="Base" type="TextureRect" parent="HUD/BottomBorder/MobileButtons/MovementJoystick"]
-margin_right = 150.0
-margin_bottom = 150.0
+margin_right = 200.0
+margin_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 150, 150 )
-rect_pivot_offset = Vector2( 75, 75 )
+rect_min_size = Vector2( 200, 200 )
+rect_pivot_offset = Vector2( 100, 100 )
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
@@ -323,8 +407,8 @@ margin_right = 50.0
 margin_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 150, 150 )
-rect_pivot_offset = Vector2( 75, 75 )
+rect_min_size = Vector2( 200, 200 )
+rect_pivot_offset = Vector2( 100, 100 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 9 )
@@ -334,31 +418,49 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="EvadeButton" type="TextureButton" parent="HUD/BottomBorder/MobileButtons"]
+margin_left = 704.0
+margin_top = 120.0
+margin_right = 804.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 100, 130 )
+size_flags_vertical = 8
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 16 )
+expand = true
+stretch_mode = 5
+
+[node name="Padding" type="Control" parent="HUD/BottomBorder/MobileButtons"]
+margin_left = 808.0
+margin_right = 848.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 40, 0 )
+
 [node name="AimingJoystick" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 782.0
-margin_top = 7.0
-margin_right = 932.0
-margin_bottom = 157.0
-rect_min_size = Vector2( 150, 150 )
+margin_left = 852.0
+margin_right = 1102.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 250, 250 )
+size_flags_horizontal = 2
 size_flags_vertical = 6
 script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
-deadzone_size = 2.0
-clampzone_size = 50.0
+clampzone_size = 100.0
 action_left = ""
 action_right = ""
 action_up = ""
 action_down = ""
 
 [node name="Base" type="TextureRect" parent="HUD/BottomBorder/MobileButtons/AimingJoystick"]
-margin_right = 150.0
-margin_bottom = 150.0
+modulate = Color( 1, 1, 1, 0.588235 )
+margin_right = 250.0
+margin_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 150, 150 )
-rect_pivot_offset = Vector2( 75, 75 )
+rect_min_size = Vector2( 250, 250 )
+rect_pivot_offset = Vector2( 125, 125 )
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 6
@@ -371,14 +473,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 50.0
-margin_bottom = 50.0
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 100, 100 )
-rect_pivot_offset = Vector2( 50, 50 )
+rect_min_size = Vector2( 250, 250 )
+rect_pivot_offset = Vector2( 125, 125 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 12 )
@@ -388,29 +490,38 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Padding" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 936.0
-margin_right = 966.0
-margin_bottom = 164.0
-rect_min_size = Vector2( 30, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="EvadeButton" type="TextureButton" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 970.0
-margin_top = 42.0
-margin_right = 1050.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 80, 80 )
-size_flags_vertical = 6
-texture_normal = ExtResource( 15 )
-texture_pressed = ExtResource( 16 )
+[node name="CurrentDirection" type="TextureRect" parent="HUD/BottomBorder"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -766.0
+margin_top = 8.0
+margin_right = -702.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 32, 32 )
+texture = ExtResource( 8 )
 expand = true
-stretch_mode = 5
-__meta__ = {
-"_edit_lock_": true
-}
+
+[node name="CurrentAim" type="TextureRect" parent="HUD/BottomBorder"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -550.0
+margin_top = 8.0
+margin_right = -486.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 18 )
+expand = true
+
+[node name="Indicator" type="TextureRect" parent="HUD/BottomBorder/CurrentAim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 32, 32 )
+texture = ExtResource( 19 )
+expand = true
 
 [node name="TopBorder" type="ColorRect" parent="HUD"]
 anchor_right = 1.0

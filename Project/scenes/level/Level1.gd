@@ -56,12 +56,15 @@ export(bool) var DEBUG: = false
 func _ready():
 	#Toggle to debug mobile
 	#Global.device = "Mobile"
+	
 	Global.mouse_max_y = $HUD/BottomBorder.rect_global_position.y
 	$AnimationPlayer.play(Global.device)
 	
 	randomize()
 	time_start = OS.get_unix_time()
 	player_horse.connect("shoot", self, "_spawn_bullet")
+	player_horse.connect("set_aim_dir", self, "_update_aim_indicator")
+	player_horse.connect("set_move_dir", self, "_update_move_indicator")
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
 
@@ -101,6 +104,13 @@ func _ready():
 #    node.get_parent().remove_child(node)
 #    new_parent.add_child(node)
 #    node.transform = new_parent.get_global_transform.inverse() * old_transform
+	
+func _update_aim_indicator():
+	pass
+
+func _update_move_indicator():
+	pass
+	
 	
 func _spawn_bullet(dir, pos, shooter):
 	var b = Bullet.instance()
@@ -185,7 +195,7 @@ func show_player_health():
 #	hit_position.global_position = (collision_point)
 #
 func set_next_wave():
-	if wave == waves.size():
+	if wave == waves.size() + 1:
 		set_game_won()
 		return
 		

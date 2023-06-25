@@ -19,12 +19,15 @@ var high_score = 0
 export(String, MULTILINE) var credit_text_en
 export(String, MULTILINE) var credit_text_fa
 
+export(String, MULTILINE) var share_score_en
+export(String, MULTILINE) var share_score_fa
+
 
 #When language button is toggled in main menu scene, switch all members of the "Language" group to
 #the selected language's values. Index 0 = English, 1 = Farsi. 
 var Language = {
 				"LearnMoreButton":["Learn More","تاعالطا"],
-				"SignPetitionButton":["Sign Petition","تساوخداد"],
+				"SignPetitionButton":["     Sign Petition","تساوخداد"],
 				"PlayButton":["Play","یزاب"],
 				"OptionsButton":["Options","یدنبرکیپ"],
 				"ExitButton":["Exit","جراخ"],
@@ -36,13 +39,13 @@ var Language = {
 				"CreditsTitle":["Credits","عاجرا"],
 				"CreditsBody":[credit_text_en, credit_text_fa],
 				"GameWonLabel":["GAME WON","یزوریپ"],
-				"ScoreLabel":["Score: ","هرمن"],
+				"ScoreLabel":["Score: 00000","هرمن: 000000"],
+				"ScoreCopied":["SCORE COPIED","دش یپک هرمن"], 
 				"GameOverLabel":["GAME OVER","یدرم وت"],
 				"PlayAgainButton":["Play Again","هرابود"],
 				"ReturnToMenuButton":["Main Menu","ونم"]
 				}
 var LanguageBanner = ["res://data/images/gui/banner_en.png", "res://data/images/gui/banner_fa.png"]
-				
 
 
 var mute_sound = false
@@ -95,17 +98,17 @@ var die_targets
 #			du = duo unarmed
 #			da = duo armed
 var waves = {
-				1:["u","u","u","u","u"],#["u"],
-				2:["u","u"],
-				3:["a"],
-				4:["u","u","u"],
-				5:["a","a"],
-				6:["u","u","u","u","u"],
-				7:["du"],
-				8:["a","a","a","a"],
-				9:["du","du","du"],
-				10:["du","a","a","a"],
-				11:["da","da","da","da"]
+				1:["u","u","u","u","u"]#,#["u"],
+#				2:["u","u"],
+#				3:["a"],
+#				4:["u","u","u"],
+#				5:["a","a"],
+#				6:["u","u","u","u","u"],
+#				7:["du"],
+#				8:["a","a","a","a"],
+#				9:["du","du","du"],
+#				10:["du","a","a","a"],
+#				11:["da","da","da","da"]
 			}
 
 #Enemy boid variables

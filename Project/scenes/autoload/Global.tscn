@@ -102,3 +102,113 @@ The font used in this game is [url=https://essssam.itch.io/pixel-ae]Pixel AE[/ur
 
 Made with Godot Game Engine.
 "
+credit_text_fa = "SPRITES
+
+The following assets were  used as-is or modified.
+
+	[url=https://chasersgaming.itch.io/]Chasers Gaming[/url]
+		[url=https://chasersgaming.itch.io/brawler-asset-character-soldier-nes]NES Brawler Series Soldier[/url]
+		[url=https://chasersgaming.itch.io/brawler-asset-tile-set-military-base-nes]NES Brawler Series Military Base[/url]
+		[url=https://opengameart.org/content/bloody-mary]Bloody Mary[/url]
+
+	[url=https://nyknck.itch.io/]NYKNCK[/url]
+		[url=https://nyknck.itch.io/brushedfxseries003/]Brushed - FX Series 003[/url]
+		[url=https://nyknck.itch.io/explosion/]Pixel Explosion[/url]
+
+	[url=https://clintbellanger.net/]Clint Bellanger[/url]
+		[url=https://opengameart.org/content/quake-spell/]Quake Spell[/url]
+		[url=https://opengameart.org/content/heal-spell/]Heal Spell[/url]
+		[url=https://opengameart.org/content/shield-spell/]Shield Spell[/url]
+
+	[url=https://elska.itch.io/]Elska[/url]
+		[url=https://elska.itch.io/pixel-fire]Pixel Filre[/url]
+
+	[url=https://nitca.itch.io/]nitca[/url]
+		[url=https://nitca.itch.io/animated-smoke-sprite]Animated Smoke Sprite[/url]
+
+	[url=https://opengameart.org/users/bluecarrot16]bluecarrot16[/url]
+		[url=https://opengameart.org/content/lpc-rocks/]Rocks[/url]
+
+	[url=https://opengameart.org/users/knik1985/]knik1985[/url]
+		[url=https://opengameart.org/content/pixel-drone/]Pixel Drone[/url]
+
+	[url=https://brullov.itch.io/]Brullov Studios[/url]
+		[url=https://brullov.itch.io/fire-animation]Fire Animation[/url]
+
+	[url=https://opengameart.org/users/ettingrinder/]ETTiNGRiNDER[/url]
+		[url=https://opengameart.org/content/misc-dark-fantasy-scenery-sprites/]Misc. Dark Fantasy Scenery[/url]
+
+	[url=https://opengameart.org/users/rawdanitsu/]Rawdanitsu[/url]
+		[url=https://opengameart.org/content/top-down-tileset-1/]Top Down Tileset 1 (Blood)[/url]
+
+	[url=https://crusenho.itch.io/]Crusenho[/url]
+		[url=https://crusenho.itch.io/complete-gui-essential-pack/]GUI Essentials[/url]
+
+
+
+SOUND EFFECTS
+
+The following sounds were used as-is or modified.
+
+	[url=https://nox-sound.itch.io/]NOX Sounds[/url]
+		[url=https://nox-sound.itch.io/essentials-series-sfx-nox-sound/]Essentials series[/url] (Used for footstep effect)
+
+	[url=https://darkworldaudio.itch.io/]Darkworld Audio[/url]
+		[url=https://darkworldaudio.itch.io/sound-effects-survival-i/]Sound Effects - Survival I[/url] (Used for melee sounds)
+
+	[url=https://shapeforms.itch.io/]Shapeforms[/url]
+		[url=https://shapeforms.itch.io/shapeforms-audio-free-sfx/]Free Sounds[/url] (Used for gunshots)
+
+	[url=https://ivyism.itch.io/]ivy[/url]
+		[url=https://ivyism.itch.io/fantasy-pack/]Fantasy Sound Effects[/url] (Used for healing spell)
+
+	[url=https://lazy-brain-games.itch.io/]Lazy Brain Games[/url]
+		[url=https://lazy-brain-games.itch.io/hanna-barera-sfx5-lazy-brain-games-edition/]Hanna Barera SFX5 Audio Pack[/url] (Used for misc. efffects)
+		
+All additional sound effects were sourced on [https://pixabay.com/]Pixabay[/url] according to the website's [url=https://pixabay.com/service/license/]license[/url].
+
+
+
+MUSIC
+
+The following tracks were used as-is.
+
+	[url=https://freemusicarchive.org/music/lisa-hammer/]Lisa Hammer[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-campy-sci-fi-and-horror/ancient-procession-lisa-hammermp3/]Ancient Procession[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/bloody-macbeth-lisa-hammermp3/]Bloody Macbeth[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/cold-dread-lisa-hammermp3-3/]Cold Dread[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-campy-sci-fi-and-horror/darios-theme-lisa-hammermp3/]Dario's Theme[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/death-machine-lisa-hammer/]Death Machine[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/draculas-carriage-lisa-hammermp3/]Dracula's Carriage[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/no-heartbeat-lisa-hammermp3/]No Heartbeat[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-campy-sci-fi-and-horror/operation-lisa-hammermp3/]Operation[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-campy-sci-fi-and-horror/string-peril-lisa-hammermp3/]String Peril[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-campy-sci-fi-and-horror/terror-horns-attack-lisa-hammermp3/]Terror Horns[/url]
+		[url=https://freemusicarchive.org/music/lisa-hammer/soundtrack-series-horror-and-dread/wasteland-by-lisa-hammermp3/]Wasteland[/url]
+		
+		The above tracks are licensed under [url=https://creativecommons.org/licenses/by-sa/4.0/]CC-BY-SA 4.0[/url]
+		
+	[url=https://freemusicarchive.org/music/kirk-osamayo/]Kirk Osamayo[/url]
+		[url=https://freemusicarchive.org/music/kirk-osamayo/orange-season-3/lets-keep-it-this-way/]Let's Keep It This Way[/url].
+		
+		The above track is licensed under [url=https://creativecommons.org/licenses/by/4.0/]CC BY 4.0[/url].
+
+
+
+
+The font used in this game is [url=https://essssam.itch.io/pixel-ae]Pixel AE[/url],  created by [url=https://essssam.itch.io/]Essssam[/url]. It is a pixel font that is compatible with both Latin and Arabic characters.
+
+Made with Godot Game Engine.
+"
+share_score_en = "You've been challenged! Can you beat my latest score of ~ ?
+
+https://rad-potato.itch.io/pixel-perfect-button-kit
+
+"
+share_score_fa = " !دیا هدش هدیشک شلاچ هب امش
+نم یالاب زایتما دیناوت یم ایآ
+؟دیهد تسکش ار
+
+متفرگ زایتما ~
+
+https://rad-potato.itch.io/pixel-perfect-button-kit"
