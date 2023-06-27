@@ -33,7 +33,7 @@ func _physics_process(delta):
 	elapsed_time += delta
 
 	sprite.global_position += vel * delta
-	sprite.scale.x = min(sprite.scale.x + 10, 60)
+	sprite.scale.x = 60#min(sprite.scale.x + 10, 60)
 	
 	
 	if ray.is_colliding():
@@ -66,9 +66,9 @@ func hit_area(area, _collision_pos):
 	#print(area.name)
 	
 	if area.is_in_group("Character"):
-		var primary_damage = 100 - (0.8 * collision_dist)
-		var additional_damage = 30 + rng.randi_range(-5, 5)
-		var damage = max(additional_damage, primary_damage)
+		var primary_damage = Global.bullet_primary_damage - (0.8 * collision_dist)
+		var adtl_damage = Global.bullet_adtl_damage + rng.randi_range(-5, 5)
+		var damage = max(adtl_damage, primary_damage)
 		#print(collision_dist)
 		var character_scene
 		var damage_type = "gunshot"
@@ -81,7 +81,7 @@ func hit_area(area, _collision_pos):
 				damage = 100
 			else:
 				character_scene = area
-		character_scene._damage(character_scene, damage, damage_type, collision_pos)
+		character_scene._damage(area, damage, damage_type, collision_pos)
 	else:
 		if shooter == "Player":
 			if area.is_in_group("Metal"):

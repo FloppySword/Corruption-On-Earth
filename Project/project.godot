@@ -135,3 +135,4 @@ pointing/emulate_touch_from_mouse=true
 
 2d_physics/layer_1="vehicle"
 2d_physics/layer_2="health"
+2d_physics/layer_3="melee_health"

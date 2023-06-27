@@ -148,6 +148,15 @@ func _update_input_actions():
 		
 		#because aiming joystick only, don't do the below calculations
 		return
+
+	
+	#Prevent diagonal output vectors from drowning out U/D/L/R inputs
+	if abs(_output.x) < .50 && abs(_output.y) > .90:
+		_output.x = 0
+	if abs(_output.y) < .50 && abs(_output.x) > .90:
+		_output.y = 0
+		
+		
 	if _output.x < 0:
 		Input.action_press(action_left, -_output.x)
 	elif Input.is_action_pressed(action_left):

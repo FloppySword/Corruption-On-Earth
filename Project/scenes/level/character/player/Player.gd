@@ -86,7 +86,8 @@ onready var shoot_pos_right = $ChasePositions/RightShooting
 onready var kick_pos_right = $ChasePositions/RightKicking
 
 onready var player_hitbox = $PlayerArea2D
-onready var horse_hitbox = $HorseArea2D
+onready var horse_bullet_hitbox = $HorseBulletDamageArea2D
+onready var horse_kick_hitbox = $HorseKickDamageArea2D
 
 var frame = 0
 var bullet_pos = Vector2.ZERO
@@ -288,7 +289,9 @@ func get_player_direction():
 			player_anim_sprite.frame = 0
 			rot = 0
 			bullet_pos = bullet_pos0.global_position
-
+		
+		Global.playerhorse_rot = rot
+		emit_signal("set_aim_dir")
 
 func get_player_action():
 	if player_anim_sprite.animation == "default":
@@ -338,6 +341,7 @@ func get_horse_movement(delta):
 	
 	Global.playerhorse_pos = pos
 	Global.playerhorse_vel = vel
+	emit_signal("set_move_dir")
 
 	
 	"""
@@ -359,18 +363,25 @@ func _physics_process(delta):
 		get_player_action()
 		get_horse_movement(delta)
 		
-		
 
 func _damage(hitbox, damage, type, _pos):
 	if type == "gunshot":
 		var blood_impact = BloodImpact.instance()
 		add_child(blood_impact)
-		blood_impact.init(pos, type)
+		blood_impact.init(_pos, type)	#or pos?
 		
-	if hitbox == player_hitbox:
-		Global.player_health -= damage
-	elif hitbox == horse_hitbox:
+		if hitbox == player_hitbox:
+			Global.player_health -= damage
+		elif hitbox == horse_bullet_hitbox:
+			Global.playerhorse_health -= damage
+	elif type == "kick":
+		var kick_impact = KickImpact.instance()
+		add_child(kick_impact)
+		kick_impact.init(_pos, type)
+		
+		
 		Global.playerhorse_health -= damage
+		
 	
 	if Global.player_health <= 0 || Global.playerhorse_health <= 0:
 		emit_signal("game_over")

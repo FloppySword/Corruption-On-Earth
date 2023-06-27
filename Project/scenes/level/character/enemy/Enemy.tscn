@@ -1924,9 +1924,12 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0.8 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "apply_kick_damage"
+}, {
 "args": [  ],
 "method": "anim_unlock"
 } ]
@@ -2959,13 +2962,13 @@ shape = SubResource( 14 )
 
 [node name="KickDetector" type="Area2D" parent="Detectors"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detectors/KickDetector"]
-position = Vector2( 13, -3.75 )
+[node name="RightCollisionShape2D" type="CollisionShape2D" parent="Detectors/KickDetector"]
+position = Vector2( 12.25, -3 )
 shape = SubResource( 10 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Detectors/KickDetector"]
+[node name="LeftCollisionShape2D" type="CollisionShape2D" parent="Detectors/KickDetector"]
 position = Vector2( -12.25, -3 )
 shape = SubResource( 10 )
 
@@ -2978,11 +2981,13 @@ region_enabled = true
 region_rect = Rect2( 51, 21, 10, 13 )
 
 [node name="LegRight" type="Sprite" parent="."]
-position = Vector2( 4, -2 )
+position = Vector2( 7, -4 )
+rotation = 1.48439
+scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 2 )
 offset = Vector2( 1, -2 )
 region_enabled = true
-region_rect = Rect2( 59, 12, 4, 7 )
+region_rect = Rect2( 59, 8, 4, 11 )
 
 [node name="LegLeft" type="Sprite" parent="."]
 position = Vector2( -4, -1 )
@@ -3021,6 +3026,7 @@ position = Vector2( 0.164911, 1.30532 )
 
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( 0, 5 )
+rotation = -0.279253
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 52, 42, 8, 9 )

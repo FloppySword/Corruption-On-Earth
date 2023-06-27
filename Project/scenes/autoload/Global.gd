@@ -81,7 +81,12 @@ var gun_dmg_max = 120
 var player
 var playerhorse_pos = Vector2()
 var playerhorse_vel = Vector2()
+var playerhorse_rot = 0
 var player_pos = Vector2()
+
+
+var bullet_primary_damage = 100
+var bullet_adtl_damage = 30
 
 var joystick_rot = 0
 
@@ -114,10 +119,16 @@ var waves = {
 #Enemy boid variables
 var target_force = 0.04
 var cohesion_force = 0.00
-var align_force = 0.00
-var separation_force = 0.3
-var view_distance = 70
-var avoid_distance = 165
+var align_force = 0.03
+var separation_force = 0.04
+var view_distance = 100
+var avoid_distance = 110
+#var target_force = 0.04
+#var cohesion_force = 0.00
+#var align_force = 0.00
+#var separation_force = 0.3
+#var view_distance = 70
+#var avoid_distance = 165
 
 
 func _enemy_remote_shoot(enemy):

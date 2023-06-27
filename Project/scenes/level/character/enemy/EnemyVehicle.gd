@@ -210,7 +210,7 @@ func _physics_process(delta):
 			
 		#target = Global.player.global_position
 
-		if global_position.x >= Global.player.global_position.x:
+		if global_position.x <= Global.player.global_position.x:
 			if target_type == "shoot":
 				target = Global.player.shoot_pos_left.global_position
 			elif target_type == "kick":
@@ -265,6 +265,8 @@ func _physics_process(delta):
 				
 				vel = vel.bounce(collision.normal) 
 				collision_count += 1
+		else:
+			vel = 0.5 * vel.bounce(collision.normal) 
 	
 
 	if !vehicle_state == vehicleStates.Normal:#!vehicle_state == vehicleStates.Explode:

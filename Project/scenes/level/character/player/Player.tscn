@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/images/character/player/PlayerFrames.png" type="Texture" id=2]
@@ -20,6 +20,9 @@ extents = Vector2( 1.5, 5 )
 
 [sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 1.5, 5 )
+
+[sub_resource type="RectangleShape2D" id=56]
+extents = Vector2( 0.5, 15 )
 
 [sub_resource type="CircleShape2D" id=50]
 radius = 9.0
@@ -275,22 +278,35 @@ disabled = true
 position = Vector2( 0, 12 )
 shape = SubResource( 49 )
 
-[node name="HorseArea2D" type="Area2D" parent="." groups=["Horse", "Player"]]
+[node name="HorseBulletDamageArea2D" type="Area2D" parent="." groups=["Horse", "Player"]]
 z_index = 2
 collision_layer = 2
 collision_mask = 0
 
-[node name="RearLeftCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
+[node name="RearLeftCollisionShape2D" type="CollisionShape2D" parent="HorseBulletDamageArea2D"]
 position = Vector2( -5, -10 )
 shape = SubResource( 53 )
 
-[node name="RearRightCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
+[node name="RearRightCollisionShape2D" type="CollisionShape2D" parent="HorseBulletDamageArea2D"]
 position = Vector2( 5, -10 )
 shape = SubResource( 54 )
 
-[node name="FrontCollisionShape2D" type="CollisionShape2D" parent="HorseArea2D"]
+[node name="FrontCollisionShape2D" type="CollisionShape2D" parent="HorseBulletDamageArea2D"]
 position = Vector2( 1, 37 )
 shape = SubResource( 55 )
+
+[node name="HorseKickDamageArea2D" type="Area2D" parent="." groups=["Horse", "Player"]]
+z_index = 2
+collision_layer = 4
+collision_mask = 0
+
+[node name="LeftCollisionShape2D" type="CollisionShape2D" parent="HorseKickDamageArea2D"]
+position = Vector2( -7, 7 )
+shape = SubResource( 56 )
+
+[node name="RightCollisionShape2D" type="CollisionShape2D" parent="HorseKickDamageArea2D"]
+position = Vector2( 7, 7 )
+shape = SubResource( 56 )
 
 [node name="HorseSprite" type="Sprite" parent="."]
 position = Vector2( 2, 0 )
@@ -449,13 +465,13 @@ position = Vector2( -1.15143, 41.1369 )
 position = Vector2( -80, 14 )
 
 [node name="LeftKicking" type="Position2D" parent="ChasePositions"]
-position = Vector2( -36, 14 )
+position = Vector2( -30, 14 )
 
 [node name="RightShooting" type="Position2D" parent="ChasePositions"]
 position = Vector2( 80, 14 )
 
 [node name="RightKicking" type="Position2D" parent="ChasePositions"]
-position = Vector2( 36, 14 )
+position = Vector2( 30, 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/HorseGallop = SubResource( 48 )

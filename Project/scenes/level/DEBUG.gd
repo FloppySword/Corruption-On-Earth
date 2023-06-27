@@ -9,8 +9,19 @@ var avoid_distance = Global.avoid_distance
 
 var enemy_container
 
+func _ready():
+	yield(get_tree().create_timer(.05), "timeout")
+	$Control/Target.value = target_force
+	$Control/Cohesion.value = cohesion_force
+	$Control/Alignment.value = align_force
+	$Control/Separation.value = separation_force
+	$Control/ViewDistance.value = view_distance
+	$Control/AvoidDistance.value = avoid_distance
+	
+
 
 func set_vars():
+	
 	Global.target_force = target_force
 	Global.cohesion_force = cohesion_force
 	Global.align_force = align_force

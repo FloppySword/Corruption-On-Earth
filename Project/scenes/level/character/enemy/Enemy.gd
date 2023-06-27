@@ -168,7 +168,22 @@ func _on_KickDetector_area_entered(area):
 			anim_unlock()
 			
 			
-
+func apply_kick_damage():
+	var areas = kick_detector.get_overlapping_areas()
+	if areas.size() > 0:
+		var area = areas[0]		
+		var character_scene = area.owner
+		var damage = 5
+		var damage_type = "kick"
+		var kick_pos
+		var kick_padding = Vector2(2, 0)
+		if anim_player.current_animation == "MotorcycleDriverKickLeft":
+			kick_pos = $Detectors/KickDetector/LeftCollisionShape2D.global_position
+			kick_pos -= kick_padding
+		else:
+			kick_pos = $Detectors/KickDetector/RightCollisionShape2D.global_position
+			kick_pos += kick_padding
+		character_scene._damage(area, damage, damage_type, kick_pos)
 
 func _on_KickTimer_timeout():
 	if dead:
@@ -178,7 +193,7 @@ func _on_KickTimer_timeout():
 		_on_KickDetector_area_entered(areas[0])
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	kick_timer.wait_time = 1 + rng.randf_range(-0.2,2.0)
+	kick_timer.wait_time = rng.randf_range(0.25, 0.50)# + rng.randf_range(-0.2,2.0)
 
 
 func _on_ReactionTimer_timeout():

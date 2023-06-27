@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://scenes/menu/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/images/gui/loading.png" type="Texture" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://data/images/gui/ShareButton.png" type="Texture" id=13]
 [ext_resource path="res://data/fonts/Janna LT Bold.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://data/images/gui/instagram.png" type="Texture" id=15]
+[ext_resource path="res://data/images/gui/youtube_pressed.png" type="Texture" id=16]
+[ext_resource path="res://data/images/gui/soundcloud_pressed.png" type="Texture" id=17]
+[ext_resource path="res://data/images/gui/instagram_pressed.png" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=33]
 size = 34
@@ -295,48 +298,56 @@ anchor_top = 0.01
 anchor_right = 0.99
 anchor_bottom = 0.1
 margin_left = -300.0
-custom_constants/separation = 20
 alignment = 2
 
 [node name="Social" type="HBoxContainer" parent="Top"]
 margin_right = 424.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 220, 70 )
+margin_bottom = 85.0
+rect_min_size = Vector2( 220, 85 )
 custom_constants/separation = 15
 alignment = 2
 
 [node name="YouTube" type="TextureButton" parent="Top/Social"]
 margin_left = 214.0
 margin_right = 274.0
-margin_bottom = 70.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 0
 texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 16 )
+texture_hover = ExtResource( 16 )
 expand = true
 stretch_mode = 5
 
 [node name="SoundCloud" type="TextureButton" parent="Top/Social"]
 margin_left = 289.0
 margin_right = 349.0
-margin_bottom = 70.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 0
 texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 17 )
 expand = true
 stretch_mode = 5
 
 [node name="Instagram" type="TextureButton" parent="Top/Social"]
 margin_left = 364.0
 margin_right = 424.0
-margin_bottom = 70.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 60, 60 )
+size_flags_vertical = 0
 texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 18 )
 expand = true
 stretch_mode = 5
 
 [node name="LearnMoreButton" parent="Top" groups=["Language"] instance=ExtResource( 1 )]
 margin_left = 234.0
-margin_top = 90.0
+margin_top = 89.0
 margin_right = 424.0
-margin_bottom = 140.0
+margin_bottom = 139.0
 rect_min_size = Vector2( 190, 50 )
 size_flags_horizontal = 10
 text = "Learn More"
@@ -348,9 +359,9 @@ font_color_focused = Color( 0.443137, 0.827451, 0.419608, 1 )
 
 [node name="SignPetitionButton" parent="Top" groups=["Language"] instance=ExtResource( 1 )]
 margin_left = 124.0
-margin_top = 160.0
+margin_top = 143.0
 margin_right = 424.0
-margin_bottom = 210.0
+margin_bottom = 193.0
 rect_min_size = Vector2( 300, 50 )
 size_flags_horizontal = 10
 text = "     Sign the Petition"

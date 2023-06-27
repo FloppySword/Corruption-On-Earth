@@ -28,8 +28,8 @@ onready var spawn_timer = $Gameplay/spawn_timer
 onready var whinny_sounds = $Gameplay/whinny_sounds
 
 onready var HUD = $HUD
-onready var player_healthbar = $HUD/BottomBorder/HealthBarContainer/Player/PlayerHealth
-onready var horse_healthbar = $HUD/BottomBorder/HealthBarContainer/Horse/HorseHealth
+onready var player_healthbar = $HUD/BottomBorder/PlayerHealth/Bars/PlayerHealth
+onready var horse_healthbar = $HUD/BottomBorder/PlayerHealth/Bars/HorseHealth
 
 onready var upper_bounds = $Gameplay/UpperBounds.global_position
 onready var lower_bounds = $Gameplay/LowerBounds.global_position
@@ -106,10 +106,11 @@ func _ready():
 #    node.transform = new_parent.get_global_transform.inverse() * old_transform
 	
 func _update_aim_indicator():
-	pass
+	$HUD/BottomBorder/CurrentAim/Indicator.global_rotation = Global.playerhorse_rot
+	#print($HUD/BottomBorder/CurrentAim/Indicator.global_rotation)
 
 func _update_move_indicator():
-	pass
+	$HUD/BottomBorder/CurrentDirection.global_rotation = -Global.playerhorse_vel.angle_to(Vector2(0, 1))
 	
 	
 func _spawn_bullet(dir, pos, shooter):
@@ -267,6 +268,8 @@ func set_game_won():
 	time_now = OS.get_unix_time()
 	var elapsed = time_now - time_start
 	Global.score = 20000 - (37 * elapsed)
+	if Global.score <= 0:
+		Global.score = 1
 	emit_signal("game_won")
 	queue_free()
 

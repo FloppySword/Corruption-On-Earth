@@ -177,7 +177,6 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
-frame = 3
 speed_scale = 10.0
 playing = true
 
@@ -195,7 +194,6 @@ position = Vector2( 0, 8 )
 position = Vector2( 0, -6.5 )
 
 [node name="Icon" type="Sprite" parent="."]
-visible = false
 position = Vector2( 70.5, 27 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
