@@ -151,18 +151,24 @@ func _check_ammo():
 #	print(rng.randi())
 	#var player_pos = Global.player.global_position
 	
-	
+func set_target_force(end:bool):
+	if !end:
+		vehicle.target_force = Global.target_force * 5
+		vehicle.separation_force = 0
+	else:
+		vehicle.target_force = Global.target_force
+		vehicle.separation_force = Global.separation_force
+		
 
 func _on_KickDetector_area_entered(area):
 	if area.is_in_group("Enemy") || dead || kick_timer.time_left > 0:
 		return
 	if type == "Driver":
 		anim_lock()
+		
 		if area.global_position.x > global_position.x:
-
 			anim_player.play("MotorcycleDriverKickLeft")
 		elif area.global_position.x < global_position.x:
-			
 			anim_player.play("MotorcycleDriverKickRight")
 		else:
 			anim_unlock()
@@ -177,12 +183,14 @@ func apply_kick_damage():
 		var damage_type = "kick"
 		var kick_pos
 		var kick_padding = Vector2(2, 0)
-		if anim_player.current_animation == "MotorcycleDriverKickLeft":
+		#print(anim_player.current_animation)
+		if anim_player.current_animation == "MotorcycleDriverKickRight":
 			kick_pos = $Detectors/KickDetector/LeftCollisionShape2D.global_position
 			kick_pos -= kick_padding
 		else:
 			kick_pos = $Detectors/KickDetector/RightCollisionShape2D.global_position
 			kick_pos += kick_padding
+		#print(kick_pos)
 		character_scene._damage(area, damage, damage_type, kick_pos)
 
 func _on_KickTimer_timeout():

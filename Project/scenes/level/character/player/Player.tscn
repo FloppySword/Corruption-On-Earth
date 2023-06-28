@@ -301,11 +301,11 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="LeftCollisionShape2D" type="CollisionShape2D" parent="HorseKickDamageArea2D"]
-position = Vector2( -7, 7 )
+position = Vector2( -8, 7 )
 shape = SubResource( 56 )
 
 [node name="RightCollisionShape2D" type="CollisionShape2D" parent="HorseKickDamageArea2D"]
-position = Vector2( 7, 7 )
+position = Vector2( 8, 7 )
 shape = SubResource( 56 )
 
 [node name="HorseSprite" type="Sprite" parent="."]

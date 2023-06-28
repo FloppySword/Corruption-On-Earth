@@ -76,7 +76,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=15]
-extents = Vector2( 0.5, 1.75 )
+extents = Vector2( 0.5, 0.75 )
 
 [sub_resource type="Animation" id=16]
 resource_name = "MotorcycleStraight"
@@ -177,6 +177,7 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
+frame = 4
 speed_scale = 10.0
 playing = true
 
@@ -185,6 +186,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpriteRear/SpriteFront/SpriteTire/TireArea2D"]
+position = Vector2( 0, -0.25 )
 shape = SubResource( 15 )
 
 [node name="Seat1" type="Position2D" parent="SpriteRear"]
@@ -194,6 +196,7 @@ position = Vector2( 0, 8 )
 position = Vector2( 0, -6.5 )
 
 [node name="Icon" type="Sprite" parent="."]
+visible = false
 position = Vector2( 70.5, 27 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )

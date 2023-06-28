@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scenes/menu/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/images/gui/loading.png" type="Texture" id=2]
@@ -84,9 +84,13 @@ font_data = ExtResource( 14 )
 size = 48
 font_data = ExtResource( 14 )
 
+[sub_resource type="StyleBoxEmpty" id=60]
+
 [sub_resource type="DynamicFont" id=45]
 size = 48
 font_data = ExtResource( 14 )
+
+[sub_resource type="StyleBoxEmpty" id=61]
 
 [sub_resource type="StyleBoxFlat" id=53]
 bg_color = Color( 0.352941, 0.0431373, 0.188235, 1 )
@@ -579,6 +583,7 @@ size_flags_vertical = 6
 custom_colors/font_color = Color( 0.486275, 0.784314, 0.517647, 1 )
 custom_colors/font_color_pressed = Color( 0.52549, 0.937255, 0.898039, 1 )
 custom_fonts/font = SubResource( 43 )
+custom_styles/focus = SubResource( 60 )
 text = "Play Again"
 flat = true
 
@@ -591,6 +596,7 @@ size_flags_vertical = 6
 custom_colors/font_color = Color( 0.784314, 0.486275, 0.486275, 1 )
 custom_colors/font_color_pressed = Color( 0.937255, 0.87451, 0.52549, 1 )
 custom_fonts/font = SubResource( 45 )
+custom_styles/focus = SubResource( 61 )
 text = "Main Menu"
 flat = true
 

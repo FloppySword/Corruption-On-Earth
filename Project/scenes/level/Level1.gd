@@ -54,6 +54,8 @@ export(bool) var DEBUG: = false
 
 
 func _ready():
+	$HUD/DEBUG.DEBUG = DEBUG
+
 	#Toggle to debug mobile
 	#Global.device = "Mobile"
 	
@@ -67,6 +69,7 @@ func _ready():
 	player_horse.connect("set_move_dir", self, "_update_move_indicator")
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
+	player_horse.connect("health_changed", self, "_update_healthbars")
 
 	Global.upper_bounds = upper_bounds
 	Global.lower_bounds = lower_bounds
@@ -81,7 +84,7 @@ func _ready():
 
 
 	get_tree().set_pause(false)
-	show_player_health()
+	_update_healthbars()
 	
 	if DEBUG:
 		$HUD/DEBUG.visible = true
@@ -89,6 +92,8 @@ func _ready():
 		$HUD/DEBUG.set_vars()
 	else:
 		$HUD/DEBUG.visible = false
+		
+
 	
 #func _enemy_remote_fall(enemy, enemy_pos):
 #	if enemy.get_parent() == effects_container:
@@ -160,7 +165,7 @@ func spawn_enemy1(pos, type):
 	e.init(pos, type)
 
 
-func show_player_health():
+func _update_healthbars():
 	var player_health_level = Global.player_health
 	var color = "green"
 	if player_health_level < 40:

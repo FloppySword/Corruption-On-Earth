@@ -9,6 +9,8 @@ var avoid_distance = Global.avoid_distance
 
 var enemy_container
 
+var DEBUG = false
+
 func _ready():
 	yield(get_tree().create_timer(.05), "timeout")
 	$Control/Target.value = target_force
@@ -21,6 +23,9 @@ func _ready():
 
 
 func set_vars():
+	if !DEBUG:
+		return
+		
 	
 	Global.target_force = target_force
 	Global.cohesion_force = cohesion_force

@@ -3,6 +3,7 @@ extends Node2D
 var vel = Vector2()
 export var speed = 2500
 
+var spent = false
 
 var elapsed_time = 0
 var shooter
@@ -36,7 +37,7 @@ func _physics_process(delta):
 	sprite.scale.x = 60#min(sprite.scale.x + 10, 60)
 	
 	
-	if ray.is_colliding():
+	if ray.is_colliding() && !spent:
 		hit_area(ray.get_collider(), ray.get_collision_point())
 	
 		
@@ -58,8 +59,11 @@ func hit_area(area, _collision_pos):
 		ray.add_exception(area)
 		ray.force_raycast_update()
 		return
-		
+	
+	spent = true
 	ray.enabled = false
+	ray.force_raycast_update()
+	
 	collision_pos = _collision_pos
 	var collision_dist = global_position.distance_to(collision_pos)
 	

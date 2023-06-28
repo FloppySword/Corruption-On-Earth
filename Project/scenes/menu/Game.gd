@@ -11,13 +11,13 @@ func _ready():
 
 func _start_level():
 	#get_tree().paused = true
-	if !level:
+	#if !level:
 	
-		level = Level.instance()
-		add_child(level)
+	level = Level.instance()
+	add_child(level)
 
-		level.connect("game_over", main_menu, "_GameOver")
-		level.connect("game_won", main_menu, "_GameWon")
+	level.connect("game_over", main_menu, "_GameOver")
+	level.connect("game_won", main_menu, "_GameWon")
 		
 
 	#get_tree().paused = false

@@ -7,6 +7,7 @@ extends KinematicBody2D
 signal shoot
 signal hoof_step
 signal game_over
+signal health_changed
 signal set_aim_dir
 signal set_move_dir
 
@@ -377,14 +378,17 @@ func _damage(hitbox, damage, type, _pos):
 	elif type == "kick":
 		var kick_impact = KickImpact.instance()
 		add_child(kick_impact)
-		kick_impact.init(_pos, type)
+		kick_impact.init(_pos)
 		
 		
 		Global.playerhorse_health -= damage
 		
+		
 	
 	if Global.player_health <= 0 || Global.playerhorse_health <= 0:
 		emit_signal("game_over")
+	else:
+		emit_signal("health_changed")
 		
 
 

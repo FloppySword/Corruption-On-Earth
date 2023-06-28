@@ -1,7 +1,7 @@
 extends AnimatedSprite
 
-var vel = Vector2()
-var pos = Vector2()
+#var vel = Vector2()
+#var pos = Vector2()
 var type = ""
 
 func _ready():

@@ -252,7 +252,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
-DEBUG = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
