@@ -70,6 +70,7 @@ func _ready():
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
 	player_horse.connect("health_changed", self, "_update_healthbars")
+	player_horse.connect("ammo_changed", self, "_update_ammobar")
 	
 	
 	Global._reset_level_vars()
@@ -89,6 +90,7 @@ func _ready():
 
 	get_tree().set_pause(false)
 	_update_healthbars()
+	_update_ammobar()
 	
 	if DEBUG:
 		$HUD/DEBUG.visible = true
@@ -189,6 +191,15 @@ func _update_healthbars():
 	texture = load("res://data/images/gui/health_%s.png" % color)
 	horse_healthbar.set_progress_texture(texture)
 	horse_healthbar.set_value(horse_health_level)
+
+func _update_ammobar():
+	var current_ammo = Global.player_mag_cap - Global.player.AR_ammo
+	var new_text = ""
+	for i in range(0, current_ammo):
+		new_text += "|"
+	$HUD/BottomBorder/Ammo.text = new_text
+		
+	
 	
 	
 #func show_hit(shoot_location, hit_location):

@@ -50,6 +50,11 @@ func start_at(dir, pos, _shooter):
 
 func _physics_process(delta):
 	elapsed_time += delta
+	if elapsed_time > 0.1 && !spent:
+		spent = true
+		ray.enabled = false
+		ray.force_raycast_update()
+		return
 
 	sprite.global_position += vel * delta
 	sprite.scale.x = 60#min(sprite.scale.x + 10, 60)

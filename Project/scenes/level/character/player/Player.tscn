@@ -1,9 +1,11 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/images/character/player/PlayerFrames.png" type="Texture" id=2]
 [ext_resource path="res://data/images/character/player/HorseFrames.png" type="Texture" id=3]
 [ext_resource path="res://data/sound/effects/player/lever_action.mp3" type="AudioStream" id=4]
+[ext_resource path="res://data/images/character/player/LeverActionFrames v2.png" type="Texture" id=5]
+[ext_resource path="res://data/sound/effects/player/reload_AR.wav" type="AudioStream" id=6]
 
 [sub_resource type="SegmentShape2D" id=52]
 a = Vector2( -15, 15 )
@@ -188,6 +190,18 @@ region = Rect2( 128, 256, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 256, 448, 64, 64 )
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 576, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 576, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 576, 64, 64 )
+
 [sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 512, 64, 64 )
@@ -220,15 +234,68 @@ animations = [ {
 "name": "evade",
 "speed": 1.0
 }, {
-"frames": [  ],
-"loop": true,
+"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"loop": false,
 "name": "lever_action",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ) ],
 "loop": false,
 "name": "reload",
-"speed": 3.0
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 32, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=73]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 64, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=74]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 96, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=75]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 128, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 160, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 192, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 224, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 256, 128, 32 )
+
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 288, 128, 32 )
+
+[sub_resource type="SpriteFrames" id=70]
+animations = [ {
+"frames": [ null, SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), null ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ null, SubResource( 73 ), SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), null ],
+"loop": false,
+"name": "reload",
+"speed": 5.0
 } ]
 
 [sub_resource type="Animation" id=48]
@@ -341,6 +408,44 @@ shape = SubResource( 50 )
 position = Vector2( -11, 9 )
 frames = SubResource( 2 )
 animation = "lever_action"
+frame = 2
+
+[node name="LeverAction" type="Node2D" parent="PlayerArea2D"]
+position = Vector2( -1, 0 )
+
+[node name="Left" type="Position2D" parent="PlayerArea2D/LeverAction"]
+position = Vector2( -15, 9 )
+rotation = 1.5708
+
+[node name="Middle" type="Position2D" parent="PlayerArea2D/LeverAction"]
+position = Vector2( -15, 9 )
+rotation = 1.5708
+
+[node name="Right" type="Position2D" parent="PlayerArea2D/LeverAction"]
+position = Vector2( -15, 9 )
+rotation = 1.5708
+
+[node name="Left2" type="Position2D" parent="PlayerArea2D/LeverAction"]
+visible = false
+position = Vector2( -17, 4 )
+rotation = 2.35619
+
+[node name="Middle2" type="Position2D" parent="PlayerArea2D/LeverAction"]
+visible = false
+position = Vector2( -22, 7 )
+rotation = 1.83259
+
+[node name="Right2" type="Position2D" parent="PlayerArea2D/LeverAction"]
+visible = false
+position = Vector2( 20, 15 )
+rotation = 0.523598
+
+[node name="LeverActionAnimatedSprite" type="AnimatedSprite" parent="PlayerArea2D/LeverAction"]
+scale = Vector2( 0.4, 0.4 )
+frames = SubResource( 70 )
+frame = 11
+speed_scale = 1.8
+playing = true
 
 [node name="MuzzlePositions" type="Node2D" parent="PlayerArea2D"]
 position = Vector2( -7, 15 )
@@ -504,5 +609,10 @@ current = true
 stream = ExtResource( 4 )
 bus = "Sound"
 
+[node name="Reload" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 6 )
+bus = "Sound"
+
 [connection signal="animation_finished" from="PlayerArea2D/PlayerAnimatedSprite" to="." method="_on_PlayerAnimatedSprite_animation_finished"]
+[connection signal="frame_changed" from="PlayerArea2D/PlayerAnimatedSprite" to="." method="_on_PlayerAnimatedSprite_frame_changed"]
 [connection signal="finished" from="Sounds/LeverAction" to="." method="_on_LeverAction_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://data/images/effects/background1.png" type="Texture" id=1]
 [ext_resource path="res://data/images/gui/health_borderframe.png" type="Texture" id=2]
@@ -19,6 +19,17 @@
 [ext_resource path="res://scenes/level/DEBUG.tscn" type="PackedScene" id=17]
 [ext_resource path="res://data/images/joystick/aiming_dir_indicator_bg.png" type="Texture" id=18]
 [ext_resource path="res://data/images/joystick/aiming_dir_indicator.png" type="Texture" id=19]
+[ext_resource path="res://data/fonts/Janna LT Bold.ttf" type="DynamicFontData" id=20]
+
+[sub_resource type="DynamicFont" id=4]
+size = 7
+outline_size = 1
+outline_color = Color( 0.972549, 0.815686, 0, 1 )
+extra_spacing_char = 15
+font_data = ExtResource( 20 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.239216, 0.239216, 0.239216, 1 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "Mobile"
@@ -129,6 +140,18 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("HUD/BottomBorder/Ammo:rect_position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 370, 142 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -246,6 +269,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("HUD/BottomBorder/Ammo:rect_position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ Vector2( 370, 107 ) ]
+}
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 4 )
@@ -265,6 +300,17 @@ anchor_bottom = 1.0
 margin_top = 534.0
 color = Color( 0, 0, 0, 1 )
 
+[node name="Ammo" type="Label" parent="HUD/BottomBorder"]
+margin_left = 370.0
+margin_top = 142.0
+margin_right = 659.0
+margin_bottom = 156.0
+custom_colors/font_color = Color( 0.360784, 0.360784, 0.360784, 1 )
+custom_fonts/font = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+align = 1
+valign = 1
+
 [node name="PlayerHealth" type="HBoxContainer" parent="HUD/BottomBorder"]
 margin_left = 367.0
 margin_top = 88.0
@@ -273,6 +319,7 @@ margin_bottom = 142.0
 size_flags_horizontal = 6
 
 [node name="HealthIcon" type="TextureRect" parent="HUD/BottomBorder/PlayerHealth"]
+visible = false
 margin_right = 54.0
 margin_bottom = 54.0
 rect_min_size = Vector2( 54, 54 )
@@ -281,9 +328,8 @@ expand = true
 
 [node name="Bars" type="VBoxContainer" parent="HUD/BottomBorder/PlayerHealth"]
 modulate = Color( 0.823529, 0.823529, 0.823529, 1 )
-margin_left = 58.0
 margin_top = 7.0
-margin_right = 352.0
+margin_right = 294.0
 margin_bottom = 46.0
 size_flags_vertical = 6
 

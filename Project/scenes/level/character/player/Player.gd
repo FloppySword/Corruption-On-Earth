@@ -10,6 +10,7 @@ signal game_over
 signal health_changed
 signal set_aim_dir
 signal set_move_dir
+signal ammo_changed
 
 onready var player_anim_sprite = $PlayerArea2D/PlayerAnimatedSprite
 onready var current_frame = 0
@@ -70,7 +71,7 @@ onready var bullet_pos38 = get_node("PlayerArea2D/MuzzlePositions/pos38")
 #onready var shoot_ray = get_node("shoot_ray")
 
 #onready var hit_enemy_timer = get_node("hit_enemy_timer")
-onready var AR_timer = get_node("AR_timer")
+#onready var AR_timer = get_node("AR_timer")
 #onready var pistol_timer = get_node("pistol_timer")
 onready var bleeding_timer = get_node("bleeding_timer")
 #onready var grunt_timer = get_node("grunt_timer")
@@ -304,17 +305,27 @@ func get_player_direction():
 		emit_signal("set_aim_dir")
 
 func get_player_action():
+	if leverAction:
+		return
 	if player_anim_sprite.animation == "default":
 		if Input.is_action_just_pressed("player_shoot"):
+			print("input pressed")
+			print(leverAction)
 			if Global.device == "PC" && get_global_mouse_position().y > Global.mouse_max_y:
+				return
+			if leverAction:
 				return
 			shoot_AR()
 
 				
 		if Input.is_action_just_pressed("player_evade"):
+			if leverAction:
+				return
 			evade()
 				
 	if Input.is_action_just_released("player_evade"):
+		if leverAction:
+			return
 		end_evade()
 			
 
@@ -380,6 +391,7 @@ func get_horse_movement(delta):
 
 
 func _physics_process(delta):
+	#print(leverAction)
 	if Global.player_health > 0 && Global.playerhorse_health > 0:
 		get_player_direction()
 		get_player_action()
@@ -390,7 +402,8 @@ func _damage(hitbox, damage, type, _pos):
 	if type == "gunshot":
 		var blood_impact = BloodImpact.instance()
 		add_child(blood_impact)
-		blood_impact.init(_pos, type)	#or pos?
+		blood_impact.init(_pos, type+str("_player"))	#or pos?
+		#blood_impact.scale = Vector2(2, 2)
 		
 		if hitbox == player_hitbox:
 			Global.player_health -= (damage * 0.75)	#reduce damage impact to ease difficulty
@@ -426,60 +439,97 @@ func _change_health(damage):
 	pass
 
 func shoot_AR():
-	if leverAction:
+	if leverAction || reloading:
 		return
-	if AR_timer.get_time_left() == 0:
-		AR_timer.start()
-		var gunshot_choice = Global.gunshots[randi()%3]
-		#var prob = randf()
-		#if prob > 0.05:
-		var m = muzzle_flash1.instance()
-		add_child(m)
-		m.init(rot, bullet_pos)
-		
-		#gun_sounds.play(gunshot_choice)
-		
-		emit_signal("shoot", rot, bullet_pos, "Player")
-		
-		AR_ammo += 1
-		if AR_ammo / 15 == 1:
-			reloading = true
-			reload_AR()
-			AR_ammo = 0
-		else:
-			if player_anim_sprite.animation != "default":
-				print("something wrong anim should be default")
-			var current_frame = player_anim_sprite.frame
+#	if AR_timer.get_time_left() == 0:
+#		AR_timer.start()
+	var gunshot_choice = Global.gunshots[randi()%3]
+
+	var m = muzzle_flash1.instance()
+	add_child(m)
+	m.init(rot, bullet_pos)
+	#gun_sounds.play(gunshot_choice)
+	
+	emit_signal("shoot", rot, bullet_pos, "Player")
+	
+	AR_ammo += 1
+	emit_signal("ammo_changed")
+	if AR_ammo / Global.player_mag_cap == 1:
+		reloading = true
+		reload_AR()
+		AR_ammo = 0
+	else:
+#		if player_anim_sprite.animation != "default":
+#			print("something wrong anim should be default")
+#
+		leverAction = true
+		yield(get_tree().create_timer(0.2), "timeout")
+		if weakref(self).get_ref():
+			cycle_lever()
+
 			
-			leverAction = true
-			player_anim_sprite.animation = "lever_action"
-			if current_frame in frames_aiming_front:
-				pass
-			elif current_frame in frames_aiming_left:
-				pass
-			elif current_frame in frames_aiming_right:
-				pass
-			
-			$Sounds/LeverAction.play()
+func cycle_lever():
+	
+	var current_frame = player_anim_sprite.frame
+	var current_lever_dir
+	
+	leverAction = true
+	print(leverAction)
+	print("cycle_lever")
+	player_anim_sprite.animation = "lever_action"
+	
+	
+	
+#	if current_frame in frames_aiming_front:
+#		player_anim_sprite.frame = 0
+#		current_lever_dir = $PlayerArea2D/LeverAction/Middle
+#	elif current_frame in frames_aiming_left:
+#		player_anim_sprite.frame = 1
+#		current_lever_dir = $PlayerArea2D/LeverAction/Left
+#	elif current_frame in frames_aiming_right:
+#		player_anim_sprite.frame = 2
+#		current_lever_dir = $PlayerArea2D/LeverAction/Right
+		
+	player_anim_sprite.frame = 0
+	current_lever_dir = $PlayerArea2D/LeverAction/Middle
+	var lever_anim = $PlayerArea2D/LeverAction/LeverActionAnimatedSprite
+	var lever_sound = $Sounds/LeverAction
+	lever_anim.global_position = current_lever_dir.global_position
+	lever_anim.global_rotation = current_lever_dir.global_rotation
+	lever_anim.frame = 0
+	lever_anim.play("default")
+	lever_sound.play()
 			
 		
 
 func reload_AR():
 	player_anim_sprite.play("reload")
+	$Sounds/Reload.play()
 
-func _on_reload_AR_anim_finished():
-	reloading = false
+
 	
 func set_default_anim():
+	emit_signal("ammo_changed")
+	reloading = false
+	dodging = false
 	player_anim_sprite.stop()
 	player_anim_sprite.animation = "default"
 
 func _on_PlayerAnimatedSprite_animation_finished():
-	if Input.is_action_pressed("player_evade"):
+	if dodging && Input.is_action_pressed("player_evade"):
 		return
 	set_default_anim()
 
 
 func _on_LeverAction_finished():
+	
 	leverAction = false
 	set_default_anim()
+
+
+
+func _on_PlayerAnimatedSprite_frame_changed():
+	if player_anim_sprite.animation == "reload" && player_anim_sprite.frame == 3:
+		var lever_anim = $PlayerArea2D/LeverAction/LeverActionAnimatedSprite
+		lever_anim.play("reload")
+	

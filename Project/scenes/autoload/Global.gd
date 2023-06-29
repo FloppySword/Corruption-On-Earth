@@ -84,8 +84,10 @@ var playerhorse_vel = Vector2()
 var playerhorse_rot = 0
 var player_pos = Vector2()
 
+var player_mag_cap = 15
 
-var bullet_primary_damage = 100
+
+var bullet_primary_damage = 100	
 var bullet_adtl_damage = 30
 
 var joystick_rot = 0

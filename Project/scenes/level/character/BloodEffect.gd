@@ -21,7 +21,10 @@ func init(pos, _type):
 		scale = Vector2(0.4, 0.4)
 		play("gunshot")
 	elif type == "headshot":
-		scale = Vector2(0.5, 0.5)
+		scale = Vector2(0.6, 0.6)
+		play("gunshot")
+	elif type == "gunshot_player":
+		scale = Vector2(0.7, 0.7)
 		play("gunshot")
 	else:
 		rng.randomize()
@@ -32,5 +35,5 @@ func init(pos, _type):
 
 
 func _on_BloodEffect_animation_finished():
-	if type == "gunshot" || type == "headshot":
+	if type == "gunshot" || type == "headshot" || type == "gunshot_player":
 		queue_free()
