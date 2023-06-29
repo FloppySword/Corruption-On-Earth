@@ -12,6 +12,13 @@ var can_hit = true
 var cast_pos = Vector2.ZERO
 var collision_pos = Vector2(-999, -999)
 
+
+var gunshots = [
+						"res://data/sound/effects/player/gunshot_1.wav",
+						"res://data/sound/effects/player/gunshot_2.wav",
+						"res://data/sound/effects/player/gunshot_3.wav"
+						]
+
 onready var sprite = $Sprite
 onready var ray = $RayCast2D
 
@@ -28,6 +35,17 @@ func start_at(dir, pos, _shooter):
 	
 	ray.enabled = true
 	ray.force_raycast_update()
+	
+	
+	#manage sound effect
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var idx = rng.randi_range(0,2)
+	var sfx = load(gunshots[idx]) 
+	#sfx.set_loop(false)
+	$AudioStreamPlayer2D.stream = sfx
+	$AudioStreamPlayer2D.play()
+	#SoundManager.play_sound($AudioStreamPlayer2D.stream)
 
 
 func _physics_process(delta):
@@ -47,7 +65,9 @@ func _physics_process(delta):
 		or sprite.global_position.y < Global.lower_bounds.y \
 		or sprite.global_position.distance_to(collision_pos) < 40 \
 		or elapsed_time > 1:
-		queue_free()
+		hide()
+		if !$AudioStreamPlayer2D.playing:
+			queue_free()
 
 func hit_area(area, _collision_pos):
 	var rng = RandomNumberGenerator.new()
@@ -161,3 +181,7 @@ func hit_area(area, _collision_pos):
 
 
 
+
+
+func _on_AudioStreamPlayer2D_finished():
+	pass # Replace with function body.

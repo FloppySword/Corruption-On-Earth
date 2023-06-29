@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/level/character/enemy/EnemyVehicle.gd" type="Script" id=1]
 [ext_resource path="res://data/images/character/enemy/EnemyFrames.png" type="Texture" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://data/sound/effects/vehicle/tire-pop.mp3" type="AudioStream" id=4]
+[ext_resource path="res://data/sound/effects/vehicle/motorcycle.mp3" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=12]
 radius = 7.5
@@ -178,7 +179,7 @@ region_rect = Rect2( 1, 39, 24, 15 )
 [node name="SpriteTire" type="AnimatedSprite" parent="SpriteRear/SpriteFront"]
 position = Vector2( 0, 9 )
 frames = SubResource( 11 )
-frame = 1
+frame = 7
 speed_scale = 10.0
 playing = true
 
@@ -192,6 +193,8 @@ shape = SubResource( 15 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="SpriteRear/SpriteFront/SpriteTire/TireArea2D"]
 stream = ExtResource( 4 )
+pitch_scale = 0.64
+bus = "Sound"
 
 [node name="Seat1" type="Position2D" parent="SpriteRear"]
 position = Vector2( 0, 8 )
@@ -209,6 +212,12 @@ texture = ExtResource( 3 )
 anims/MotorcycleStraight = SubResource( 16 )
 anims/MotorcycleTurnLeft = SubResource( 17 )
 anims/MotorcycleTurnRight = SubResource( 18 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+volume_db = 7.488
+max_distance = 1000.0
+bus = "Sound"
 
 [connection signal="body_entered" from="BoidArea2D" to="." method="_on_BoidArea2D_body_entered"]
 [connection signal="body_exited" from="BoidArea2D" to="." method="_on_BoidArea2D_body_exited"]

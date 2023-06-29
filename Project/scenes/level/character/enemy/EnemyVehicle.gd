@@ -63,6 +63,9 @@ func _ready():
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
 	avoid_distance = Global.avoid_distance
 	
+	$AudioStreamPlayer2D.play()
+	#SoundManager.play_sound(stream)
+	
 func init(spawnpos, type):
 	global_position = spawnpos
 	
@@ -110,6 +113,7 @@ func _hit_metal(hit_pos):
 	rng.randomize()
 	m.global_rotation = rng.randi_range(-180, 180)
 	m.global_position = hit_pos
+	m._set_audio()
 	m.play('default')
 	
 	
@@ -129,6 +133,8 @@ func _hit_tire(hit_pos):
 		t.scale = Vector2(2, 2)
 		t.global_position = hit_pos
 		t.modulate = Color.black
+		var stream = $SpriteRear/SpriteFront/SpriteTire/TireArea2D/AudioStreamPlayer2D.stream
+		SoundManager.play_sound(stream)
 		t.play("default")
 		
 		vehicle_state = vehicleStates.FlatTire

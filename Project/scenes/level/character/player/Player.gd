@@ -105,6 +105,11 @@ var AR_ammo = 0
 var pistol_ammo = 0
 var reloading = false
 var dodging = false
+var leverAction = false
+
+var frames_aiming_front = [0, 1, 2, 3, 4, 5, 34, 35, 36, 37, 38]
+var frames_aiming_left = [6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+var frames_aiming_right = [22,23,24,25,26,27,28,29,30,31,32,33]
 
 var mouse_pos = Vector2()
 
@@ -137,6 +142,8 @@ func _input(event):
 	
 	
 func get_player_direction():
+#	if leverAction:
+#		return
 	if player_anim_sprite.animation == "default":
 		if Global.device == "Mobile":
 			rot = Global.joystick_rot
@@ -307,17 +314,21 @@ func get_player_action():
 		if Input.is_action_just_pressed("player_evade"):
 			evade()
 				
-		elif Input.is_action_just_released("player_evade"):
-			end_evade()
+	if Input.is_action_just_released("player_evade"):
+		end_evade()
 			
 
 func evade():
-	$PlayerArea2D/PlayerCollisionShape2D.disabled = true
-	player_anim_sprite.play("evade")
+	if !dodging:
+		dodging = true
+		$PlayerArea2D/PlayerCollisionShape2D.disabled = true
+		player_anim_sprite.play("evade")
 
 func end_evade():
-	$PlayerArea2D/PlayerCollisionShape2D.disabled = false
-	set_default_anim()
+	if dodging:
+		dodging = false
+		$PlayerArea2D/PlayerCollisionShape2D.disabled = false
+		set_default_anim()
 
 	
 func get_horse_movement(delta):
@@ -382,9 +393,9 @@ func _damage(hitbox, damage, type, _pos):
 		blood_impact.init(_pos, type)	#or pos?
 		
 		if hitbox == player_hitbox:
-			Global.player_health -= damage
+			Global.player_health -= (damage * 0.75)	#reduce damage impact to ease difficulty
 		elif hitbox == horse_bullet_hitbox:
-			Global.playerhorse_health -= damage
+			Global.playerhorse_health -= (damage * 0.75) #reduce damage impact to ease difficulty
 	elif type == "kick":
 		var kick_impact = KickImpact.instance()
 		add_child(kick_impact)
@@ -415,6 +426,8 @@ func _change_health(damage):
 	pass
 
 func shoot_AR():
+	if leverAction:
+		return
 	if AR_timer.get_time_left() == 0:
 		AR_timer.start()
 		var gunshot_choice = Global.gunshots[randi()%3]
@@ -433,6 +446,22 @@ func shoot_AR():
 			reloading = true
 			reload_AR()
 			AR_ammo = 0
+		else:
+			if player_anim_sprite.animation != "default":
+				print("something wrong anim should be default")
+			var current_frame = player_anim_sprite.frame
+			
+			leverAction = true
+			player_anim_sprite.animation = "lever_action"
+			if current_frame in frames_aiming_front:
+				pass
+			elif current_frame in frames_aiming_left:
+				pass
+			elif current_frame in frames_aiming_right:
+				pass
+			
+			$Sounds/LeverAction.play()
+			
 		
 
 func reload_AR():
@@ -448,4 +477,9 @@ func set_default_anim():
 func _on_PlayerAnimatedSprite_animation_finished():
 	if Input.is_action_pressed("player_evade"):
 		return
+	set_default_anim()
+
+
+func _on_LeverAction_finished():
+	leverAction = false
 	set_default_anim()

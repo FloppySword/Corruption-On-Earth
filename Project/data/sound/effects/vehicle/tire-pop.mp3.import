@@ -11,5 +11,5 @@ dest_files=[ "res://.import/tire-pop.mp3-5f79a68a13134addffbef866b5336d47.mp3str
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

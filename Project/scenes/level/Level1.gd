@@ -212,7 +212,7 @@ func set_next_wave():
 	var nextWave = waves[wave]
 	wave += 1
 	var enemy_spawns_list = enemy_spawns.get_children()
-	for i in range(0, nextWave.size() - 1):#wave):
+	for i in range(0, nextWave.size()):#wave):
 		var nextType = nextWave[i]
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()

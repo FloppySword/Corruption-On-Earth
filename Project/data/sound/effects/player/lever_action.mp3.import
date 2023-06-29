@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/lever_action.mp3-0d4c53c915f3f516f7124464587d6193.mp3str"
+
+[deps]
+
+source_file="res://data/sound/effects/player/lever_action.mp3"
+dest_files=[ "res://.import/lever_action.mp3-0d4c53c915f3f516f7124464587d6193.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
