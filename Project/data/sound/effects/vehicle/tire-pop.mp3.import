@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/tire-pop.mp3-5f79a68a13134addffbef866b5336d47.mp3str"
+
+[deps]
+
+source_file="res://data/sound/effects/vehicle/tire-pop.mp3"
+dest_files=[ "res://.import/tire-pop.mp3-5f79a68a13134addffbef866b5336d47.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

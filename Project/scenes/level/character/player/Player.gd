@@ -117,6 +117,8 @@ func _ready():
 	randomize()
 	Global.player = self
 	
+	$PlayerArea2D/PlayerCollisionShape2D.disabled = false
+	
 
 func _input(event):
 	
@@ -302,12 +304,20 @@ func get_player_action():
 			shoot_AR()
 
 				
-	if Input.is_action_just_pressed("player_evade"):
-			player_anim_sprite.play("evade")
-	elif Input.is_action_just_released("player_evade"):
-			set_default_anim()
+		if Input.is_action_just_pressed("player_evade"):
+			evade()
+				
+		elif Input.is_action_just_released("player_evade"):
+			end_evade()
+			
 
+func evade():
+	$PlayerArea2D/PlayerCollisionShape2D.disabled = true
+	player_anim_sprite.play("evade")
 
+func end_evade():
+	$PlayerArea2D/PlayerCollisionShape2D.disabled = false
+	set_default_anim()
 
 	
 func get_horse_movement(delta):
@@ -420,7 +430,7 @@ func shoot_AR():
 		
 		AR_ammo += 1
 		if AR_ammo / 15 == 1:
-			#reloading = true
+			reloading = true
 			reload_AR()
 			AR_ammo = 0
 		

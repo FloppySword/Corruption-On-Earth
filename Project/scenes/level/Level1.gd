@@ -70,7 +70,11 @@ func _ready():
 	player_horse.connect("hoof_step", self, "_spawn_treadmark")
 	player_horse.connect("game_over", self, "_set_game_over")
 	player_horse.connect("health_changed", self, "_update_healthbars")
-
+	
+	
+	Global._reset_level_vars()
+	
+	
 	Global.upper_bounds = upper_bounds
 	Global.lower_bounds = lower_bounds
 	Global.player_upper_bounds = player_upper_bounds
@@ -279,5 +283,6 @@ func set_game_won():
 	queue_free()
 
 
-	
-	
+
+func _on_EvadeButton_pressed():
+	Input.action_press("player_evade")

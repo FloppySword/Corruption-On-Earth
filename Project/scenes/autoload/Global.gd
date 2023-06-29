@@ -6,11 +6,11 @@ var farsi = false
 var booster_present = false
 
 # game settings
-var game_begun = false
-var game_over = false
-var game_won = false
-var game_reset = false
-var show_credits = false
+#var game_begun = false
+#var game_over = false
+#var game_won = false
+#var game_reset = false
+#var show_credits = false
 var score = 0
 var high_score = 0
 #var level = 0
@@ -142,3 +142,7 @@ func _enemy_remote_shoot(enemy):
 		if weakref(enemy).get_ref():
 			enemy._shoot()
 	
+func _reset_level_vars():
+	player_health = player_starting_health
+	playerhorse_health = player_starting_health
+	player_bleeding = false

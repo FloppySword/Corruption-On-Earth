@@ -309,26 +309,23 @@ stretch_margin_top = 10
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 75.0
-margin_top = -115.0
-margin_right = -23.0
-margin_bottom = -31.0
+margin_top = -158.0
+margin_right = -73.0
+margin_bottom = -48.0
 alignment = 1
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="MovementJoystick" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-modulate = Color( 1, 1, 1, 0.54902 )
-margin_top = 50.0
-margin_right = 700.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 700, 200 )
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 76.0
+margin_right = 660.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 660, 200 )
 size_flags_horizontal = 2
-size_flags_vertical = 10
+size_flags_vertical = 12
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_lock_": true
-}
 clampzone_size = 80.0
 action_shoot = ""
 
@@ -369,27 +366,31 @@ __meta__ = {
 }
 
 [node name="EvadeButton" type="TextureButton" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 704.0
-margin_top = 120.0
-margin_right = 804.0
-margin_bottom = 250.0
+margin_left = 664.0
+margin_top = 146.0
+margin_right = 764.0
+margin_bottom = 276.0
 rect_min_size = Vector2( 100, 130 )
 size_flags_vertical = 8
 texture_normal = ExtResource( 15 )
 texture_pressed = ExtResource( 16 )
 expand = true
 stretch_mode = 5
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Padding" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 808.0
-margin_right = 848.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 40, 0 )
+margin_left = 768.0
+margin_right = 788.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 20, 0 )
 
 [node name="AimingJoystick" type="Control" parent="HUD/BottomBorder/MobileButtons"]
-margin_left = 852.0
-margin_right = 1102.0
-margin_bottom = 250.0
+margin_left = 792.0
+margin_top = 13.0
+margin_right = 1042.0
+margin_bottom = 263.0
 rect_min_size = Vector2( 250, 250 )
 size_flags_horizontal = 2
 size_flags_vertical = 6
@@ -397,6 +398,7 @@ script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
+deadzone_size = 2.0
 clampzone_size = 100.0
 action_left = ""
 action_right = ""
@@ -404,7 +406,7 @@ action_up = ""
 action_down = ""
 
 [node name="Base" type="TextureRect" parent="HUD/BottomBorder/MobileButtons/AimingJoystick"]
-modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_right = 250.0
 margin_bottom = 250.0
 grow_horizontal = 2
@@ -491,6 +493,7 @@ expand = true
 stretch_mode = 6
 
 [node name="DEBUG" parent="HUD" instance=ExtResource( 17 )]
+visible = false
 
 [node name="Gameplay" type="Node2D" parent="."]
 
@@ -615,3 +618,5 @@ position = Vector2( -235, -182 )
 anims/Mobile = SubResource( 1 )
 anims/MobileShoot = SubResource( 3 )
 anims/PC = SubResource( 2 )
+
+[connection signal="pressed" from="HUD/BottomBorder/MobileButtons/EvadeButton" to="." method="_on_EvadeButton_pressed"]

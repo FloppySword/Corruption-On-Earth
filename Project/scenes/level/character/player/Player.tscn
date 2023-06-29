@@ -487,4 +487,7 @@ one_shot = true
 [node name="dodge_cooldown" type="Timer" parent="."]
 one_shot = true
 
+[node name="Listener2D" type="Listener2D" parent="."]
+current = true
+
 [connection signal="animation_finished" from="PlayerArea2D/PlayerAnimatedSprite" to="." method="_on_PlayerAnimatedSprite_animation_finished"]
