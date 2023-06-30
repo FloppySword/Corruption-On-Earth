@@ -36,7 +36,7 @@ spreading the word on social media with the [#freetoomaj](https://www.tiktok.com
 In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
 will be brought to the case of Toomaj Salehi.
 
-Please note: Annotations for the gdscript code are in progress.
+Please note: Annotations for the gdscript code are in progress and will be completed imminently. Until then, you might find parsing through the gdscript code to be unnecessarily tedious.
 
 
 ### Contribute
@@ -53,9 +53,9 @@ We are looking for more tracks that fit the theme of the game. Must be creative-
 #### Art
 Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
 
-#### Social
+#### Social Media
 
-Have a lot of followers? Please share this page on your platform. 
+Please share this page on your platform. 
 
 
 ### Contact Us
@@ -71,21 +71,9 @@ Have a lot of followers? Please share this page on your platform.
 
 [Amnesty International on Executions in Iran](https://www.amnesty.org/en/latest/news/2023/05/iran-executions-of-tortured-protesters-must-trigger-a-robust-reaction-from-the-international-community/)
 
-## Credits (WIP)
+## Credits
 
-https://opengameart.org/content/cars-2
-https://opengameart.org/content/engines-startup-idle-rev
-
-https://aangel.itch.io/city
-
-https://cazwolf.itch.io/caz-social-media
-
-gdb-gamepad2
-
-https://opengameart.org/content/desert-tileset-0
-
-### Images on this page
-Photo by [ZREMPN](https://en.wikipedia.org/wiki/File:Toomaj-salehi.jpg) [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
-
+Please refer to the in-game credits for image and audio credits.  
+<br>
 This game was made with [Godot Game Engine](https://godotengine.org/) (Version 3).
 
