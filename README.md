@@ -2,11 +2,13 @@
 
 ![Contributors](https://img.shields.io/github/contributors/FloppySword/Corruption-On-Earth?style=plastic)
 
-Can a single man on horseback take on an army of bikers? Find out for yourself in this
-high-octane 2D shooter.
+Can a solo cowboy take on a biker gang? 
 
-PLAY NOW
+Find out for yourself in this high-octane 2D shooter.
 
+[Play on Itch.io](https://floppysword.itch.io/corruption-on-earth) (PC or Mobile)
+<br>
+<br>
 ## A Solemn Plea
 
 This game was made with the purpose of raising awareness about the current situation in Iran. 
@@ -24,18 +26,20 @@ city of Shahin Shahr and releasing two new songs, ["Fortune"](https://youtu.be/J
 subject to torture, denied medical treatment, and held in solitary confinement for over six months 
 as his trial takes place behind closed doors for the charge of "corruption on earth," a crime 
 which is punishable by death.
-
+<br>
 ## Help Save a Life
 
 If the story of Toomaj speaks to you, please consider [signing this petition](https://www.change.org/p/free-iranian-protest-rapper-toomaj-salehi-freetoomajsalehi-freetoomaj) calling for his release, 
 spreading the word on social media with the [#freetoomaj](https://www.tiktok.com/tag/freetoomaj) hashtag, and [listening to his music](https://open.spotify.com/artist/5mBmrpiMC2lzIWCG0MDOYx?si=qhlg-JTtQiWppEqQuH_1kg&utm_source=whatsapp&dl_branch=1&nd=1) on Spotify.
-
+<br>
+<br>
 ## Open-Source
 
 In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
 will be brought to the case of Toomaj Salehi.
 
-
+Please note: Annotations for the gdscript code are in progress and will be completed imminently. Until then, you might find parsing through the gdscript code to be unnecessarily tedious.
+<br>
 ### Contribute
 
 #### Players
@@ -50,15 +54,16 @@ We are looking for more tracks that fit the theme of the game. Must be creative-
 #### Art
 Are you a pixel artist? Do you want to showcase your talents and improve the visuals of the game? Send us your ideas. 
 
-#### Social
+#### Social Media
 
-Have a lot of followers? Please share this page on your platform. 
+Please share this page on your platform. 
 
 
 ### Contact Us
 
 [Email](mailto:benjaminfazio@protonmail.com)
 
+<br>
 
 ## Sources
 
@@ -67,22 +72,11 @@ Have a lot of followers? Please share this page on your platform.
 [NYT - A Rapper’s Detention Shows Iran’s Crackdown Is Failing](https://web.archive.org/web/20230604084603/https://www.nytimes.com/2023/05/31/opinion/toomaj-salehi-iran.html)
 
 [Amnesty International on Executions in Iran](https://www.amnesty.org/en/latest/news/2023/05/iran-executions-of-tortured-protesters-must-trigger-a-robust-reaction-from-the-international-community/)
+<br>
+<br>
+## Credits
 
-## Credits (WIP)
-
-https://opengameart.org/content/cars-2
-https://opengameart.org/content/engines-startup-idle-rev
-
-https://aangel.itch.io/city
-
-https://cazwolf.itch.io/caz-social-media
-
-gdb-gamepad2
-
-https://opengameart.org/content/desert-tileset-0
-
-### Images on this page
-Photo by [ZREMPN](https://en.wikipedia.org/wiki/File:Toomaj-salehi.jpg) [(CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
-
+Please refer to the in-game credits for image and audio credits.  
+<br>
 This game was made with [Godot Game Engine](https://godotengine.org/) (Version 3).
 
