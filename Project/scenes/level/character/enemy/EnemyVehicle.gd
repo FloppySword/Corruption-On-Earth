@@ -234,7 +234,7 @@ func _physics_process(delta):
 		
 	match vehicle_state:
 		vehicleStates.Normal:
-			speed = 150
+			speed = Global.enemy_speed_normal
 		
 		vehicleStates.FlatTire:
 			speed = 300

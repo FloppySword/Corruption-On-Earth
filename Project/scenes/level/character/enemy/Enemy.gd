@@ -20,6 +20,8 @@ var initiated = false
 
 var target_rot = 0
 
+var already_kicked = false
+
 var armed_vars = {"Passenger":
 						{"ViewDist":400,
 						"RotLimit":2.55},
@@ -96,6 +98,13 @@ func _damage(hitbox, damage, type, pos):
 	health -= damage
 	if health <= 0:
 		if !dead:
+			if type == "headshot":
+				$Head/HeadBlood.show()
+				if health < 0: #if damaged before
+					$Torso/TorsoBlood.show()
+			elif type == "gunshot":
+				$Torso/TorsoBlood.show()
+				
 #			if type == "Passenger":
 #				$Head.global_rotation = 20
 			die()
@@ -126,6 +135,7 @@ func anim_lock():
 	anim_locked = true
 	
 func anim_unlock():
+	already_kicked = false
 	anim_locked = false
 
 	
@@ -191,7 +201,10 @@ func apply_kick_damage():
 			kick_pos = $Detectors/KickDetector/RightCollisionShape2D.global_position
 			kick_pos += kick_padding
 		#print(kick_pos)
-		character_scene._damage(area, damage, damage_type, kick_pos)
+		
+		if !already_kicked:
+			already_kicked = true
+			character_scene._damage(area, damage, damage_type, kick_pos)
 
 func _on_KickTimer_timeout():
 	if dead:

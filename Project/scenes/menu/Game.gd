@@ -15,7 +15,7 @@ func _start_level():
 	
 	level = Level.instance()
 	add_child(level)
-
+	
 	level.connect("game_over", main_menu, "_GameOver")
 	level.connect("game_won", main_menu, "_GameWon")
 		

@@ -4,6 +4,6 @@
 [ext_resource path="res://scenes/level/character/Treadmark.gd" type="Script" id=2]
 
 [node name="Treadmark" type="Sprite"]
-modulate = Color( 0.592157, 0.592157, 0.592157, 0.313726 )
+modulate = Color( 0.388235, 0.388235, 0.388235, 0.741176 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )

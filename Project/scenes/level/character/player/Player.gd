@@ -140,6 +140,14 @@ func _input(event):
 		if event.is_action_released("ui_down"):
 			pass
 
+func hoof_step(right_hoof:bool):
+	var hoof_pos = global_position
+	if right_hoof:
+		hoof_pos += Vector2(5, 10)
+	else:
+		hoof_pos += Vector2(-5, 10)
+	
+	emit_signal("hoof_step", hoof_pos, "hoof")
 	
 	
 func get_player_direction():
@@ -309,8 +317,7 @@ func get_player_action():
 		return
 	if player_anim_sprite.animation == "default":
 		if Input.is_action_just_pressed("player_shoot"):
-			print("input pressed")
-			print(leverAction)
+	
 			if Global.device == "PC" && get_global_mouse_position().y > Global.mouse_max_y:
 				return
 			if leverAction:
@@ -347,23 +354,23 @@ func get_horse_movement(delta):
 	#fast_gallop = false
 	if stop_moving == false:
 		if Input.is_action_pressed("ui_left"):
-			vel = Vector2(-150, 0)
+			vel = Vector2(-200, 0)
 		else: vel = Vector2(0, 0)
 		if Input.is_action_pressed("ui_right"):
-			vel = Vector2(150, 0)
+			vel = Vector2(200, 0)
 		if Input.is_action_pressed("ui_up"):
-			vel = Vector2(0, -119)
+			vel = Vector2(0, -140)
 		if Input.is_action_pressed("ui_down"):
-			vel = Vector2(0, 200)
+			vel = Vector2(0, 220)
 			#fast_gallop = true
 		if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_up"):
-			vel = Vector2(-100, -100)
+			vel = Vector2(-175, -175)
 		if Input.is_action_pressed("ui_left") and Input.is_action_pressed("ui_down"):
-			vel = Vector2(-100, 100)
+			vel = Vector2(-175, 175)
 		if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_up"):
-			vel = Vector2(100, -100)
+			vel = Vector2(175, -175)
 		if Input.is_action_pressed("ui_right") and Input.is_action_pressed("ui_down"):
-			vel = Vector2(100, 100)
+			vel = Vector2(175, 175)
 
 
 	move_and_collide(vel * delta)
@@ -391,7 +398,6 @@ func get_horse_movement(delta):
 
 
 func _physics_process(delta):
-	#print(leverAction)
 	if Global.player_health > 0 && Global.playerhorse_health > 0:
 		get_player_direction()
 		get_player_action()
@@ -409,6 +415,8 @@ func _damage(hitbox, damage, type, _pos):
 			Global.player_health -= (damage * 0.75)	#reduce damage impact to ease difficulty
 		elif hitbox == horse_bullet_hitbox:
 			Global.playerhorse_health -= (damage * 0.75) #reduce damage impact to ease difficulty
+			if !$Sounds/Neigh.playing:
+				$Sounds/Neigh.play()
 	elif type == "kick":
 		var kick_impact = KickImpact.instance()
 		add_child(kick_impact)
@@ -416,13 +424,15 @@ func _damage(hitbox, damage, type, _pos):
 		
 		
 		Global.playerhorse_health -= damage
-		
+		if !$Sounds/Neigh.playing:
+			$Sounds/Neigh.play()
+	
 		
 	
 	if Global.player_health <= 0 || Global.playerhorse_health <= 0:
 		emit_signal("game_over")
-	else:
-		emit_signal("health_changed")
+	#else:
+	emit_signal("health_changed")
 		
 
 
@@ -459,8 +469,7 @@ func shoot_AR():
 		reload_AR()
 		AR_ammo = 0
 	else:
-#		if player_anim_sprite.animation != "default":
-#			print("something wrong anim should be default")
+
 #
 		leverAction = true
 		yield(get_tree().create_timer(0.2), "timeout")
@@ -474,8 +483,7 @@ func cycle_lever():
 	var current_lever_dir
 	
 	leverAction = true
-	print(leverAction)
-	print("cycle_lever")
+
 	player_anim_sprite.animation = "lever_action"
 	
 	

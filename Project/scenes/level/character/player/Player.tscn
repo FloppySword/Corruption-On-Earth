@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://data/images/character/player/PlayerFrames.png" type="Texture" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://data/sound/effects/player/lever_action.mp3" type="AudioStream" id=4]
 [ext_resource path="res://data/images/character/player/LeverActionFrames v2.png" type="Texture" id=5]
 [ext_resource path="res://data/sound/effects/player/reload_AR.wav" type="AudioStream" id=6]
+[ext_resource path="res://data/sound/effects/horse/horse_whinny.wav" type="AudioStream" id=7]
+[ext_resource path="res://data/sound/effects/horse/horse_gallop_final.wav" type="AudioStream" id=8]
 
 [sub_resource type="SegmentShape2D" id=52]
 a = Vector2( -15, 15 )
@@ -339,6 +341,43 @@ tracks/2/keys = {
 "update": 1,
 "values": [ Vector2( -2, 4 ), Vector2( 0, 6 ), Vector2( 0, 2 ), Vector2( 1, 2 ), Vector2( -1, 4 ), Vector2( 0, 4 ) ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("Sounds/Gallop")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0652256,
+"start_offset": 0.0,
+"stream": ExtResource( 8 )
+} ],
+"times": PoolRealArray( 0.2 )
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 0.2, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "hoof_step"
+}, {
+"args": [ true ],
+"method": "hoof_step"
+}, {
+"args": [ false ],
+"method": "hoof_step"
+}, {
+"args": [ true ],
+"method": "hoof_step"
+} ]
+}
 
 [node name="Horse" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 1 )
@@ -372,7 +411,6 @@ shape = SubResource( 55 )
 z_index = 2
 collision_layer = 4
 collision_mask = 0
-monitorable = false
 
 [node name="LeftCollisionShape2D" type="CollisionShape2D" parent="HorseKickDamageArea2D"]
 position = Vector2( -8, 7 )
@@ -386,16 +424,17 @@ shape = SubResource( 56 )
 position = Vector2( 2, 0 )
 texture = ExtResource( 3 )
 hframes = 6
+frame = 5
 
 [node name="PlayerLegs" type="Sprite" parent="HorseSprite"]
-position = Vector2( -2, 4 )
+position = Vector2( 0, 4 )
 scale = Vector2( 1.1, 1.16667 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 21.3915, 603, 20.5222, 12 )
 
 [node name="PlayerArea2D" type="Area2D" parent="." groups=["Character", "Player"]]
-position = Vector2( 1, 0 )
+position = Vector2( 2, 1 )
 collision_layer = 2
 collision_mask = 0
 
@@ -611,6 +650,16 @@ bus = "Sound"
 
 [node name="Reload" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 6 )
+bus = "Sound"
+
+[node name="Gallop" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 8 )
+volume_db = -4.992
+bus = "Sound"
+
+[node name="Neigh" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 7 )
+volume_db = -4.16
 bus = "Sound"
 
 [connection signal="animation_finished" from="PlayerArea2D/PlayerAnimatedSprite" to="." method="_on_PlayerAnimatedSprite_animation_finished"]

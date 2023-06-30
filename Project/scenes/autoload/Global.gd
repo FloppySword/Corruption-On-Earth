@@ -86,6 +86,8 @@ var player_pos = Vector2()
 
 var player_mag_cap = 15
 
+var enemy_speed_normal = 110
+
 
 var bullet_primary_damage = 100	
 var bullet_adtl_damage = 30
@@ -105,17 +107,18 @@ var die_targets
 #			du = duo unarmed
 #			da = duo armed
 var waves = {
-				1:["a"],#["u"],#["u","u","u","u","u"
+				1:["u"],#["u"],#["u","u","u","u","u"
 				2:["u","u"],
-				3:["a"],
-				4:["u","u","u"],
-				5:["a","a"],
-				6:["u","u","u","u","u"],
+				3:["u","u","u","u"],
+				4:["a"],
+				5:["u","u","u","a"],
+				6:["u","u","u","u","u","a","a"],
 				7:["du"],
 				8:["a","a","a","a"],
 				9:["du","du","du"],
 				10:["du","a","a","a"],
-				11:["da","da","da","da"]
+				11:["da","du","da","du"],
+				12:["da","da","da","da"]
 			}
 
 #Enemy boid variables

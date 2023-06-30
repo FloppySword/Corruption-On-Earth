@@ -119,7 +119,8 @@ func hit_area(area, _collision_pos):
 				area.owner._hit_tire(collision_pos)
 		elif shooter == "Enemy":
 			if area.is_in_group("Horse"):
-				pass
+				var damage = 15
+				area.owner._damage(area, damage, "gunshot", collision_pos)
 	
 
 		

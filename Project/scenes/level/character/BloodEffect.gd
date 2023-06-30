@@ -35,5 +35,16 @@ func init(pos, _type):
 
 
 func _on_BloodEffect_animation_finished():
-	if type == "gunshot" || type == "headshot" || type == "gunshot_player":
+	
+	if type == "gunshot" || type == "headshot":
 		queue_free()
+	elif type == "gunshot_player":
+		if Global.player_health <= 0:
+			frame = 0
+		else:
+			queue_free()
+	elif type == "gunshot_horse":
+		if Global.player_health <= 0:
+			frame = 0
+		else:
+			queue_free()

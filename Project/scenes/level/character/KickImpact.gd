@@ -9,6 +9,7 @@ func init(pos):
 
 	frame = 0
 	play("default")
+	$AudioStreamPlayer.play()
 
 	
 

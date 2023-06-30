@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/kick.mp3-2abd406d5e9026dc04aebca2030239f9.mp3str"
+
+[deps]
+
+source_file="res://data/sound/effects/enemy/kick.mp3"
+dest_files=[ "res://.import/kick.mp3-2abd406d5e9026dc04aebca2030239f9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

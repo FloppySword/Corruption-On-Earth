@@ -117,11 +117,13 @@ func _ready():
 #    node.transform = new_parent.get_global_transform.inverse() * old_transform
 	
 func _update_aim_indicator():
-	$HUD/BottomBorder/CurrentAim/Indicator.global_rotation = Global.playerhorse_rot
+	return
+	#$HUD/BottomBorder/CurrentAim/Indicator.global_rotation = Global.playerhorse_rot
 	#print($HUD/BottomBorder/CurrentAim/Indicator.global_rotation)
 
 func _update_move_indicator():
-	$HUD/BottomBorder/CurrentDirection.global_rotation = -Global.playerhorse_vel.angle_to(Vector2(0, 1))
+	return
+	#$HUD/BottomBorder/CurrentDirection.global_rotation = -Global.playerhorse_vel.angle_to(Vector2(0, 1))
 	
 	
 func _spawn_bullet(dir, pos, shooter):
@@ -224,6 +226,10 @@ func set_next_wave():
 	wave += 1
 	var enemy_spawns_list = enemy_spawns.get_children()
 	for i in range(0, nextWave.size()):#wave):
+		if i == (nextWave.size() / 2) - 1:
+			Global.enemy_speed_normal += 10
+		elif i == (nextWave.size() / 2) + 3:
+			Global.enemy_speed_normal += 15
 		var nextType = nextWave[i]
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
@@ -280,11 +286,13 @@ func _process(delta):
 
 	
 func _set_game_over():
+	yield(get_tree().create_timer(1.0), "timeout")
 	emit_signal("game_over")
 	queue_free()
 	#get_tree().set_pause(true)
 	
 func set_game_won():
+	yield(get_tree().create_timer(1.0), "timeout")
 	time_now = OS.get_unix_time()
 	var elapsed = time_now - time_start
 	Global.score = 20000 - (37 * elapsed)
@@ -293,7 +301,3 @@ func set_game_won():
 	emit_signal("game_won")
 	queue_free()
 
-
-
-func _on_EvadeButton_pressed():
-	Input.action_press("player_evade")
