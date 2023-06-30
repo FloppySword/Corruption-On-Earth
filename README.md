@@ -36,6 +36,8 @@ spreading the word on social media with the [#freetoomaj](https://www.tiktok.com
 In addition to the above measures, you can help by contributing to this open-source project. The more fun the game is, the more people will play it. The more people play it, the more attention 
 will be brought to the case of Toomaj Salehi.
 
+Please note: Annotations for the gdscript code are in progress.
+
 
 ### Contribute
 
