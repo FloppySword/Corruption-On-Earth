@@ -14,6 +14,7 @@ Find out for yourself in this high-octane 2D shooter.
 Note: The mobile version of this game is experimental, and the controls are difficult. For the best gameplay experience, we highly recommend playing this game on a PC.
 <br>
 <br>
+
 ## A Solemn Plea
 
 This game was made with the purpose of raising awareness about the current situation in Iran. 
@@ -67,7 +68,6 @@ Please share this page on your platform.
 ### Contact Us
 
 [Email](mailto:benjaminfazio@protonmail.com)
-
 <br>
 
 ## Sources
