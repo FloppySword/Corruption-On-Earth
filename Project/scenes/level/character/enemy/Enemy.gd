@@ -155,6 +155,8 @@ func _check_ammo():
 	#print("ammo: " + str(ammo))
 	if ammo <= 0:
 		anim_player.play("OutOfAmmo")
+		if type == "DriverArmed":
+			type = "Driver"
 
 #	var rng = RandomNumberGenerator.new()
 #	rng.randomize()
@@ -218,7 +220,7 @@ func _on_KickTimer_timeout():
 
 
 func _on_ReactionTimer_timeout():
-	if dead:
+	if dead || ammo <= 0:
 		return
 	
 	var target_dist = Global.player.global_position - global_position

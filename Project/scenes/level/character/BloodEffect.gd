@@ -44,7 +44,7 @@ func _on_BloodEffect_animation_finished():
 		else:
 			queue_free()
 	elif type == "gunshot_horse":
-		if Global.player_health <= 0:
+		if Global.playerhorse_health <= 0:
 			frame = 0
 		else:
 			queue_free()

@@ -424,17 +424,16 @@ shape = SubResource( 56 )
 position = Vector2( 2, 0 )
 texture = ExtResource( 3 )
 hframes = 6
-frame = 5
 
 [node name="PlayerLegs" type="Sprite" parent="HorseSprite"]
-position = Vector2( 0, 4 )
+position = Vector2( -2, 4 )
 scale = Vector2( 1.1, 1.16667 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 21.3915, 603, 20.5222, 12 )
 
 [node name="PlayerArea2D" type="Area2D" parent="." groups=["Character", "Player"]]
-position = Vector2( 2, 1 )
+position = Vector2( 1, 0 )
 collision_layer = 2
 collision_mask = 0
 
@@ -614,13 +613,13 @@ position = Vector2( -1.15143, 41.1369 )
 [node name="ChasePositions" type="Node2D" parent="."]
 
 [node name="LeftShooting" type="Position2D" parent="ChasePositions"]
-position = Vector2( -80, 14 )
+position = Vector2( -160, 14 )
 
 [node name="LeftKicking" type="Position2D" parent="ChasePositions"]
 position = Vector2( -30, 14 )
 
 [node name="RightShooting" type="Position2D" parent="ChasePositions"]
-position = Vector2( 80, 14 )
+position = Vector2( 160, 14 )
 
 [node name="RightKicking" type="Position2D" parent="ChasePositions"]
 position = Vector2( 30, 14 )

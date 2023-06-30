@@ -324,14 +324,14 @@ current = true
 [node name="BottomBorder" type="ColorRect" parent="HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 534.0
+margin_top = 554.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Ammo" type="Label" parent="HUD/BottomBorder"]
 margin_left = 370.0
-margin_top = 100.0
+margin_top = 107.0
 margin_right = 659.0
-margin_bottom = 114.0
+margin_bottom = 121.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
@@ -341,9 +341,9 @@ valign = 1
 
 [node name="PlayerHealth" type="HBoxContainer" parent="HUD/BottomBorder"]
 margin_left = 367.0
-margin_top = 48.0
+margin_top = 52.0
 margin_right = 719.0
-margin_bottom = 87.0
+margin_bottom = 91.0
 size_flags_horizontal = 6
 
 [node name="HealthIcon" type="TextureRect" parent="HUD/BottomBorder/PlayerHealth"]
@@ -379,6 +379,7 @@ nine_patch_stretch = true
 stretch_margin_top = 10
 
 [node name="MobileButtons" type="HBoxContainer" parent="HUD/BottomBorder"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 75.0
@@ -396,7 +397,7 @@ rect_min_size = Vector2( 630, 200 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
 script = ExtResource( 11 )
-deadzone_size = 40.0
+deadzone_size = 30.0
 clampzone_size = 80.0
 action_shoot = ""
 
@@ -507,7 +508,7 @@ __meta__ = {
 
 [node name="TopBorder" type="ColorRect" parent="HUD"]
 anchor_right = 1.0
-margin_bottom = 20.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 1200, 20 )
 color = Color( 0, 0, 0, 1 )
 
@@ -523,12 +524,14 @@ rect_min_size = Vector2( 140, 80 )
 color = Color( 0, 0, 0, 1 )
 
 [node name="CurrentDirection" type="Sprite" parent="HUD/TopBorder/MobileIndicators"]
+visible = false
 self_modulate = Color( 0.592157, 0.54902, 0.976471, 1 )
 position = Vector2( 41, 56 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
 [node name="CurrentAim" type="Sprite" parent="HUD/TopBorder/MobileIndicators"]
+visible = false
 position = Vector2( 110, 53 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 18 )
@@ -571,6 +574,7 @@ stretch_mode = 6
 visible = false
 
 [node name="Gameplay" type="Node2D" parent="."]
+position = Vector2( 0, 20 )
 
 [node name="background" type="Sprite" parent="Gameplay"]
 self_modulate = Color( 0.640625, 0.640625, 0.640625, 1 )

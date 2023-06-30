@@ -63,7 +63,11 @@ func _ready():
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
 	avoid_distance = Global.avoid_distance
 	
-	$AudioStreamPlayer2D.play()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	yield(get_tree().create_timer(rng.randf_range(0.1, 1.7)), "timeout")
+	if weakref(self).get_ref():
+		$AudioStreamPlayer2D.play()
 	#SoundManager.play_sound(stream)
 	
 func init(spawnpos, type):

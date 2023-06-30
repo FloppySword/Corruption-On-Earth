@@ -37,7 +37,7 @@ var Language = {
 				"MusicVol":["Music Volume","یقیسوم"],
 				"SFXVol":["SFX Volume","یتوص یاه‌هولج"],
 				"CreditsTitle":["Credits","عاجرا"],
-				"CreditsBody":[credit_text_en, credit_text_fa],
+				#"CreditsBody":[credit_text_en, credit_text_fa],
 				"GameWonLabel":["GAME WON","یزوریپ"],
 				"ScoreLabel":["Score: 00000","هرمن: 000000"],
 				"ScoreCopied":["SCORE COPIED","دش یپک هرمن"], 
@@ -46,7 +46,7 @@ var Language = {
 				"ReturnToMenuButton":["Main Menu","ونم"]
 				}
 var LanguageBanner = ["res://data/images/gui/banner_en.png", "res://data/images/gui/banner_fa.png"]
-
+#var LanguageCredits = [credit_text_en, credit_text_fa]
 
 var mute_sound = false
 var mute_music = false
@@ -151,3 +151,4 @@ func _reset_level_vars():
 	player_health = player_starting_health
 	playerhorse_health = player_starting_health
 	player_bleeding = false
+	

@@ -286,13 +286,13 @@ func _process(delta):
 
 	
 func _set_game_over():
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(1.5), "timeout")
 	emit_signal("game_over")
 	queue_free()
 	#get_tree().set_pause(true)
 	
 func set_game_won():
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(1.5), "timeout")
 	time_now = OS.get_unix_time()
 	var elapsed = time_now - time_start
 	Global.score = 20000 - (37 * elapsed)

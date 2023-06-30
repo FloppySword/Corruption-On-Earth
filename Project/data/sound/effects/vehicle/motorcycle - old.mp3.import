@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/motorcycle - old.mp3-b4e28eecb732cb08cb5db6edeecb3df2.mp3str"
+
+[deps]
+
+source_file="res://data/sound/effects/vehicle/motorcycle - old.mp3"
+dest_files=[ "res://.import/motorcycle - old.mp3-b4e28eecb732cb08cb5db6edeecb3df2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

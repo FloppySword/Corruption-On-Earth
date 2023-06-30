@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scenes/menu/MenuButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/images/gui/loading.png" type="Texture" id=2]
@@ -216,6 +216,13 @@ VScrollBar/styles/scroll_focus = SubResource( 29 )
 
 [sub_resource type="DynamicFont" id=23]
 font_data = ExtResource( 14 )
+
+[sub_resource type="StyleBoxFlat" id=62]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 20.0
+content_margin_bottom = 20.0
+bg_color = Color( 0.0117647, 0.00392157, 0.2, 1 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -768,6 +775,7 @@ margin_bottom = 438.0
 size_flags_vertical = 3
 theme = SubResource( 27 )
 custom_fonts/normal_font = SubResource( 23 )
+custom_styles/normal = SubResource( 62 )
 bbcode_enabled = true
 bbcode_text = "SPRITES
 

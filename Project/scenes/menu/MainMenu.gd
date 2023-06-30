@@ -30,7 +30,12 @@ var link_sign = 'https://www.change.org/p/free-iranian-protest-rapper-toomaj-sal
 signal start_level
 
 func _ready():
-	
+	var credits_body = $SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer/CreditsBody
+	if !Global.farsi:
+		credits_body.bbcode_text = Global.credit_text_en
+	else:
+		credits_body.bbcode_text = Global.credit_text_fa
+
 	$Bottom/PlayButton.grab_focus()
 	
 	
@@ -42,8 +47,12 @@ func change_language(idx):
 		item.text = Global.Language[item.name][idx]
 		if item.is_in_group("MenuButton"):
 			item.setup()
-	
-	
+	var credits_body = $SubMenus/TabContainer/Credits/MarginContainer/VBoxContainer/CreditsBody
+	if !Global.farsi:
+		credits_body.bbcode_text = Global.credit_text_en
+	else:
+		credits_body.bbcode_text = Global.credit_text_fa
+
 
 
 func _on_PlayButton_pressed():
