@@ -2,10 +2,11 @@
 
 ![Contributors](https://img.shields.io/github/contributors/FloppySword/Corruption-On-Earth?style=plastic)
 
-Can a single man on horseback take on an army of bikers? Find out for yourself in this
-high-octane 2D shooter.
+Can a solo cowboy take on a biker gang? 
 
-PLAY NOW
+Find out for yourself in this high-octane 2D shooter.
+
+[Play on Itch.io](https://floppysword.itch.io/corruption-on-earth) (PC or Mobile)
 
 ## A Solemn Plea
 
