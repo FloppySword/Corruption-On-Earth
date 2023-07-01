@@ -2,13 +2,19 @@
 
 ![Contributors](https://img.shields.io/github/contributors/FloppySword/Corruption-On-Earth?style=plastic)
 
+![alt text](https://github.com/FloppySword/Corruption-On-Earth/blob/main/Project/game_icon_itch.png?raw=true)
+
+
 Can a solo cowboy take on a biker gang? 
 
 Find out for yourself in this high-octane 2D shooter.
 
-[Play on Itch.io](https://floppysword.itch.io/corruption-on-earth) (PC or Mobile)
+### [Play on Itch.io](https://floppysword.itch.io/corruption-on-earth)
+<br>
+Note: The mobile version of this game is experimental, and the controls are difficult. For the best gameplay experience, we highly recommend playing this game on a PC.
 <br>
 <br>
+
 ## A Solemn Plea
 
 This game was made with the purpose of raising awareness about the current situation in Iran. 
@@ -62,7 +68,6 @@ Please share this page on your platform.
 ### Contact Us
 
 [Email](mailto:benjaminfazio@protonmail.com)
-
 <br>
 
 ## Sources
