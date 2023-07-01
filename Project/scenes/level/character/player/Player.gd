@@ -412,9 +412,9 @@ func _damage(hitbox, damage, type, _pos):
 		#blood_impact.scale = Vector2(2, 2)
 		
 		if hitbox == player_hitbox:
-			Global.player_health -= (damage * 0.75)	#reduce damage impact to ease difficulty
+			Global.player_health -= (damage * 0.15)	#reduce damage impact to ease difficulty
 		elif hitbox == horse_bullet_hitbox:
-			Global.playerhorse_health -= (damage * 0.75) #reduce damage impact to ease difficulty
+			Global.playerhorse_health -= (damage * 0.15) #reduce damage impact to ease difficulty
 			if !$Sounds/Neigh.playing:
 				$Sounds/Neigh.play()
 	elif type == "kick":

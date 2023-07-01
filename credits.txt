@@ -1,1 +1,79 @@
-Photo by khalifa waleed from Pexels: https://www.pexels.com/photo/side-view-photography-of-man-while-closing-his-eyes-761115/
+IMAGES
+
+The following sprites were  used as-is or modified.
+
+	[url=https://nyknck.itch.io/]NYKNCK[/url]
+		[url=https://nyknck.itch.io/pixel-art-effect-fx033]Pixel Art Effect - FX033[/url]
+
+	[url=https://opengameart.org/users/beast]Beast[/url]
+		[url=https://opengameart.org/content/desert-tileset-0]Desert Tileset[/url]
+
+	[url=https://tmdstudios.wordpress.com/]TMD Studios[/url]
+		[url=https://opengameart.org/content/cars-2]Motorcycle[/url]
+
+	[url=https://bacteri.itch.io/]Bacteri[/url]
+		[url=https://bacteri.itch.io/blood-explosion]Blood Explosion[/url]
+
+	[url=https://cazwolf.itch.io/]Caz[/url]
+		[url=https://cazwolf.itch.io/caz-social-media]Social Media Buttons[/url]
+
+	[url=https://greatdocbrown.itch.io/]greatdocbrown[/url]
+		[url=https://greatdocbrown.itch.io/gamepad-ui]Gamepad UI Pack[/url]
+
+	[url=https://crusenho.itch.io/]Crusenho[/url]
+		[url=https://crusenho.itch.io/complete-gui-essential-pack/]GUI Essentials[/url]
+
+The two fonts used in this game are:
+	[url=https://arabicfonts.net/fonts/janna-lt-bold]Janna LT Bold[/url]
+	[url=https://essssam.itch.io/pixel-ae]Pixel AE[/url], created by [url=https://essssam.itch.io/]Essssam[/url] 
+Each is compatible with both Latin and Arabic characters.
+
+Cover illustration inspired by [url=https://www.instagram.com/p/CXqtaCpsvJx/]this Instagram photo[/url].
+Background sun taken from [url=https://aangel.itch.io/city]here[/url].
+Itch thumbnail image transformed from [url=https://www.pexels.com/photo/side-view-photography-of-man-while-closing-his-eyes-761115/]this photo[/url].
+
+
+SOUND EFFECTS
+
+The following sounds were used as-is or modified.
+
+	[url=https://opengameart.org/users/dklon]dklon[/url]
+		[url=https://opengameart.org/content/engines-startup-idle-rev]Motorcycle[/url]
+
+All additional sound effects were sourced on [url=https://pixabay.com/]Pixabay[/url] according to the website's [url=https://pixabay.com/service/license/]license[/url].
+
+
+MUSIC
+
+The following tracks were used as-is.
+
+	[url=https://freemusicarchive.org/music/joey-hendrixx/]Joey Hendrixx[/url]
+		[url=https://freemusicarchive.org/music/joey-hendrixx/single/murda-hip-hop-bass-atlmp3/]MURDA (HIP-HOP - BASS - ATL).mp3[/url]
+		[url=https://freemusicarchive.org/music/joey-hendrixx/single/oath-hip-hop-atl-bassmp3/]OATH (HIP-HOP - ATL - BASS).mp3[/url]
+		[url=https://freemusicarchive.org/music/joey-hendrixx/single/timbo-vibes-timbaland-nelly-furtado-2000smp3/]TIMBO VIBES (TIMBALAND - NELLY FURTADO - 2000s).mp3[/url]
+	The above tracks are licensed under [url=https://creativecommons.org/licenses/by-sa/4.0/]CC-BY-SA 4.0[/url].
+		
+	[url=https://freemusicarchive.org/music/kirk-osamayo/]Kirk Osamayo[/url]
+		[url=https://freemusicarchive.org/music/kirk-osamayo/orange-season-4/survival-of-the-fittest/]Survival of the Fittest[/url]
+	The above track is licensed under [url=https://creativecommons.org/licenses/by/4.0/]CC BY 4.0[/url].
+
+	[url=https://freemusicarchive.org/music/holiznacc0]Holizna[/url]
+		[url=https://freemusicarchive.org/music/holiznacc0/only-in-the-milky-way-part-3/crime-1/]Crime[/url]
+	The above track is licensed under [https://creativecommons.org/publicdomain/zero/1.0/]CC0 1.0[/url].
+
+	[url=https://freemusicarchive.org/music/Lawrence_Grey/]Lawrence Grey[/url]
+		[url=https://freemusicarchive.org/music/Lawrence_Grey/Bonus_Beat_Blast_2011/47_lawrence_grey-laundromatted/]Laundromatted[/url]
+	The above track is licensed under [url=https://creativecommons.org/licenses/by/3.0/]CC BY 3.0[/url].
+
+
+
+Made with [url=https://godotengine.org/]Godot Game Engine[/url] version 3.5.2.
+
+Godot Add-ons:
+	[url=https://github.com/nathanhoad/godot_sound_manager]Sound Manager[/url]
+	[url=https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot]Virtual Joystick[/url]
+
+
+Want to contribute? Corruption on Earth is [url=https://github.com/FloppySword/Corruption-On-Earth]open-source[/url].
+
+[url=https://floppysword.itch.io/corruption-on-earth]Itch.io Page[/url]

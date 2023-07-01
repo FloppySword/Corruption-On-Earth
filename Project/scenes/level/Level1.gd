@@ -57,7 +57,7 @@ func _ready():
 	$HUD/DEBUG.DEBUG = DEBUG
 
 	#Toggle to debug mobile
-	#Global.device = "Mobile"
+	Global.device = "Mobile"
 	
 	Global.mouse_max_y = $HUD/BottomBorder.rect_global_position.y
 	$AnimationPlayer.play(Global.device)

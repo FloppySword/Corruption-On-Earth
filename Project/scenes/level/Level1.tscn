@@ -397,7 +397,7 @@ rect_min_size = Vector2( 630, 200 )
 size_flags_horizontal = 2
 size_flags_vertical = 4
 script = ExtResource( 11 )
-deadzone_size = 30.0
+deadzone_size = 70.0
 clampzone_size = 80.0
 action_shoot = ""
 

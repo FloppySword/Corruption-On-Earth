@@ -1,0 +1,41 @@
+<br>
+<h2 class="text-left">Can a solo cowboy take on a biker gang? Find out for yourself in this high-octane 2D shooter.</h2>
+<br>
+<h1 class="text-center">Controls</h1>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh"></th>
+    <th class="tg-amwm">Aim & Shoot</th>
+    <th class="tg-amwm">Dodge</th>
+    <th class="tg-amwm">Move Left</th>
+    <th class="tg-amwm">Move Right</th>
+    <th class="tg-amwm">Move Backward</th>
+    <th class="tg-amwm">Move Forward</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-baqh">PC</td>
+    <td class="tg-baqh">Mouse (left-click to shoot)</td>
+    <td class="tg-baqh">Space or right-click</td>
+    <td class="tg-baqh">A-key</td>
+    <td class="tg-baqh">D-key</td>
+    <td class="tg-baqh">W-key</td>
+    <td class="tg-baqh">S-key</td>
+  </tr>
+  <tr>
+    <td class="tg-baqh">Mobile</td>
+    <td class="tg-baqh">Joystick (drag to edge to fire)</td>
+    <td class="tg-baqh">Down Arrow Button</td>
+    <td class="tg-baqh" colspan="4">Joystick</td>
+  </tr>
+</tbody>
+</table>
+<br>
+<p style="text-align:center;font-size:18px;">Note: The mobile version of this game is experimental, and the controls are difficult. For the best gameplay experience, we highly recommend playing this game on a PC.</p>
+<br>
+<br>
+<br>
+<h2 class="text-center"><a href="https://github.com/FloppySword/Corruption-On-Earth" target="_blank">Source Code</a></h2>
+<br>

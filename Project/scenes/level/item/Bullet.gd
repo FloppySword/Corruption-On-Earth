@@ -98,6 +98,7 @@ func hit_area(area, _collision_pos):
 		var primary_damage = Global.bullet_primary_damage - (0.8 * collision_dist)
 		var adtl_damage = Global.bullet_adtl_damage + rng.randi_range(-5, 5)
 		var damage = max(adtl_damage, primary_damage)
+		damage = clamp(damage, Global.gun_dmg_min,Global.gun_dmg_max)
 		#print(collision_dist)
 		var character_scene
 		var damage_type = "gunshot"
