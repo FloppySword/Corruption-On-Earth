@@ -9,7 +9,7 @@ func _ready():
 	#set_process(true)
 	
 	
-func init(pos, _type):
+func _initiate(pos, _type):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	global_rotation = rng.randi_range(-180, 180)

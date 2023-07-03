@@ -1,97 +1,98 @@
 extends KinematicBody2D
 
-signal skid
-signal rider_shoot
-signal explosion
-
-var pos = Vector2()
-var speed = 90
-var rot = 0
-var vel = Vector2(0, 0)
-var acc = Vector2(0, 0)
-
-#var new_vel_x
-#var new_vel_y
-#var colliding = false
-var collision_count = 0
-	
-	
-var _flock = []
-var target_force = 0
-var cohesion_force = 0
-var align_force = 0
-var separation_force = 0
-var view_distance = 0
-var avoid_distance = 0
-#
-#const AVOID_RADIUS = 150
-#const DETECT_RADIUS = 1200
-#const FRICTION = -500
-
-var target = Vector2()
-var target_dist
-
-var driver
-var passenger
-
-enum vehicleStates {FlatTire, DriverDead, Normal, Explode}
-var vehicle_state = vehicleStates.Normal
-
-
-
-
-
-#var in_shoot_range = false
-
-var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
-
-var MetalImpact = preload("res://scenes/level/character/MetalImpact.tscn")
-
+# Shortcut variables for scene nodes.
 onready var front_tire = $SpriteRear/SpriteFront/SpriteTire
 onready var seat1 = $SpriteRear/Seat1
 onready var seat2 = $SpriteRear/Seat2
 onready var motorcycle_rear = $SpriteRear
 onready var motorcycle_front = $SpriteRear/SpriteFront
 
+# Instance scene variables
+var Enemy = preload("res://scenes/level/character/enemy/Enemy.tscn")
+var MetalImpact = preload("res://scenes/level/character/effects/MetalImpact.tscn")
+
+# Movement variables
+var pos:Vector2 = Vector2()
+var speed:int = 90
+var rot:float = 0
+var vel:Vector2 = Vector2(0, 0)
+var collision_count = 0
+
+# Boid variables
+var _flock:Array = []
+var target_force:float = 0
+var cohesion_force:float = 0
+var alignment_force:float = 0
+var separation_force:float = 0
+var view_distance:float = 0
+var avoid_distance:float = 0
+var target:Vector2 = Vector2()
+#var target_dist
+
+# Null variables that are set as the driver and passenger are instanced (which
+# happens in the _initiate function). 
+var driver
+var passenger
+
+#State variables
+enum vehicleStates {FlatTire, DriverDead, Normal, Explode}
+var vehicle_state = vehicleStates.Normal
+
+signal skid
+signal rider_shoot
+signal explosion
+
 func _ready():
 	randomize()
+	
+	# Set boid variables to Global boid variables
 	target_force = Global.target_force
 	cohesion_force = Global.cohesion_force
-	align_force = Global.align_force
+	alignment_force = Global.alignment_force
 	separation_force = Global.separation_force
 	view_distance = Global.view_distance
 	$BoidArea2D.get_node("CollisionShape2D").shape.radius = view_distance
 	avoid_distance = Global.avoid_distance
 	
+	# Delay playing of motorcycle sound so that they aren't all playing at the same time.
+	# Note: this is already sort of dealt with by the fact that spawning is staggered 
+	# for enemies in each wave.
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	yield(get_tree().create_timer(rng.randf_range(0.1, 1.7)), "timeout")
 	if weakref(self).get_ref():
 		$AudioStreamPlayer2D.play()
-	#SoundManager.play_sound(stream)
 	
-func init(spawnpos, type):
+func _initiate(spawnpos, type):
 	global_position = spawnpos
 	
+	# Variable to append to type string to set whether the enemy is armed
+	# Types are as follows:
+	#	u = solo unarmed,
+	#	a = armed,
+	#	du = duo unarmed
+	#	da = duo armed
+	# (These are from the Global waves array)
 	var armed
 	if "u" in type:
 		armed = ""
 	elif "a" in type:
 		armed = "Armed"
-		
+	
+	# No matter what, a driver is spawned. We'll call the local instance "e1"
 	var e1 = Enemy.instance()
 	seat1.add_child(e1)
-	e1.init(seat1.global_position, "Driver"+armed, self)
+	e1._initiate(seat1.global_position, "Driver"+armed, self)
 	driver = e1
 	
 	if "d" in type:
-		#$Seat1.add_child()
-	#if type == "MotorcycleDuo":
+		# If there's a passenger, we'll call the local instance "e2". 
 		var e2 = Enemy.instance()
 		seat2.add_child(e2)
-		e2.init(seat2.global_position, "Passenger", self)
+		e2._initiate(seat2.global_position, "Passenger", self)
 		passenger = e2
 	
+	# Set the color of the motorcycle based on the type. 
 	var color 
 	if type == "u":
 		color = Color.mediumaquamarine
@@ -102,15 +103,179 @@ func init(spawnpos, type):
 	elif type == "da":
 		color = Color.fuchsia
 	
+	# Since two separate sprites, set both to color the whole motorcycle. 
 	motorcycle_rear.self_modulate = color 
 	motorcycle_front.self_modulate = color 
+
+func _physics_process(delta):
+	# A skid effect gets spawned every single delta to create an unbroken tiremark trail
+	emit_signal("skid", global_position + Vector2(0, 10), "tire")
+	# Consider passing rotation of front and making treadmark rotate
 	
-		
+	var acceleration = Vector2.ZERO
+	var flock_vectors = determine_flock_status()
+	# Breakout returned flock_vectors array into individual vector variables
+	var cohesion_vector = flock_vectors[0] * cohesion_force
+	var alignment_vector = flock_vectors[1] * alignment_force
+	var separation_vector = flock_vectors[2] * separation_force
+	var target_vector = (target - global_position).normalized() * speed * target_force
+	
+	acceleration = cohesion_vector + alignment_vector + separation_vector + target_vector
+	
+	# Do not let vel exceed speed
+	vel = (vel + acceleration).clamped(speed)
+	
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+
+
+	match vehicle_state:
+		#Driver is alive and driving normally
+		vehicleStates.Normal:
+			# Set speed to global enemy speed variable.
+			speed = Global.enemy_speed_normal
+			var target_type = ""
+			if driver.ammo > 0 || (passenger && passenger.ammo > 0):
+				# Vehicle will keep its distance from player horse so rider(s) can shoot
+				target_type = "shoot"
+			else:
+				# Vehicle will get close to player horse so driver can kick
+				target_type = "kick"
+				
+			if global_position.x <= Global.player.global_position.x:
+				# If vehicle is to the left of player horse
+				if target_type == "shoot":
+					target = Global.player.shoot_pos_left.global_position
+				elif target_type == "kick":
+					target = Global.player.kick_pos_left.global_position
+			else:
+				# If vehicle is to the right of player horse (or x-aligned but that would
+				# only be for a brief moment)
+				if target_type == "shoot":
+					target = Global.player.shoot_pos_right.global_position
+				elif target_type == "kick":
+					target = Global.player.kick_pos_right.global_position
+					
+			# Debugger icon, keep hidden
+			$Icon.global_position = target
+			
+		# Vehicle has a flat tire and has backward velocity
+		vehicleStates.FlatTire:
+			speed = 300
+		# Driver is dead and vehicle is swerving off-screen
+		vehicleStates.DriverDead:
+			speed = rng.randi_range(200, 350)
+		# Vehicle has exploded (WIP)
+		vehicleStates.Explode:
+			speed = 0
+	
+	# Play turning animations if velocity's x is beyond straight-forward threshold (-70, 70)
+	var turn_dir
+	if vel.x > 70:
+		turn_dir = "TurnLeft"
+		$AnimationPlayer.play("MotorcycleTurnLeft")
+	elif vel.x < -70:
+		turn_dir = "TurnRight"
+		$AnimationPlayer.play("MotorcycleTurnRight")
+	else:
+		turn_dir = "Straight"
+		$AnimationPlayer.play("Motorcycle"+turn_dir)
+	
+	# This initiated var is just a measure to ensure that the proper setup animation plays
+	# for the driver (Enemy.tscn) when it's initiated. 
+	if driver.initiated:
+		driver.set_anim("MotorcycleDriver"+turn_dir)
+
+	
+	var collision = move_and_collide(vel * delta)
+	if collision:
+		if vehicle_state != vehicleStates.Normal:
+			# If driver dead or flat tire
+			if collision_count >= 3:
+				# If the vehicle has bounced against another at least 3 times, 
+				# set the target to be its own x and a negative y (so it travels
+				# backward.
+				target.x = global_position.x
+				target.y = -170
+			else:
+				#Explosion is WIP. Leave commented out for now. 
+				#if driver.dead:
+					#trigger_explosion(collision.collider)
+				
+				# Bounce this vehicle off the collider
+				vel = vel.bounce(collision.normal) 
+				collision_count += 1
+		else:
+			# If vehicle is driving normally, bounce off collider at 0.5x intensity
+			vel = 0.5 * vel.bounce(collision.normal) 
+			
+	# If vehicle state is normal, don't let the vehicle queue_free even if it's outside
+	# the level's bounds. But if it's got a dead driver or flat tire, queue_free once it
+	# exceeds bounds. 
+	if !vehicle_state == vehicleStates.Normal:#!vehicle_state == vehicleStates.Explode:
+		if global_position.x > Global.upper_bounds.x \
+			or global_position.x < Global.lower_bounds.x \
+			or global_position.y > Global.upper_bounds.y \
+			or global_position.y < Global.lower_bounds.y:
+			queue_free()
+			
+
+# Add neighbor vehicle to flock if within view area
+func _on_BoidArea2D_body_entered(body):
+	if self != body && body.is_in_group("EnemyVehicle"):
+		_flock.append(body)
+
+# Remove neighbor vehicle from flock if it surpasses view area. 
+func _on_BoidArea2D_body_exited(body):
+	if self != body && _flock.has(body):
+		_flock.remove(_flock.find(body))
+
+# Called in _physics_process to set flock_vectors variable
+func determine_flock_status():
+	var center_vector = Vector2.ZERO
+	var flock_center = Vector2.ZERO
+	var alignment_vector = Vector2.ZERO
+	var avoid_vector = Vector2.ZERO
+	
+	# Ignore flocking behavior if vehicle state isn't normal.
+	if vehicle_state != vehicleStates.Normal:
+		return [Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
+	
+	# Iterate over neighbors (other vehicles within view distance)
+	for f in _flock:
+		var neighbor_pos = f.global_position
+		alignment_vector += f.vel
+		flock_center += neighbor_pos
+
+		var d = global_position.distance_to(neighbor_pos)
+		if d > 0 and d < avoid_distance:
+			avoid_vector -= (neighbor_pos - global_position).normalized() * (avoid_distance / d * speed)
+	
+	var flock_size = _flock.size()
+	if flock_size:
+		# Set the alignment vector to be the average velocity of the flock
+		alignment_vector /= flock_size
+		# Set the flock center to be the average position of the flock
+		flock_center /= flock_size
+		var center_dir = global_position.direction_to(flock_center)
+		var center_speed = speed * (global_position.distance_to(flock_center) / view_distance)
+		# Set the cohesion vector to be the product of the vehicle's 
+		# direction toward the flock center & the vehicle's speed
+		center_vector = center_dir * center_speed
+	
+	# Return these three calculated vectors back to the _physics process flock_vectors var.
+	return [center_vector, alignment_vector, avoid_vector]
+
 func _rider_shoot(bullet_rot, bullet_pos, shooter):
+	# Possibly confusing because here "rider" can refer to either driver or
+	# passenger. ALL Enemy.tscn instances are connected to this function via
+	# their "shoot" signal. 
+	#So "rider" = "any person on the motorcycle"
 	emit_signal("rider_shoot", bullet_rot, bullet_pos, shooter)
-		
-		
+
 func _hit_metal(hit_pos):
+	# Locally instance a metal impact effect and play audio. 
 	var m = MetalImpact.instance()
 	add_child(m)
 	var rng = RandomNumberGenerator.new()
@@ -119,55 +284,68 @@ func _hit_metal(hit_pos):
 	m.global_position = hit_pos
 	m._set_audio()
 	m.play('default')
-	
-	
-#State changing functions
+
 func _hit_tire(hit_pos):
+	# If vehicle isn't driving normally, do nothing. 
 	if vehicle_state == vehicleStates.Normal:
+		# Play tire explosion animation
 		front_tire.play("flat")
-		
-		#reusing MetalImpact for this
+		# Spawn tire explosion effect
+		#(Reusing MetalImpact for this)
 		var t = MetalImpact.instance()
 		add_child(t)
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
 		t.global_rotation = rng.randi_range(-180, 180)
+		
+		# Boolean variable in MetalImpact.tscn to designate whether instance is
+		# tire (true) or truly a metal impact effect (false)
 		t.tire = true
-		#t.speed_scale = 2
+		
 		t.scale = Vector2(2, 2)
 		t.global_position = hit_pos
 		t.modulate = Color.black
+		
+		# Play tire popping sound
 		var stream = $SpriteRear/SpriteFront/SpriteTire/TireArea2D/AudioStreamPlayer2D.stream
 		SoundManager.play_sound(stream)
 		t.play("default")
 		
+		#Change state from normal to flat tire
 		vehicle_state = vehicleStates.FlatTire
 		
+		# Set new target for travelling off-screen and queueing free
 		reshuffle_dead_target()
-		
-		
-		
 
-		#set new target
-		
-		
 	
 func _driver_dead():
+	# If vehicle isn't driving normally, do nothing. 
+	# For instance, if tire already flat, nothing needs to change.
+	# The vehicle is already travelling off-screen and the driver
+	# being dead has no impact. 
+	# Unless, of course, we want to change that for added detail. 
 	if vehicle_state == vehicleStates.Normal:
-		#$BoidArea2D.monitoring = false
 		vehicle_state = vehicleStates.DriverDead
+	
+		# Set new target for travelling off-screen and queueing free
 		reshuffle_dead_target()
 
+func _passenger_dead():
+	# Clears the passenger variable, which will allow the vehicle's target
+	# to swap to the player's kick target (unless the driver has ammo remaining)
+	passenger = null
 
-		
+
 func trigger_explosion(collider):
+	#WIP, return for now
 	return
 	emit_signal("explosion", self, collider)
 	
 	vehicle_state = vehicleStates.Explode
 	
-	
 func reshuffle_dead_target():
+	# Set an appropriate destination target when vehicle is leaving map 
+	# (either because driver killed or flat tire). 
 	match vehicle_state:
 		vehicleStates.FlatTire:
 			randomize()
@@ -182,151 +360,5 @@ func reshuffle_dead_target():
 			vehicle_state = vehicleStates.DriverDead
 
 
-		
-func _physics_process(delta):
-	#consider passing rotation of front and making treadmark rotate
-	emit_signal("skid", global_position + Vector2(0, 10), "tire")
-	
-	
-#	if colliding:
-#		reshuffle_dead_target()
 
-	
-	var acceleration = Vector2.ZERO
-	var vectors = get_flock_status()
-	
-	# steer towards vectors
-	var cohesion_vector = vectors[0] * cohesion_force
-	var align_vector = vectors[1] * align_force
-	var separation_vector = vectors[2] * separation_force
-	var target_vector = (target - global_position).normalized() * speed * target_force
-	
-#	if target.distance_to(global_position) < 100:
-#		target_vector = Vector2.ZERO
-
-	acceleration = cohesion_vector + align_vector + separation_vector + target_vector
-	
-	vel = (vel + acceleration).clamped(speed)
-	
-	
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	if vehicle_state == vehicleStates.Normal:
-		var target_type = ""
-		if driver.ammo > 0 || (passenger && passenger.ammo > 0):
-			target_type = "shoot"
-		else:
-			target_type = "kick"
-			
-		#target = Global.player.global_position
-
-		if global_position.x <= Global.player.global_position.x:
-			if target_type == "shoot":
-				target = Global.player.shoot_pos_left.global_position
-			elif target_type == "kick":
-				target = Global.player.kick_pos_left.global_position
-			
-		else:
-			if target_type == "shoot":
-				target = Global.player.shoot_pos_right.global_position
-			elif target_type == "kick":
-				target = Global.player.kick_pos_right.global_position
-			
-		$Icon.global_position = target
-	
-		
-		
-	match vehicle_state:
-		vehicleStates.Normal:
-			speed = Global.enemy_speed_normal
-		
-		vehicleStates.FlatTire:
-			speed = 300
-#		
-		vehicleStates.DriverDead:
-			speed = rng.randi_range(200, 350)
-#			
-		vehicleStates.Explode:
-			speed = 0
-#			
-	var turn_dir
-	if vel.x > 70:
-		turn_dir = "TurnLeft"
-		$AnimationPlayer.play("MotorcycleTurnLeft")
-	elif vel.x < -70:
-		turn_dir = "TurnRight"
-		$AnimationPlayer.play("MotorcycleTurnRight")
-	else:
-		turn_dir = "Straight"
-		$AnimationPlayer.play("Motorcycle"+turn_dir)
-	if driver.initiated:
-		driver.set_anim("MotorcycleDriver"+turn_dir)
-
-
-	var collision = move_and_collide(vel * delta)
-	if collision:
-		if vehicle_state != vehicleStates.Normal:
-			if collision_count >= 3:
-				target.x = global_position.x
-				target.y = -170
-			else:
-	#			if driver.dead:
-	#				trigger_explosion(collision.collider)
-				
-				vel = vel.bounce(collision.normal) 
-				collision_count += 1
-		else:
-			vel = 0.5 * vel.bounce(collision.normal) 
-	
-
-	if !vehicle_state == vehicleStates.Normal:#!vehicle_state == vehicleStates.Explode:
-		if global_position.x > Global.upper_bounds.x \
-			or global_position.x < Global.lower_bounds.x \
-			or global_position.y > Global.upper_bounds.y \
-			or global_position.y < Global.lower_bounds.y:
-			queue_free()
-		
-		
-
-
-func get_flock_status():
-	var center_vector: = Vector2()
-	var flock_center: = Vector2()
-	var align_vector: = Vector2()
-	var avoid_vector: = Vector2()
-	
-	if vehicle_state != vehicleStates.Normal:
-		return [Vector2.ZERO, Vector2.ZERO, Vector2.ZERO]
-		
-	for f in _flock:
-		
-		var neighbor_pos: Vector2 = f.global_position
-
-		align_vector += f.vel
-		flock_center += neighbor_pos
-
-		var d = global_position.distance_to(neighbor_pos)
-		if d > 0 and d < avoid_distance:
-			avoid_vector -= (neighbor_pos - global_position).normalized() * (avoid_distance / d * speed)
-	
-	var flock_size = _flock.size()
-	if flock_size:
-		align_vector /= flock_size
-		flock_center /= flock_size
-
-		var center_dir = global_position.direction_to(flock_center)
-		var center_speed = speed * (global_position.distance_to(flock_center) / view_distance)
-		center_vector = center_dir * center_speed
-
-	return [center_vector, align_vector, avoid_vector]
-
-
-func _on_BoidArea2D_body_entered(body):
-	if self != body && body.is_in_group("EnemyVehicle"):
-		_flock.append(body)
-
-
-func _on_BoidArea2D_body_exited(body):
-	if self != body && _flock.has(body):
-		_flock.remove(_flock.find(body))
 

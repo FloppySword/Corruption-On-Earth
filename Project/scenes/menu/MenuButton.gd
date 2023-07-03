@@ -1,29 +1,30 @@
 tool
+# With "tool" declared , this allows the below export variables
+# to be updated instantly in the inspector. No need to run the 
+# project to see your changes. 
+
 extends TextureButton
 
+#Button text and arrow visibility/texture
 export(String) var text = "Text Button"
 export(int) var arrow_margin_from_center = 100
-export(Texture) var arrow_texture = null#preload("res://icon.png")
+export(Texture) var arrow_texture = null
 export(bool) var arrows_visible = true
 
+#Font settings
 export(DynamicFontData) var font = null
 export(int,8,48,2) var font_size = 16
 export(Color) var font_color
 export(bool) var font_color_change_focus = false
 export(Color) var font_color_focused
 
-
 func _ready():
 	setup()
 	hide_focus()
 	set_focus_mode(true)
-	
-#
-func _process(delta):
-	if Engine.editor_hint:
-		setup()
-		show_focus()
+
 func setup():
+	# Made into a function because called more than once (see _process function)
 	$RichTextLabel.bbcode_text = "[center] %s [/center]" % [text]
 	var dynamic_font = DynamicFont.new()
 	dynamic_font.font_data = font
@@ -35,6 +36,12 @@ func setup():
 	for arrow in [$LeftArrow, $RightArrow]:
 		arrow.visible = arrows_visible
 	
+func _process(delta):
+	# Shows the current state of the button based on changes to export variables at top
+	# (Makes it unnecessary to start game to see changes)
+	if Engine.editor_hint:
+		setup()
+		show_focus()
 	
 func show_focus():
 	if arrows_visible:
@@ -53,18 +60,18 @@ func hide_focus():
 		arrow.visible = false
 	
 	$RichTextLabel.add_color_override("default_color",font_color)
-
-
+	
+	
+	
+#These toggle whether the button is highlighted if the mouse goes over it.
 func _on_MenuButton_focus_entered():
 	show_focus()
-
 
 func _on_MenuButton_focus_exited():
 	hide_focus()
 
-
 func _on_MenuButton_mouse_entered():
 	grab_focus()
-	
-	
-	
+
+#func _on_MenuButton_mouse_exited():
+#	hide_focus()

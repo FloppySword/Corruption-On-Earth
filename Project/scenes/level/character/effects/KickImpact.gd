@@ -1,6 +1,6 @@
 extends AnimatedSprite
 
-func init(pos):
+func _initiate(pos):
 	#print(pos)
 	global_position = pos
 	#print(global_position)

@@ -1,64 +1,60 @@
 extends Area2D
 
-var anim_locked = true
-var type = ""
 onready var anim_player = $AnimationPlayer
 onready var kick_timer = $Detectors/KickDetector/KickTimer
 onready var kick_detector = $Detectors/KickDetector
 onready var muzzle = $ArmLeft/Gun/Muzzle
 
-var BloodImpact = preload("res://scenes/level/character/BloodEffect.tscn")
+var BloodImpact = preload("res://scenes/level/character/effects/BloodEffect.tscn")
 
-var health = 100
-var ammo = 19
+var type:String = ""
+var vehicle:KinematicBody2D
+var initiated:bool = false
+var already_kicked:bool = false
+var dead:bool = false
+var anim_locked:bool = true
+var health:int = 100
+var ammo:int = 19
+var vel:Vector2 = Vector2.ZERO
+var target_rot:float = 0
+var armed_vars:Dictionary = {"Passenger":
+								{"ViewDist":400,
+								"RotLimit":2.55},
+							"DriverArmed":
+								{"ViewDist":350,
+								"RotLimit":1.85}}
 
-var dead_pos = Vector2.ZERO
-var vel = Vector2.ZERO
-
-var dead = false
-var initiated = false
-
-var target_rot = 0
-
-var already_kicked = false
-
-var armed_vars = {"Passenger":
-						{"ViewDist":400,
-						"RotLimit":2.55},
-					"DriverArmed":
-						{"ViewDist":350,
-						"RotLimit":1.85}}
-
-var vehicle = null
+var dead_pos:Vector2 = Vector2.ZERO
 
 signal ready_to_fire
 signal shoot
 signal fall
 
-#signal die
 
-#func _ready():
-#	$AnimationPlayer.play("Motorcycle"+type)
-
-
-
-func init(pos, _type, _vehicle):
+func _initiate(pos, _type, _vehicle):
+	# Set vehicle to the parent vehicle which spawned this enemy
 	vehicle = _vehicle
 	type = _type
 	global_position = pos
 	if type == "Passenger":
 		ammo = 19
+		#The passenger cannot kick. Might add jumping though. 
 		$Detectors/KickDetector.monitoring = false
 	elif type == "DriverArmed":
-		ammo = 19
+		ammo = 9#19
 	elif type == "Driver":
 		ammo = 0
-	#$AnimationPlayer.call_deferred("play", "Motorcycle"+type)
+
+	# These are setup animations that only need to play briefly
+	# at initiation. 
 	anim_player.play("Motorcycle"+type)
+	
+	# The anim_unlock function allows for the animations to change.
 	anim_unlock()
 	
+	# Connect to vehicle and Global scripts to call remote 
+	# functions handling rider shooting 
 	connect("shoot", vehicle, "_rider_shoot")
-	#connect("die", vehicle, "_check_for_riders")
 	connect("ready_to_fire", Global, "_enemy_remote_shoot")
 	connect("fall", Global, "_enemy_remote_fall")
 	
@@ -90,7 +86,7 @@ func _damage(hitbox, damage, type, pos):
 
 	var blood_impact = BloodImpact.instance()
 	add_child(blood_impact)
-	blood_impact.init(pos, type)
+	blood_impact._initiate(pos, type)
 	
 #	if dead && type == "Passenger":
 #		anim_player.play("Die"+type+"Normal")
@@ -118,6 +114,8 @@ func die():
 	
 	if "Driver" in type:
 		vehicle._driver_dead()
+	else:
+		vehicle._passenger_dead()
 	
 	
 	

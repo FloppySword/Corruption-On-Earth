@@ -6,7 +6,7 @@ var starting_x = null
 var enemyLeft = null
 var enemyRight = null
 
-func init(_enemyLeft, _enemyRight, start_pos):
+func _initiate(_enemyLeft, _enemyRight, start_pos):
 	global_position = start_pos
 	starting_x = start_pos.x
 	frame = 0

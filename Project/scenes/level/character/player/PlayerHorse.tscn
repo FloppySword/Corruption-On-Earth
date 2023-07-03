@@ -1,6 +1,6 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=75 format=2]
 
-[ext_resource path="res://scenes/level/character/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://scenes/level/character/player/PlayerHorse.gd" type="Script" id=1]
 [ext_resource path="res://data/images/character/player/PlayerFrames.png" type="Texture" id=2]
 [ext_resource path="res://data/images/character/player/HorseFrames.png" type="Texture" id=3]
 [ext_resource path="res://data/sound/effects/player/lever_action.mp3" type="AudioStream" id=4]
@@ -196,14 +196,6 @@ region = Rect2( 256, 448, 64, 64 )
 atlas = ExtResource( 2 )
 region = Rect2( 128, 576, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 576, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 2 )
-region = Rect2( 256, 576, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=43]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 512, 64, 64 )
@@ -236,7 +228,7 @@ animations = [ {
 "name": "evade",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
+"frames": [ SubResource( 57 ) ],
 "loop": false,
 "name": "lever_action",
 "speed": 5.0
@@ -379,7 +371,7 @@ tracks/4/keys = {
 } ]
 }
 
-[node name="Horse" type="KinematicBody2D" groups=["Player"]]
+[node name="PlayerHorse" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 1 )
 
 [node name="PaddingCollisionShape2D" type="CollisionShape2D" parent="."]
@@ -446,7 +438,6 @@ shape = SubResource( 50 )
 position = Vector2( -11, 9 )
 frames = SubResource( 2 )
 animation = "lever_action"
-frame = 2
 
 [node name="LeverAction" type="Node2D" parent="PlayerArea2D"]
 position = Vector2( -1, 0 )

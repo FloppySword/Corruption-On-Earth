@@ -69,7 +69,7 @@ The following tracks were used as-is.
 
 Made with [url=https://godotengine.org/]Godot Game Engine[/url] version 3.5.2.
 
-Godot Add-ons:
+Godot Add-ons & external code:
 	[url=https://github.com/nathanhoad/godot_sound_manager]Sound Manager[/url]
 	[url=https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot]Virtual Joystick[/url]
 

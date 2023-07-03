@@ -95,11 +95,13 @@ func hit_area(area, _collision_pos):
 	#print(area.name)
 	
 	if area.is_in_group("Character"):
-		var primary_damage = Global.bullet_primary_damage - (0.8 * collision_dist)
+		var primary_damage = Global.bullet_primary_damage - (0.2 * collision_dist)
+		#print("primary: " + str(primary_damage))
 		var adtl_damage = Global.bullet_adtl_damage + rng.randi_range(-5, 5)
-		var damage = max(adtl_damage, primary_damage)
+		#print("additional: " + str(adtl_damage))
+		var damage = primary_damage + adtl_damage #max(adtl_damage, primary_damage)
 		damage = clamp(damage, Global.gun_dmg_min,Global.gun_dmg_max)
-		#print(collision_dist)
+		#print("damage: " + str(damage))
 		var character_scene
 		var damage_type = "gunshot"
 		if area.is_in_group("Player"):

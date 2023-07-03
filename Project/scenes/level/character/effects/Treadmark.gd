@@ -1,6 +1,6 @@
 extends Sprite
 
-func init(pos, type):
+func _initiate(pos, type):
 	global_position = pos
 	if type == "tire":
 		scale = Vector2(4, 9)

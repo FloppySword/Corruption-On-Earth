@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Corruption on Earth"
-run/main_scene="res://scenes/menu/Game.tscn"
+run/main_scene="res://scenes/Game.tscn"
 icon="res://icon.png"
 main_scene="res://scenes/menu.tscn"
 name="TriggerWarning_Round6"

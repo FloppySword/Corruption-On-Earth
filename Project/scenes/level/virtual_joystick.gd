@@ -1,6 +1,11 @@
 extends Control
 
-# https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+"""
+This script comes straight from the below link, as does the associated button scene.
+Both have been slightly modified to meet the needs of this game.
+
+Source: https://github.com/MarcoFazioRandom/Virtual-Joystick-Godot
+"""
 
 #### EXPORTED VARIABLE ####
 
@@ -132,30 +137,21 @@ func _update_joystick(touch_position: Vector2) -> void:
 		if vector.length() == clampzone_size:
 			Input.action_press(action_shoot, 1.0)
 			emit_signal("joystick_shoot")
-			#_reset()
-		
 		
 		Global.joystick_rot = -vector.angle_to(Vector2(0, 1))
 		
-	
-	
-
 
 func _update_input_actions():
 	if action_shoot != "":
 		#this tells us that the joystick has been designated for aiming, not movement
-		
-		
 		#because aiming joystick only, don't do the below calculations
 		return
 
-	
 	#Prevent diagonal output vectors from drowning out U/D/L/R inputs
 	if abs(_output.x) < .50 && abs(_output.y) > .90:
 		_output.x = 0
 	if abs(_output.y) < .50 && abs(_output.x) > .90:
 		_output.y = 0
-		
 		
 	if _output.x < 0:
 		Input.action_press(action_left, -_output.x)
@@ -184,9 +180,8 @@ func _reset():
 	
 	if action_shoot != "":
 		#this tells us that the joystick has been designated for aiming, not movement
-		Global.joystick_rot = 0
-		
 		#because aiming joystick only, don't do the below calculations
+		Global.joystick_rot = 0
 		return
 	
 	if use_input_actions:

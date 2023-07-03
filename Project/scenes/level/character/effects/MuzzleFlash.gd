@@ -3,7 +3,7 @@ extends Sprite
 func _ready():
 	set_process(true)
 
-func init(dir, pos):
+func _initiate(dir, pos):
 	global_rotation =dir# -dir + PI
 	global_position = pos
 
