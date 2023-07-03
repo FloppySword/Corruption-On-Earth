@@ -143,7 +143,7 @@ var waves:Dictionary = {
 Remote functions
 ============================================================================"""
 func _enemy_remote_shoot(enemy):
-	# This function is called from Level.gd because the enemy has a delay between
+	# This function is called from Enemy.gd because the enemy has a delay between
 	# aiming and shooting. The reason it's not called locally is because of the use
 	# of the yield function for this delay. Yield should not be used on a node that
 	# has a chance of queueing free before the timeout.

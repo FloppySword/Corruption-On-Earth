@@ -3279,32 +3279,32 @@ region_enabled = true
 region_rect = Rect2( 94, 3, 7, 10 )
 
 [node name="LegRight" type="Sprite" parent="."]
-position = Vector2( 4, -2 )
+position = Vector2( 3, -9 )
 texture = ExtResource( 2 )
 offset = Vector2( 1, -2 )
 region_enabled = true
-region_rect = Rect2( 59, 12, 4, 7 )
+region_rect = Rect2( 59, 8, 4, 11 )
 
 [node name="LegLeft" type="Sprite" parent="."]
-position = Vector2( -4, -1 )
+position = Vector2( -3, -9 )
 texture = ExtResource( 2 )
 offset = Vector2( -1, -3 )
 region_enabled = true
-region_rect = Rect2( 48, 11, 4, 8 )
+region_rect = Rect2( 48, 9, 4, 10 )
 
 [node name="ArmRight" type="Sprite" parent="."]
-position = Vector2( 4, 2 )
+position = Vector2( 6, 6 )
 texture = ExtResource( 2 )
 offset = Vector2( 2, 4 )
 region_enabled = true
-region_rect = Rect2( 62, 30, 6, 11 )
+region_rect = Rect2( 62, 30, 6, 12 )
 
 [node name="ArmLeft" type="Sprite" parent="."]
-position = Vector2( -5, 2 )
+position = Vector2( -6, 6 )
 texture = ExtResource( 2 )
 offset = Vector2( -1, 4 )
 region_enabled = true
-region_rect = Rect2( 44, 30, 5, 11 )
+region_rect = Rect2( 44, 30, 5, 12 )
 
 [node name="ReactionTimer" type="Timer" parent="ArmLeft"]
 one_shot = true
@@ -3314,14 +3314,13 @@ visible = false
 position = Vector2( -2.63573, 10.7263 )
 scale = Vector2( 0.6, 0.6 )
 frames = SubResource( 20 )
-
-[node name="RateOfFire" type="Timer" parent="ArmLeft/Gun"]
+frame = 5
 
 [node name="Muzzle" type="Position2D" parent="ArmLeft/Gun"]
 position = Vector2( 0.164911, 1.30532 )
 
 [node name="Head" type="Sprite" parent="."]
-position = Vector2( 0, 5 )
+position = Vector2( 0, 7 )
 texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 52, 42, 8, 9 )
@@ -3354,4 +3353,3 @@ anims/Shoot = SubResource( 25 )
 [connection signal="area_entered" from="Detectors/KickDetector" to="." method="_on_KickDetector_area_entered"]
 [connection signal="timeout" from="Detectors/KickDetector/KickTimer" to="." method="_on_KickTimer_timeout"]
 [connection signal="timeout" from="ArmLeft/ReactionTimer" to="." method="_on_ReactionTimer_timeout"]
-[connection signal="timeout" from="ArmLeft/Gun/RateOfFire" to="." method="_on_RateOfFire_timeout"]
