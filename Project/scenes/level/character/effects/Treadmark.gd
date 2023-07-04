@@ -6,4 +6,3 @@ func _initiate(pos, type):
 		scale = Vector2(4, 9)
 	elif type == "hoof":
 		scale = Vector2(4, 6)
-		#scale = Vector2(2, 2)

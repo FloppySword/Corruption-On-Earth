@@ -17,6 +17,7 @@ var speed:int = 90
 var rot:float = 0
 var vel:Vector2 = Vector2(0, 0)
 var collision_count = 0
+var entered_visible_area:bool = false
 
 # Boid variables
 var _flock:Array = []
@@ -133,8 +134,9 @@ func _physics_process(delta):
 	match vehicle_state:
 		#Driver is alive and driving normally
 		vehicleStates.Normal:
-			# Set speed to global enemy speed variable.
+			# Set speed initially  to global enemy speed variable.
 			speed = Global.enemy_speed_normal
+
 			var target_type = ""
 			if driver.ammo > 0 || (passenger && passenger.ammo > 0):
 				# Vehicle will keep its distance from player horse so rider(s) can shoot
@@ -156,7 +158,11 @@ func _physics_process(delta):
 					target = Global.player.shoot_pos_right.global_position
 				elif target_type == "kick":
 					target = Global.player.kick_pos_right.global_position
-					
+			
+			# Edit speed depending on distance to target
+			var target_dist = global_position.distance_to(target)
+			speed = speed + (0.2 * target_dist)
+			
 			# Debugger icon, keep hidden
 			$Icon.global_position = target
 			
@@ -209,7 +215,8 @@ func _physics_process(delta):
 		else:
 			# If vehicle is driving normally, bounce off collider at 0.5x intensity
 			vel = 0.5 * vel.bounce(collision.normal) 
-			
+		
+
 	# If vehicle state is normal, don't let the vehicle queue_free even if it's outside
 	# the level's bounds. But if it's got a dead driver or flat tire, queue_free once it
 	# exceeds bounds. 
@@ -219,6 +226,20 @@ func _physics_process(delta):
 			or global_position.y > Global.upper_bounds.y \
 			or global_position.y < Global.lower_bounds.y:
 			queue_free()
+	# But if vehicle state is normal, don't let driver go off-screen
+	# once they've been on screen. 
+	else:
+		# Check whether enemy vehicle has ever been within visible area
+		if !entered_visible_area:
+			if (global_position.x > Global.player_lower_bounds.x && global_position.x < Global.player_upper_bounds.x) && \
+				(global_position.y > Global.player_lower_bounds.y && global_position.y < Global.player_upper_bounds.y):
+					entered_visible_area = true
+		else:
+			# Prevent the vehicle from travelling outside the bounds of the gameplay window. 
+			# Note: perhaps bounds should be renamed since not only being used for player.
+			global_position.x = clamp(global_position.x, Global.player_lower_bounds.x, Global.player_upper_bounds.x)
+			global_position.y = clamp(global_position.y, Global.player_lower_bounds.y, Global.player_upper_bounds.y)
+		
 			
 
 # Add neighbor vehicle to flock if within view area

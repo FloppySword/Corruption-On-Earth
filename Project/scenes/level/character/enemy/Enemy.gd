@@ -17,6 +17,7 @@ var health:int = 100
 var ammo:int = 19
 var vel:Vector2 = Vector2.ZERO
 var target_rot:float = 0
+
 # This dictionary controls settings for passengers and drivers w/ guns.
 # Their RotLimit is essentially the absolute value of their range of mmotion in 
 # radians. 
@@ -27,8 +28,8 @@ var armed_vars:Dictionary = {"Passenger":
 								{"ViewDist":350,
 								"RotLimit":1.85}}
 
-# Set to negative to disable "falling" position manipulation in 
-# physics process. 
+# We set to negative initially to disable "falling" position 
+# manipulation in physics process. 
 var dead_pos:Vector2 = Vector2(-100, -100)
 
 signal ready_to_fire
@@ -43,6 +44,7 @@ func _initiate(pos, _type, _vehicle):
 	global_position = pos
 	if type == "Passenger":
 		ammo = 19
+		
 		#The passenger cannot kick. Might add jumping though. 
 		$Detectors/KickDetector.monitoring = false
 	elif type == "DriverArmed":
